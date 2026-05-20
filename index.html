@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fusarium solani PAH Bioinformatics</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f1ec; color: #2c2416; }
+    header { background: #2d4a3e; color: #f0ebe0; padding: 44px 20px; text-align: center; border-bottom: 4px solid #8b6914; }
+    header h1 { font-size: 1.9em; font-weight: 600; margin-bottom: 10px; letter-spacing: 0.01em; }
+    header p { font-size: 0.95em; opacity: 0.8; margin-bottom: 4px; }
+    .badge { display: inline-block; background: #8b6914; color: #f9f3e3; font-size: 0.8em; padding: 5px 14px; border-radius: 20px; margin-top: 14px; letter-spacing: 0.03em; }
+    .container { max-width: 860px; margin: 40px auto; padding: 0 20px; }
+    .note { background: #fdf6e3; border-left: 4px solid #8b6914; padding: 14px 18px; border-radius: 0 6px 6px 0; margin-bottom: 32px; font-size: 0.91em; color: #5a4a2a; line-height: 1.6; }
+    .section { margin-bottom: 36px; }
+    .section h2 { font-size: 1.05em; font-weight: 600; color: #2d4a3e; border-bottom: 2px solid #c5d9cc; padding-bottom: 8px; margin-bottom: 16px; letter-spacing: 0.02em; }
+    .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stage-card { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 16px; border-top: 3px solid #2d4a3e; }
+    .stage-card .num { font-size: 0.75em; color: #8a7a60; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stage-card .name { font-size: 0.93em; font-weight: 600; color: #2d4a3e; margin-bottom: 10px; }
+    .stage-card .status { font-size: 0.78em; padding: 3px 10px; border-radius: 20px; display: inline-block; font-weight: 500; }
+    .status-complete { background: #d6ead9; color: #1e4a28; }
+    .status-progress { background: #d4e4f0; color: #1a3d5c; }
+    .status-pending { background: #ede8df; color: #7a6a50; }
+    .report-section { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 20px; margin-bottom: 14px; }
+    .report-section h3 { font-size: 0.82em; color: #8a7a60; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 12px; font-weight: 600; }
+    .report-list { list-style: none; }
+    .report-list li { border-bottom: 1px solid #ede8df; }
+    .report-list li:last-child { border-bottom: none; }
+    .report-list a { display: flex; align-items: center; justify-content: space-between; padding: 11px 4px; color: #2d4a3e; text-decoration: none; font-size: 0.91em; transition: color 0.15s; }
+    .report-list a:hover { color: #8b6914; }
+    .report-list a span { font-size: 0.82em; color: #b0a080; }
+    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .meta-item { font-size: 0.88em; }
+    .meta-item .label { color: #8a7a60; margin-bottom: 3px; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; }
+    .meta-item .value { color: #2c2416; font-weight: 500; }
+    footer { text-align: center; padding: 32px 20px; color: #a09070; font-size: 0.82em; border-top: 1px solid #d8d0c0; margin-top: 40px; background: #ede8df; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Fusarium solani PAH Bioinformatics</h1>
+  <p>Identifying candidate genes potentially involved in PAH transformation or degradation</p>
+  <p>Operator: Emma McCallum &nbsp;|&nbsp; UPPA Pyrene HPC Cluster &nbsp;|&nbsp; May 2026</p>
+  <span class="badge">Stage 2 in progress</span>
+</header>
+
+<div class="container">
+
+  <div class="note">
+    Candidate enzymes identified through this workflow are hypotheses only. Confirmation requires expression data, enzyme assays, or functional validation.
+  </div>
+
+  <div class="section">
+    <h2>Pipeline stages</h2>
+    <div class="stage-grid">
+      <div class="stage-card">
+        <div class="num">Stage 1</div>
+        <div class="name">Quality Control</div>
+        <span class="status status-progress">In progress</span>
+      </div>
+      <div class="stage-card">
+        <div class="num">Stage 2</div>
+        <div class="name">Contamination Screening</div>
+        <span class="status status-pending">Pending</span>
+      </div>
+      <div class="stage-card">
+        <div class="num">Stage 3</div>
+        <div class="name">Genome Assembly</div>
+        <span class="status status-pending">Pending</span>
+      </div>
+      <div class="stage-card">
+        <div class="num">Stage 4</div>
+        <div class="name">Assembly QC</div>
+        <span class="status status-pending">Pending</span>
+      </div>
+      <div class="stage-card">
+        <div class="num">Stage 5</div>
+        <div class="name">Gene Annotation</div>
+        <span class="status status-pending">Pending</span>
+      </div>
+      <div class="stage-card">
+        <div class="num">Stage 6</div>
+        <div class="name">PAH Candidates</div>
+        <span class="status status-pending">Pending</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>QC reports</h2>
+    <div class="report-section">
+      <h3>Combined report</h3>
+      <ul class="report-list">
+        <li><a href="results/qc/multiqc_report.html">MultiQC combined report <span>View &rarr;</span></a></li>
+        <li><a href="results/qc/fastp.html">fastp cleaning report <span>View &rarr;</span></a></li>
+      </ul>
+    </div>
+    <div class="report-section">
+      <h3>FastQC raw reads</h3>
+      <ul class="report-list">
+        <li><a href="results/qc/fastqc_raw/fusa_1_fastqc.html">Fusa_1 raw reads <span>View &rarr;</span></a></li>
+        <li><a href="results/qc/fastqc_raw/fusa_2_fastqc.html">Fusa_2 raw reads <span>View &rarr;</span></a></li>
+      </ul>
+    </div>
+    <div class="report-section">
+      <h3>FastQC cleaned reads</h3>
+      <ul class="report-list">
+        <li><a href="results/qc/fastqc_cleaned/Fusa_1_cleaned_fastqc.html">Fusa_1 cleaned reads <span>View &rarr;</span></a></li>
+        <li><a href="results/qc/fastqc_cleaned/Fusa_2_cleaned_fastqc.html">Fusa_2 cleaned reads <span>View &rarr;</span></a></li>
+      </ul>
+    </div>
+    <div class="report-section">
+      <h3>Contamination screening</h3>
+      <ul class="report-list">
+        <li><a href="results/contamination/Fusa_1_filtered_fastqc.html">Fusa_1 filtered reads <span>View &rarr;</span></a></li>
+        <li><a href="results/contamination/Fusa_2_filtered_fastqc.html">Fusa_2 filtered reads <span>View &rarr;</span></a></li>
+        <li><a href="results/contamination/kraken2_report.txt">Kraken2 classification report <span>View &rarr;</span></a></li>
+      </ul>
+    </div>
+    <div class="report-section">
+      <h3>Assembly QC</h3>
+      <ul class="report-list">
+        <li><a href="results/assembly_qc/quast/report.html">QUAST assembly statistics <span>View &rarr;</span></a></li>
+        <li><a href="results/assembly_qc/busco/">BUSCO completeness summary <span>View &rarr;</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Project information</h2>
+    <div class="report-section">
+      <div class="meta-grid">
+        <div class="meta-item"><div class="label">Organism</div><div class="value">Fusarium solani species complex</div></div>
+        <div class="meta-item"><div class="label">Sequencing</div><div class="value">Paired-end Illumina, 150 bp</div></div>
+        <div class="meta-item"><div class="label">Raw reads</div><div class="value">47,232,194 total</div></div>
+        <div class="meta-item"><div class="label">Estimated coverage</div><div class="value">~62x</div></div>
+        <div class="meta-item"><div class="label">Reference genome</div><div class="value">GCF_023522795.1 (NDSU_Fsol_1.0)</div></div>
+        <div class="meta-item"><div class="label">Contaminant identified</div><div class="value">Methylorubrum populi</div></div>
+        <div class="meta-item"><div class="label">Platform</div><div class="value">UPPA Pyrene HPC Cluster</div></div>
+        <div class="meta-item"><div class="label">GitHub</div><div class="value"><a href="https://github.com/ecmccallum/fusa-pah-bioinfo" style="color:#2d4a3e;">ecmccallum/fusa-pah-bioinfo</a></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Emma McCallum &nbsp;|&nbsp; Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; May 2026
+</footer>
+
+</body>
+</html>
