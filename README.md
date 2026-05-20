@@ -9,7 +9,7 @@ Documented bioinformatics workflow for identifying candidate genes potentially i
 **Platform:** UPPA Pyrene HPC cluster
 **Status:** Stage 1 in progress
 
-## Pipeline stages
+## Pipeline Stages
 
 | Stage | Description | Status |
 |-------|-------------|--------|
@@ -20,14 +20,18 @@ Documented bioinformatics workflow for identifying candidate genes potentially i
 | 5 | Gene prediction and annotation | Pending |
 | 6 | Functional annotation and PAH candidates | Pending |
 
-## Contamination note
+## Environment
+
+All analysis runs within a conda environment (`fusarium_env`) on the UPPA Pyrene HPC cluster. Full setup details and confirmed tool versions are documented in [docs/environment_setup.md](docs/environment_setup.md).
+
+## Contamination Note
 
 A secondary GC peak at 67-69% was identified during QC and confirmed by BLAST as Methylorubrum populi, a methylotrophic bacterium commonly found in fungal cultures. Kraken2 will be used to classify and filter reads before assembly.
 
-## Reference genome
+## Reference Genome
 
 NCBI accession GCF_023522795.1 (NDSU_Fsol_1.0), 19 sequences, 59.4 Mb, N50 4.0 Mb.
 
-## Important note
+## Important Note
 
 Candidate enzymes identified through this workflow are hypotheses only. Confirmation requires expression data, enzyme assays, or functional validation.
