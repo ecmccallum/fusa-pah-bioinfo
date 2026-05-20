@@ -1,6 +1,8 @@
 # Fusarium solani PAH Bioinformatics
 
-Documented bioinformatics workflow for identifying candidate genes potentially involved in PAH transformation or degradation in a Fusarium solani strain.
+Documented bioinformatics workflow for identifying candidate genes potentially involved in PAH transformation or degradation in a Fusarium solani strain. All analysis runs on the UPPA Pyrene HPC cluster.
+
+**Live reports:** [ecmccallum.github.io/fusa-pah-bioinfo](https://ecmccallum.github.io/fusa-pah-bioinfo/)
 
 **Organism:** Fusarium solani species complex
 **Data:** Paired-end Illumina, 150 bp, ~47.2 million reads, ~62x coverage
@@ -17,6 +19,14 @@ Documented bioinformatics workflow for identifying candidate genes potentially i
 | 4 | Assembly quality control | Pending |
 | 5 | Gene prediction and annotation | Pending |
 | 6 | Functional annotation and PAH candidates | Pending |
+
+## Contamination note
+
+A secondary GC peak at 67-69% was identified during QC and confirmed by BLAST as Methylorubrum populi, a methylotrophic bacterium commonly found in fungal cultures. Kraken2 will be used to classify and filter reads before assembly.
+
+## Reference genome
+
+NCBI accession GCF_023522795.1 (NDSU_Fsol_1.0), 19 sequences, 59.4 Mb, N50 4.0 Mb.
 
 ## Important note
 
