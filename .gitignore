@@ -1,0 +1,16 @@
+*.fq.gz
+*.fastq.gz
+*.fq
+*.fastq
+*.bam
+*.sam
+*.fasta
+*.fa
+*.fna
+data/
+*.db
+*.dmnd
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
