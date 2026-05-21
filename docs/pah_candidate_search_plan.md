@@ -3,8 +3,7 @@
 ## Purpose
 After Funannotate annotation is complete, a Python script will parse the annotation 
 output files and identify candidate genes potentially involved in PAH transformation 
-or degradation in *Fusarium solani*. All candidates are hypotheses only — confirmation 
-requires expression data, enzyme assays, or functional validation.
+or degradation in *Fusarium solani*. 
 
 ---
 
