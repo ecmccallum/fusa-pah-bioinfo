@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 1: Quality Control — Fusarium solani PAH Bioinformatics</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f1ec; color: #2c2416; }
+    header { background: #2d4a3e; color: #f0ebe0; padding: 28px 20px; border-bottom: 4px solid #8b6914; }
+    .header-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .header-title { font-size: 1.1em; font-weight: 600; letter-spacing: 0.01em; }
+    .header-title span { opacity: 0.6; font-weight: 400; }
+    .back-link { color: #f0ebe0; text-decoration: none; font-size: 0.85em; opacity: 0.8; border: 1px solid rgba(255,255,255,0.3); padding: 5px 12px; border-radius: 20px; }
+    .back-link:hover { opacity: 1; }
+    .container { max-width: 860px; margin: 40px auto; padding: 0 20px 60px; }
+    .notebook-header { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 20px 24px; margin-bottom: 32px; border-top: 3px solid #2d4a3e; }
+    .notebook-header h1 { font-size: 1.5em; font-weight: 700; color: #2d4a3e; margin-bottom: 14px; }
+    .meta-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .meta-item { font-size: 0.85em; }
+    .meta-item .label { color: #8a7a60; font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+    .meta-item .value { color: #2c2416; font-weight: 500; }
+    .section { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 24px; margin-bottom: 16px; }
+    .section h2 { font-size: 1.05em; font-weight: 700; color: #2d4a3e; border-bottom: 2px solid #c5d9cc; padding-bottom: 8px; margin-bottom: 16px; }
+    .section h3 { font-size: 0.95em; font-weight: 600; color: #2d4a3e; margin: 18px 0 8px; }
+    .section p { font-size: 0.91em; line-height: 1.7; margin-bottom: 12px; color: #2c2416; }
+    .section p strong { color: #2d4a3e; }
+    .section ul { font-size: 0.91em; line-height: 1.7; margin-bottom: 12px; padding-left: 20px; }
+    .section li { margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.88em; }
+    th { background: #2d4a3e; color: #f0ebe0; padding: 8px 12px; text-align: left; font-weight: 600; }
+    td { padding: 8px 12px; border-bottom: 1px solid #e0d8cc; }
+    tr:nth-child(even) td { background: #f9f6f0; }
+    pre { background: #1e2d28; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; overflow-x: auto; }
+    code { font-family: "SF Mono", Monaco, "Courier New", monospace; font-size: 0.88em; color: #a8d5b5; line-height: 1.6; }
+    p code, li code, td code { background: #f0ebe0; border: 1px solid #d8d0c0; border-radius: 4px; padding: 2px 6px; color: #2d4a3e; }
+    hr { border: none; border-top: 1px solid #e0d8cc; margin: 20px 0; }
+    .conclusions { background: #fdf6e3; border-left: 4px solid #8b6914; padding: 16px 20px; border-radius: 0 6px 6px 0; font-size: 0.91em; color: #5a4a2a; line-height: 1.7; }
+    .conclusions p { margin-bottom: 10px; }
+    .conclusions p:last-child { margin-bottom: 0; }
+    footer { text-align: center; padding: 28px 20px; color: #a09070; font-size: 0.82em; border-top: 1px solid #d8d0c0; margin-top: 40px; background: #ede8df; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">
+      Fusarium solani PAH Bioinformatics <span>/ Stage 1: Quality Control</span>
+    </div>
+    <a class="back-link" href="../index.html">← Back to overview</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="notebook-header">
+    <h1>Stage 1: Quality Control</h1>
+    <div class="meta-row">
+      <div class="meta-item"><div class="label">Date</div><div class="value">20 May 2026</div></div>
+      <div class="meta-item"><div class="label">Operator</div><div class="value">E. McCallum</div></div>
+      <div class="meta-item"><div class="label">Platform</div><div class="value">UPPA Pyrene HPC cluster</div></div>
+      <div class="meta-item"><div class="label">Environment</div><div class="value">fusarium_env</div></div>
+      <div class="meta-item"><div class="label">Tools</div><div class="value">FastQC v0.12.1, fastp v1.3.3, MultiQC v1.28</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>1.1 Overview</h2>
+    <p>Raw paired end Illumina reads were evaluated using FastQC and summarized with MultiQC. Reads were then filtered and trimmed with fastp. A second FastQC and MultiQC analysis was performed on the trimmed reads to assess whether read quality was maintained or improved after filtering. Raw and trimmed MultiQC reports were generated separately to preserve a clear before and after comparison.</p>
+  </div>
+
+  <div class="section">
+    <h2>1.2 Input Data</h2>
+    <table>
+      <tr><th>File</th><th>Reads</th><th>Bases</th><th>Read Length</th><th>%GC</th></tr>
+      <tr><td>fusa_1.fq.gz</td><td>23,616,097</td><td>3.5 Gbp</td><td>150 bp</td><td>56%</td></tr>
+      <tr><td>fusa_2.fq.gz</td><td>23,616,097</td><td>3.5 Gbp</td><td>150 bp</td><td>57%</td></tr>
+    </table>
+    <p>The dataset consists of 47,232,194 paired end reads, corresponding to approximately 7.0 Gbp of sequence data.</p>
+  </div>
+
+  <div class="section">
+    <h2>1.3 FastQC — Raw Reads</h2>
+    <pre><code>fastqc ~/fusarium_pah/data/raw/fusa_1.fq.gz ~/fusarium_pah/data/raw/fusa_2.fq.gz \
+  --outdir ~/fusarium_pah/results/fastqc_raw --threads 4</code></pre>
+    <h3>Module summary</h3>
+    <table>
+      <tr><th>Module</th><th>fusa_1</th><th>fusa_2</th></tr>
+      <tr><td>Basic Statistics</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Per Base Sequence Quality</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Per Tile Sequence Quality</td><td>❌ Fail</td><td>❌ Fail</td></tr>
+      <tr><td>Per Sequence Quality Scores</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Per Base Sequence Content</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Per Sequence GC Content</td><td>❌ Fail</td><td>❌ Fail</td></tr>
+      <tr><td>Per Base N Content</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Sequence Length Distribution</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Sequence Duplication Levels</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Overrepresented Sequences</td><td>✅ Pass</td><td>⚠️ Warn</td></tr>
+      <tr><td>Adapter Content</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+    </table>
+    <h3>Interpretation</h3>
+    <p><strong>Per base sequence quality</strong> was excellent across the full 150 bp read length in both files. Mean Phred scores remained consistently high, with no clear decline toward the 3' end.</p>
+    <p><strong>Per sequence quality scores</strong> were also strong, with most reads concentrated at high quality scores. This confirms the dataset is of high overall sequencing quality before filtering.</p>
+    <p><strong>Per tile sequence quality</strong> failed in both files, indicating localised variation in quality across sequencing tiles, most likely reflecting an instrument or flow cell related artefact. The overall per base and per sequence quality metrics remain high, so this failure is not expected to substantially affect downstream analyses.</p>
+    <p><strong>Per sequence GC content</strong> failed in both files. The GC distribution was bimodal, with a main peak at approximately 52% GC and a secondary peak around 67–69% GC. The main peak is compatible with the expected GC content of <em>Fusarium solani</em> species complex genomes. The secondary peak suggests the presence of an additional organism with higher GC content. Previous BLAST screening indicated possible contamination by <em>Methylorubrum populi</em>, a high GC methylotrophic bacterium commonly found in association with fungal cultures. This will be tested systematically at Stage 2 using Kraken2.</p>
+    <p><strong>Adapter content</strong> passed for both files, suggesting most adapter sequence had already been removed by the sequencing provider.</p>
+    <p><strong>Overrepresented sequences</strong> produced a warning for fusa_2 only. This warning resolved after trimming, suggesting it was caused by low abundance technical sequences rather than a biological issue.</p>
+  </div>
+
+  <div class="section">
+    <h2>1.4 fastp — Trimming and Filtering</h2>
+    <p>fastp v1.3.3 was run on a dedicated compute node (pyrene-n030) via an interactive SLURM session:</p>
+    <pre><code>srun --cpus-per-task=4 --mem=16G --time=02:00:00 --pty bash</code></pre>
+    <pre><code>fastp --in1 ~/fusarium_pah/data/raw/fusa_1.fq.gz \
+  --in2 ~/fusarium_pah/data/raw/fusa_2.fq.gz \
+  --out1 ~/fusarium_pah/data/trimmed/fusa_1_trimmed.fq.gz \
+  --out2 ~/fusarium_pah/data/trimmed/fusa_2_trimmed.fq.gz \
+  --detect_adapter_for_pe \
+  --qualified_quality_phred 20 \
+  --length_required 50 \
+  --thread 4 \
+  --html ~/fusarium_pah/results/fastp_report.html \
+  --json ~/fusarium_pah/results/fastp_report.json</code></pre>
+    <h3>Parameters</h3>
+    <table>
+      <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+      <tr><td>--qualified_quality_phred</td><td>20</td><td>Bases below Q20 treated as low quality (99% accuracy threshold)</td></tr>
+      <tr><td>--length_required</td><td>50</td><td>Reads shorter than 50 bp after trimming discarded</td></tr>
+      <tr><td>--detect_adapter_for_pe</td><td>auto</td><td>Automatic adapter detection for paired end data</td></tr>
+      <tr><td>--thread</td><td>4</td><td>Four CPU threads</td></tr>
+    </table>
+    <h3>Filtering results</h3>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Reads passed filter</td><td>46,596,348</td></tr>
+      <tr><td>Reads failed — low quality</td><td>298,324</td></tr>
+      <tr><td>Reads failed — too many N bases</td><td>112,880</td></tr>
+      <tr><td>Reads failed — too short</td><td>224,412</td></tr>
+      <tr><td>Reads failed — adapter dimer</td><td>230</td></tr>
+      <tr><td>Reads with adapters trimmed</td><td>21,202</td></tr>
+      <tr><td>Bases trimmed due to adapters</td><td>805,834</td></tr>
+      <tr><td>Duplication rate</td><td>20.981%</td></tr>
+      <tr><td>Run time</td><td>385 seconds</td></tr>
+    </table>
+    <h3>Interpretation</h3>
+    <p>Only approximately 1.3% of reads were removed during filtering, confirming that the raw data was already of high quality. The duplication rate of approximately 21% is not unexpected for fungal genome sequencing and does not by itself indicate a severe library complexity problem.</p>
+  </div>
+
+  <div class="section">
+    <h2>1.5 FastQC — Trimmed Reads</h2>
+    <pre><code>fastqc ~/fusarium_pah/data/trimmed/fusa_1_trimmed.fq.gz \
+  ~/fusarium_pah/data/trimmed/fusa_2_trimmed.fq.gz \
+  --outdir ~/fusarium_pah/results/fastqc_trimmed --threads 4</code></pre>
+    <h3>Module summary</h3>
+    <table>
+      <tr><th>Module</th><th>fusa_1_trimmed</th><th>fusa_2_trimmed</th></tr>
+      <tr><td>Basic Statistics</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Per Base Sequence Quality</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Per Tile Sequence Quality</td><td>❌ Fail</td><td>❌ Fail</td></tr>
+      <tr><td>Per Sequence Quality Scores</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Per Base Sequence Content</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Per Sequence GC Content</td><td>❌ Fail</td><td>❌ Fail</td></tr>
+      <tr><td>Per Base N Content</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Sequence Length Distribution</td><td>⚠️ Warn</td><td>⚠️ Warn</td></tr>
+      <tr><td>Sequence Duplication Levels</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Overrepresented Sequences</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+      <tr><td>Adapter Content</td><td>✅ Pass</td><td>✅ Pass</td></tr>
+    </table>
+    <h3>Interpretation</h3>
+    <p><strong>Sequence length distribution</strong> now shows a warning as expected — reads vary between 50 and 150 bp after trimming, which is normal after quality filtering.</p>
+    <p><strong>Overrepresented sequences</strong> warning in raw fusa_2 was resolved after trimming, supporting the interpretation that it was caused by low level technical sequence.</p>
+    <p><strong>Per sequence GC content</strong> failure remained after trimming, as expected — fastp performs quality filtering only, not taxonomic decontamination. The contamination will be addressed at Stage 2.</p>
+    <p><strong>Per tile sequence quality</strong> failure also remained — a sequencing level artefact that cannot be corrected by trimming.</p>
+  </div>
+
+  <div class="section">
+    <h2>1.6 MultiQC Reports</h2>
+    <pre><code>multiqc ~/fusarium_pah/results/fastqc_raw/ \
+  --outdir ~/fusarium_pah/results/multiqc_raw \
+  --filename multiqc_raw_report
+
+multiqc ~/fusarium_pah/results/fastqc_trimmed/ \
+  --outdir ~/fusarium_pah/results/multiqc_trimmed \
+  --filename multiqc_trimmed_report</code></pre>
+    <p>Raw and trimmed MultiQC reports were kept separate to allow direct before and after comparison.</p>
+  </div>
+
+  <div class="section">
+    <h2>1.7 Output Files</h2>
+    <table>
+      <tr><th>File</th><th>Location</th></tr>
+      <tr><td>Raw FastQC reports</td><td><code>results/fastqc_raw/</code></td></tr>
+      <tr><td>Trimmed FastQC reports</td><td><code>results/fastqc_trimmed/</code></td></tr>
+      <tr><td>MultiQC raw report</td><td><code>results/multiqc_raw/multiqc_raw_report.html</code></td></tr>
+      <tr><td>MultiQC trimmed report</td><td><code>results/multiqc_trimmed/multiqc_trimmed_report.html</code></td></tr>
+      <tr><td>fastp HTML report</td><td><code>results/fastp_report.html</code></td></tr>
+      <tr><td>fastp JSON report</td><td><code>results/fastp_report.json</code></td></tr>
+      <tr><td>Trimmed reads R1</td><td><code>data/trimmed/fusa_1_trimmed.fq.gz</code></td></tr>
+      <tr><td>Trimmed reads R2</td><td><code>data/trimmed/fusa_2_trimmed.fq.gz</code></td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>1.8 Conclusions</h2>
+    <div class="conclusions">
+      <p>The raw Illumina paired end reads were of high quality. Per base and per sequence quality metrics passed for both files, and only approximately 1.3% of reads were removed during fastp filtering. This indicates that the sequencing data required minimal quality-based remediation before downstream analysis.</p>
+      <p>Two persistent FastQC failures were observed. The per tile sequence quality failure most likely reflects localised sequencing tile effects rather than a dataset-wide quality issue. The per sequence GC content failure reflects a bimodal GC distribution, suggesting the presence of more than one sequence population in the dataset. Based on previous BLAST results, the high GC component may correspond to <em>Methylorubrum populi</em> contamination, although this requires systematic confirmation at Stage 2.</p>
+      <p>The files <code>fusa_1_trimmed.fq.gz</code> and <code>fusa_2_trimmed.fq.gz</code> are ready for contamination screening using Kraken2 before genome assembly.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Emma McCallum &nbsp;|&nbsp; Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; May 2026
+</footer>
+
+</body>
+</html>
