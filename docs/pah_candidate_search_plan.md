@@ -96,8 +96,7 @@ protein" will be missed even if it has a CYP domain
 - Domain searches are more sensitive but Pfam accessions must be verified against 
 the actual InterProScan version used
 - All candidates require manual review before being reported
-- No candidate should be described as a "PAH-degrading enzyme" — use 
-"candidate gene potentially involved in PAH transformation" throughout
+
 
 ---
 
