@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 2: Contamination Screening — Fusarium solani PAH Bioinformatics</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f1ec; color: #2c2416; }
+    header { background: #2d4a3e; color: #f0ebe0; padding: 28px 20px; border-bottom: 4px solid #8b6914; }
+    .header-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .header-title { font-size: 1.1em; font-weight: 600; letter-spacing: 0.01em; }
+    .header-title span { opacity: 0.6; font-weight: 400; }
+    .back-link { color: #f0ebe0; text-decoration: none; font-size: 0.85em; opacity: 0.8; border: 1px solid rgba(255,255,255,0.3); padding: 5px 12px; border-radius: 20px; }
+    .back-link:hover { opacity: 1; }
+    .container { max-width: 860px; margin: 40px auto; padding: 0 20px 60px; }
+    .notebook-header { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 20px 24px; margin-bottom: 32px; border-top: 3px solid #2d4a3e; }
+    .notebook-header h1 { font-size: 1.5em; font-weight: 700; color: #2d4a3e; margin-bottom: 14px; }
+    .meta-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .meta-item { font-size: 0.85em; }
+    .meta-item .label { color: #8a7a60; font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+    .meta-item .value { color: #2c2416; font-weight: 500; }
+    .section { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 24px; margin-bottom: 16px; }
+    .section h2 { font-size: 1.05em; font-weight: 700; color: #2d4a3e; border-bottom: 2px solid #c5d9cc; padding-bottom: 8px; margin-bottom: 16px; }
+    .section h3 { font-size: 0.95em; font-weight: 600; color: #2d4a3e; margin: 18px 0 8px; }
+    .section p { font-size: 0.91em; line-height: 1.7; margin-bottom: 12px; color: #2c2416; }
+    .section p strong { color: #2d4a3e; }
+    .section p em { font-style: italic; }
+    .section ul { font-size: 0.91em; line-height: 1.7; margin-bottom: 12px; padding-left: 20px; }
+    .section li { margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.88em; }
+    th { background: #2d4a3e; color: #f0ebe0; padding: 8px 12px; text-align: left; font-weight: 600; }
+    td { padding: 8px 12px; border-bottom: 1px solid #e0d8cc; }
+    tr:nth-child(even) td { background: #f9f6f0; }
+    pre { background: #1e2d28; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; overflow-x: auto; }
+    code { font-family: "SF Mono", Monaco, "Courier New", monospace; font-size: 0.88em; color: #a8d5b5; line-height: 1.6; }
+    p code, li code, td code { background: #f0ebe0; border: 1px solid #d8d0c0; border-radius: 4px; padding: 2px 6px; color: #2d4a3e; }
+    .note { background: #fdf6e3; border-left: 4px solid #8b6914; padding: 12px 16px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #5a4a2a; line-height: 1.6; margin-bottom: 16px; }
+    .conclusions { background: #fdf6e3; border-left: 4px solid #8b6914; padding: 16px 20px; border-radius: 0 6px 6px 0; font-size: 0.91em; color: #5a4a2a; line-height: 1.7; }
+    .conclusions p { margin-bottom: 10px; }
+    .conclusions p:last-child { margin-bottom: 0; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .stat-card { background: #f4f1ec; border: 1px solid #d8d0c0; border-radius: 6px; padding: 14px 16px; }
+    .stat-card .stat-value { font-size: 1.4em; font-weight: 700; color: #2d4a3e; }
+    .stat-card .stat-label { font-size: 0.8em; color: #8a7a60; margin-top: 2px; }
+    .stat-card.highlight { background: #d6ead9; border-color: #b0d4b8; }
+    .stat-card.highlight .stat-value { color: #1e4a28; }
+    .stat-card.warning { background: #fdf6e3; border-color: #d4b896; }
+    .stat-card.warning .stat-value { color: #7a4a10; }
+    footer { text-align: center; padding: 28px 20px; color: #a09070; font-size: 0.82em; border-top: 1px solid #d8d0c0; margin-top: 40px; background: #ede8df; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">
+      Fusarium solani PAH Bioinformatics <span>/ Stage 2: Contamination Screening</span>
+    </div>
+    <a class="back-link" href="../index.html">← Back to overview</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="notebook-header">
+    <h1>Stage 2: Contamination Screening</h1>
+    <div class="meta-row">
+      <div class="meta-item"><div class="label">Date</div><div class="value">21 May 2026</div></div>
+      <div class="meta-item"><div class="label">Operator</div><div class="value">E. McCallum</div></div>
+      <div class="meta-item"><div class="label">Platform</div><div class="value">UPPA Pyrene HPC cluster</div></div>
+      <div class="meta-item"><div class="label">Environment</div><div class="value">fusarium_env</div></div>
+      <div class="meta-item"><div class="label">Tools</div><div class="value">Kraken2 v2.17.1, extract_kraken_reads.py</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>2.1 Overview</h2>
+    <p>Trimmed paired-end reads from Stage 1 were screened for contamination using Kraken2 taxonomic classification. A pre-built 8GB standard Kraken2 database was used to classify all reads against known reference sequences. Reads classified as non-fungal were removed, and the remaining unclassified reads were retained as the clean dataset for genome assembly at Stage 3.</p>
+  </div>
+
+  <div class="section">
+    <h2>2.2 Rationale</h2>
+    <p>FastQC analysis at Stage 1 identified a secondary GC peak at approximately 67–69%, inconsistent with the expected GC content of <em>Fusarium solani</em> (~52%). Previous BLAST screening had indicated the likely presence of <em>Methylorubrum populi</em>, a high-GC methylotrophic bacterium commonly associated with fungal cultures. Kraken2 was used to systematically classify and quantify reads by taxonomic origin, and to separate <em>Fusarium</em>-associated reads from contaminant reads prior to assembly.</p>
+  </div>
+
+  <div class="section">
+    <h2>2.3 Database</h2>
+    <p>A pre-built Kraken2 standard database (8GB) was downloaded from the Genome Index repository and extracted to the home directory on the Pyrene cluster.</p>
+    <pre><code>mkdir -p ~/kraken2_db
+cd ~/kraken2_db
+wget https://genome-idx.s3.amazonaws.com/kraken/k2_standard_08gb_20240904.tar.gz
+tar -xvzf k2_standard_08gb_20240904.tar.gz</code></pre>
+    <table>
+      <tr><th>Parameter</th><th>Value</th></tr>
+      <tr><td>Database version</td><td>k2_standard_08gb_20240904</td></tr>
+      <tr><td>Compressed size</td><td>5.54 GB</td></tr>
+      <tr><td>Extracted size</td><td>~14 GB</td></tr>
+      <tr><td>Contents</td><td>Bacteria, Archaea, Viruses, Human, UniVec</td></tr>
+    </table>
+    <div class="note">
+      <strong>Note:</strong> The 8GB database is a reduced version of the full Kraken2 standard database (~70 GB) and does not include <em>Fusarium solani</em> or most fungal reference genomes. Reads not matching any database entry are classified as unclassified and are assumed to represent the target organism. Any residual contamination not present in the database will be assessed post-assembly by screening contigs by GC content and coverage.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>2.4 Kraken2 Classification</h2>
+    <p>Kraken2 was run on the trimmed paired-end reads on a dedicated compute node via an interactive SLURM session:</p>
+    <pre><code>srun --cpus-per-task=8 --mem=64G --time=06:00:00 --pty bash
+conda activate fusarium_env</code></pre>
+    <pre><code>mkdir -p ~/fusarium_pah/results/kraken2
+
+kraken2 --db ~/kraken2_db \
+  --paired \
+  --threads 8 \
+  --output ~/fusarium_pah/results/kraken2/kraken2_output.txt \
+  --report ~/fusarium_pah/results/kraken2/kraken2_report.txt \
+  ~/fusarium_pah/data/trimmed/fusa_1_trimmed.fq.gz \
+  ~/fusarium_pah/data/trimmed/fusa_2_trimmed.fq.gz</code></pre>
+
+    <h3>Run statistics</h3>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Total sequences processed</td><td>23,298,174 pairs</td></tr>
+      <tr><td>Total bases processed</td><td>6,988.64 Mbp</td></tr>
+      <tr><td>Processing time</td><td>413.97 seconds</td></tr>
+      <tr><td>Sequences classified</td><td>3,696,473 (15.87%)</td></tr>
+      <tr><td>Sequences unclassified</td><td>19,601,701 (84.13%)</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>2.5 Classification Results</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card highlight">
+        <div class="stat-value">84.13%</div>
+        <div class="stat-label">Unclassified — retained as Fusarium reads</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-value">15.87%</div>
+        <div class="stat-label">Classified as contamination — removed</div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="stat-value">19,601,701</div>
+        <div class="stat-label">Read pairs retained for assembly</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-value">3,696,473</div>
+        <div class="stat-label">Read pairs discarded</div>
+      </div>
+    </div>
+
+    <h3>Contamination breakdown</h3>
+    <table>
+      <tr><th>Taxon</th><th>Read pairs</th><th>% of total</th></tr>
+      <tr><td><em>Methylorubrum</em> (genus total)</td><td>1,359,981</td><td>5.84%</td></tr>
+      <tr><td>&nbsp;&nbsp;— <em>Methylorubrum populi</em></td><td>523,344</td><td>2.25%</td></tr>
+      <tr><td>&nbsp;&nbsp;— <em>Methylorubrum extorquens</em></td><td>388,145</td><td>1.67%</td></tr>
+      <tr><td><em>Methylobacterium</em> (genus total)</td><td>1,051,713</td><td>4.51%</td></tr>
+      <tr><td>Other Betaproteobacteria</td><td>~350,000</td><td>~1.50%</td></tr>
+      <tr><td>Other Gammaproteobacteria</td><td>~260,000</td><td>~1.11%</td></tr>
+      <tr><td>Actinomycetota</td><td>~50,000</td><td>~0.21%</td></tr>
+      <tr><td>Bacillota</td><td>~50,000</td><td>~0.21%</td></tr>
+      <tr><td><em>Homo sapiens</em></td><td>5,389</td><td>0.02%</td></tr>
+      <tr><td>Other</td><td>~620,000</td><td>~2.66%</td></tr>
+    </table>
+
+    <h3>Interpretation</h3>
+    <p>The dominant contaminant was <em>Methylorubrum populi</em> (2.25%) and related <em>Methylorubrum</em> species (5.84% total), consistent with the secondary GC peak at 67–69% observed at Stage 1 and with prior BLAST identification. <em>Methylorubrum</em> species are methylotrophic Alphaproteobacteria with GC content of ~67–69%, explaining the bimodal GC distribution observed in FastQC reports.</p>
+    <p>A small number of reads (5,389; 0.02%) were classified as <em>Homo sapiens</em>, consistent with routine low-level human DNA contamination during library preparation — a common finding in sequencing datasets.</p>
+    <p>The remaining classified reads represent a diverse mixture of environmental bacteria at very low abundance, likely reflecting trace contamination during culture or library preparation.</p>
+    <div class="note">
+      <strong>Important caveat:</strong> The 8GB database does not include <em>Fusarium solani</em> or most fungal reference genomes. Genuine <em>Fusarium</em> reads therefore appear as unclassified. The 84.13% unclassified fraction is expected to represent primarily <em>Fusarium</em> sequence, but may contain a small proportion of undetected bacterial contamination not represented in the database. Any residual contamination will be assessed post-assembly by examining contig GC content and coverage distribution.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>2.6 Read Extraction</h2>
+    <p>Unclassified reads (taxid 0) were extracted using <code>extract_kraken_reads.py</code> to produce the clean paired-end files for assembly:</p>
+    <pre><code>mkdir -p ~/fusarium_pah/data/decontaminated
+
+extract_kraken_reads.py \
+  -k ~/fusarium_pah/results/kraken2/kraken2_output.txt \
+  -r ~/fusarium_pah/results/kraken2/kraken2_report.txt \
+  -s1 ~/fusarium_pah/data/trimmed/fusa_1_trimmed.fq.gz \
+  -s2 ~/fusarium_pah/data/trimmed/fusa_2_trimmed.fq.gz \
+  -o ~/fusarium_pah/data/decontaminated/fusa_1_clean.fq.gz \
+  -o2 ~/fusarium_pah/data/decontaminated/fusa_2_clean.fq.gz \
+  --taxid 0 --include-children \
+  --fastq-output</code></pre>
+
+    <h3>Extraction results</h3>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Read IDs saved</td><td>19,601,701</td></tr>
+      <tr><td>Reads written to fusa_1_clean.fq.gz</td><td>19,601,701</td></tr>
+      <tr><td>Reads written to fusa_2_clean.fq.gz</td><td>19,601,701</td></tr>
+      <tr><td>Output file size (each)</td><td>6.9 GB</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>2.7 Output Files</h2>
+    <table>
+      <tr><th>File</th><th>Location</th></tr>
+      <tr><td>Kraken2 classification output</td><td><code>results/kraken2/kraken2_output.txt</code></td></tr>
+      <tr><td>Kraken2 report</td><td><code>results/kraken2/kraken2_report.txt</code></td></tr>
+      <tr><td>Clean reads R1</td><td><code>data/decontaminated/fusa_1_clean.fq.gz</code></td></tr>
+      <tr><td>Clean reads R2</td><td><code>data/decontaminated/fusa_2_clean.fq.gz</code></td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>2.8 Conclusions</h2>
+    <div class="conclusions">
+      <p>Kraken2 classification identified 15.87% of trimmed reads as bacterial contamination, dominated by <em>Methylorubrum populi</em> and related Alphaproteobacteria. This is consistent with the secondary GC peak at 67–69% observed in FastQC reports at Stage 1, confirming the contamination identified by prior BLAST screening.</p>
+      <p>After extraction of unclassified reads, 19,601,701 read pairs (84.13% of the trimmed dataset) were retained as the clean dataset. These reads represent the putative <em>Fusarium solani</em> fraction and are ready for de novo genome assembly at Stage 3.</p>
+      <p>Residual contamination not represented in the 8GB database may be present at low levels and will be assessed post-assembly by examining contig GC content and coverage distribution.</p>
+      <p>The files <code>fusa_1_clean.fq.gz</code> and <code>fusa_2_clean.fq.gz</code> are ready for genome assembly using SPAdes.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Emma McCallum &nbsp;|&nbsp; Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; May 2026
+</footer>
+
+</body>
+</html>
