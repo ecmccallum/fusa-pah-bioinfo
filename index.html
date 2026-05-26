@@ -20,6 +20,8 @@
     .stage-card .num { font-size: 0.75em; color: #8a7a60; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
     .stage-card .name { font-size: 0.93em; font-weight: 600; color: #2d4a3e; margin-bottom: 10px; }
     .stage-card .status { font-size: 0.78em; padding: 3px 10px; border-radius: 20px; display: inline-block; font-weight: 500; }
+    .stage-card .notebook-link { display: block; margin-top: 10px; font-size: 0.78em; color: #8b6914; text-decoration: none; }
+    .stage-card .notebook-link:hover { text-decoration: underline; }
     .status-complete { background: #d6ead9; color: #1e4a28; }
     .status-progress { background: #d4e4f0; color: #1a3d5c; }
     .status-pending { background: #ede8df; color: #7a6a50; }
@@ -44,7 +46,7 @@
   <h1>Fusarium solani PAH Bioinformatics</h1>
   <p>Identifying candidate genes potentially involved in PAH transformation or degradation</p>
   <p>Operator: Emma McCallum &nbsp;|&nbsp; UPPA Pyrene HPC Cluster &nbsp;|&nbsp; May 2026</p>
-  <span class="badge">Stage 2 in progress</span>
+  <span class="badge">Stage 3 complete — Stage 4 in progress</span>
 </header>
 
 <div class="container">
@@ -59,32 +61,38 @@
       <div class="stage-card">
         <div class="num">Stage 1</div>
         <div class="name">Quality Control</div>
-        <span class="status status-progress">Complete !</span>
+        <span class="status status-complete">Complete</span>
+        <a class="notebook-link" href="notebooks/01_quality_control.html">📓 View notebook →</a>
       </div>
       <div class="stage-card">
         <div class="num">Stage 2</div>
         <div class="name">Contamination Screening</div>
-        <span class="status status-pending">In Progress</span>
+        <span class="status status-complete">Complete</span>
+        <a class="notebook-link" href="notebooks/02_contamination_screening.html">📓 View notebook →</a>
       </div>
       <div class="stage-card">
         <div class="num">Stage 3</div>
         <div class="name">Genome Assembly</div>
-        <span class="status status-pending">Pending</span>
+        <span class="status status-complete">Complete</span>
+        <a class="notebook-link" href="notebooks/03_assembly.html">📓 View notebook →</a>
       </div>
       <div class="stage-card">
         <div class="num">Stage 4</div>
         <div class="name">Assembly QC</div>
-        <span class="status status-pending">Pending</span>
+        <span class="status status-progress">In Progress</span>
+        <a class="notebook-link" href="notebooks/04_assembly_qc.md">📓 View notebook →</a>
       </div>
       <div class="stage-card">
         <div class="num">Stage 5</div>
         <div class="name">Gene Annotation</div>
         <span class="status status-pending">Pending</span>
+        <a class="notebook-link" href="notebooks/05_annotation.md">📓 View notebook →</a>
       </div>
       <div class="stage-card">
         <div class="num">Stage 6</div>
         <div class="name">PAH Candidates</div>
         <span class="status status-pending">Pending</span>
+        <a class="notebook-link" href="notebooks/06_pah_candidates.md">📓 View notebook →</a>
       </div>
     </div>
   </div>
@@ -94,37 +102,36 @@
     <div class="report-section">
       <h3>Combined report</h3>
       <ul class="report-list">
-        <li><a href="results/qc/multiqc_report.html">MultiQC combined report <span>View &rarr;</span></a></li>
-        <li><a href="results/qc/fastp.html">fastp cleaning report <span>View &rarr;</span></a></li>
+        <li><a href="results/multiqc_raw_report.html">MultiQC raw report <span>View &rarr;</span></a></li>
+        <li><a href="results/multiqc_trimmed_report.html">MultiQC trimmed report <span>View &rarr;</span></a></li>
+        <li><a href="results/fastp_report.html">fastp cleaning report <span>View &rarr;</span></a></li>
       </ul>
     </div>
     <div class="report-section">
       <h3>FastQC raw reads</h3>
       <ul class="report-list">
-        <li><a href="results/qc/fastqc_raw/fusa_1_fastqc.html">Fusa_1 raw reads <span>View &rarr;</span></a></li>
-        <li><a href="results/qc/fastqc_raw/fusa_2_fastqc.html">Fusa_2 raw reads <span>View &rarr;</span></a></li>
+        <li><a href="results/fusa_1_fastqc.html">Fusa_1 raw reads <span>View &rarr;</span></a></li>
+        <li><a href="results/fusa_2_fastqc.html">Fusa_2 raw reads <span>View &rarr;</span></a></li>
       </ul>
     </div>
     <div class="report-section">
       <h3>FastQC cleaned reads</h3>
       <ul class="report-list">
-        <li><a href="results/qc/fastqc_cleaned/Fusa_1_cleaned_fastqc.html">Fusa_1 cleaned reads <span>View &rarr;</span></a></li>
-        <li><a href="results/qc/fastqc_cleaned/Fusa_2_cleaned_fastqc.html">Fusa_2 cleaned reads <span>View &rarr;</span></a></li>
+        <li><a href="results/fusa_1_trimmed_fastqc.html">Fusa_1 cleaned reads <span>View &rarr;</span></a></li>
+        <li><a href="results/fusa_2_trimmed_fastqc.html">Fusa_2 cleaned reads <span>View &rarr;</span></a></li>
       </ul>
     </div>
     <div class="report-section">
       <h3>Contamination screening</h3>
       <ul class="report-list">
-        <li><a href="results/contamination/Fusa_1_filtered_fastqc.html">Fusa_1 filtered reads <span>View &rarr;</span></a></li>
-        <li><a href="results/contamination/Fusa_2_filtered_fastqc.html">Fusa_2 filtered reads <span>View &rarr;</span></a></li>
-        <li><a href="results/contamination/kraken2_report.txt">Kraken2 classification report <span>View &rarr;</span></a></li>
+        <li><a href="results/kraken2_report.txt">Kraken2 classification report <span>View &rarr;</span></a></li>
       </ul>
     </div>
     <div class="report-section">
       <h3>Assembly QC</h3>
       <ul class="report-list">
-        <li><a href="results/assembly_qc/quast/report.html">QUAST assembly statistics <span>View &rarr;</span></a></li>
-        <li><a href="results/assembly_qc/busco/">BUSCO completeness summary <span>View &rarr;</span></a></li>
+        <li><a href="results/quast_report.html">QUAST assembly statistics <span>View &rarr;</span></a></li>
+        <li><a href="results/busco_summary.txt">BUSCO completeness summary <span>View &rarr;</span></a></li>
       </ul>
     </div>
   </div>
