@@ -286,15 +286,20 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
   </div>
 
   <!-- Annotate -->
-  <div class="section">
-    <h2>5.5 funannotate annotate — Pending</h2>
-    <div class="card">
-      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">
-        Once predict is complete, the annotate step will assign functional descriptions to each predicted protein by searching against all installed Funannotate databases: Pfam, InterPro, UniProt/Swiss-Prot, dbCAN, MEROPS, GO, MiBIG, and gene2product. eggNOG mapper will not be included due to network restrictions on Pyrene preventing database download. The annotate step produces the final GFF3 and protein FASTA files used in Stage 6.
-      </p>
-    </div>
-  </div>
 
+  <div class="section">
+  <h2>5.5 funannotate annotate — Pending</h2>
+  <div class="card">
+    <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:10px;">
+      Once <code>funannotate predict</code> is complete, the <code>funannotate annotate</code> step will assign functional descriptions to the predicted gene models by searching against the installed Funannotate databases, including Pfam, InterPro, UniProt/Swiss-Prot, dbCAN, MEROPS, GO, MiBIG, and gene2product.
+    </p>
+    <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:10px;">
+      This step will convert the predicted gene set into a functionally annotated genome annotation, producing annotated GFF3, GenBank, protein FASTA, transcript FASTA, and related summary files. These outputs will be used for downstream candidate gene screening in Stage 6.
+    </p>
+    <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">
+      eggNOG mapper is not part of the current Funannotate environment and will not be included in this annotation step. It may be added later as a separate downstream orthology-based annotation analysis if the required eggNOG database can be made available on Pyrene.
+    </p>
+  </div>
 </div>
 
 <footer>
