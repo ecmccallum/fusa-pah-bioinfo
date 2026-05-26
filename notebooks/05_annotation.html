@@ -28,7 +28,6 @@
     .meta-item .value { color: #2c2416; font-weight: 500; font-size: 0.88em; }
     .status-badge { display: inline-block; background: #d6ead9; color: #1e4a28; font-size: 0.78em; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
     .status-badge-active { background: #fde9b0; color: #6a4a00; }
-    .status-badge-pending { background: #ede8df; color: #8a7a60; }
     pre { background: #1e2a22; color: #c8dfc8; font-size: 0.82em; padding: 16px; border-radius: 6px; overflow-x: auto; line-height: 1.7; margin-top: 8px; margin-bottom: 8px; }
     code { background: #eae6de; color: #3a2a10; font-size: 0.83em; padding: 1px 5px; border-radius: 3px; font-family: "SFMono-Regular", Consolas, monospace; }
     .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 8px; }
@@ -37,7 +36,6 @@
     .stat .s-value { font-size: 1.1em; font-weight: 600; color: #2d4a3e; }
     .stat .s-note { font-size: 0.75em; color: #8a7a60; margin-top: 3px; }
     .stat-good .s-value { color: #1e6a28; }
-    .stat-warn .s-value { color: #8a6200; }
     .results-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-top: 8px; }
     .results-table th { text-align: left; padding: 8px 12px; background: #f4f1ec; color: #5a4a2a; font-weight: 500; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #d8d0c0; }
     .results-table td { padding: 8px 12px; border-bottom: 1px solid #ede8df; color: #2c2416; vertical-align: top; line-height: 1.55; }
@@ -55,14 +53,6 @@
     .pipeline-step.active { background: #fdf6e3; border-color: #c8960a; }
     .pipeline-step.active .ps-name { color: #8a6200; }
     .pipeline-step.pending { opacity: 0.55; }
-    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 8px; }
-    .step-card { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 16px; border-top: 3px solid #c5d9cc; }
-    .step-card.next { border-top-color: #2d4a3e; }
-    .step-card.pending { opacity: 0.65; }
-    .step-label { font-size: 0.75em; color: #8a7a60; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 5px; }
-    .step-title { font-weight: 600; color: #2d4a3e; font-size: 0.95em; margin-bottom: 5px; font-family: "SFMono-Regular", Consolas, monospace; }
-    .step-desc { font-size: 0.83em; color: #5a4a2a; line-height: 1.55; }
-    .step-prereq { font-size: 0.78em; color: #8a6200; margin-top: 7px; font-weight: 500; }
     footer { text-align: center; padding: 32px 20px; color: #a09070; font-size: 0.82em; border-top: 1px solid #d8d0c0; margin-top: 40px; background: #ede8df; }
   </style>
 </head>
@@ -124,7 +114,7 @@
       </p>
       <pre>mamba create -n funannotate_env -c conda-forge -c bioconda funannotate
 conda activate funannotate_env</pre>
-      <p style="font-size:0.82em;color:#8a7a60;margin-top:8px;">The following environment variables are required and are set permanently in <code>~/.bashrc</code>:</p>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:8px;">The following environment variables are required and set permanently in <code>~/.bashrc</code>:</p>
       <pre>export FUNANNOTATE_DB=/home/22/emccallum/funannotate_db
 export GENEMARK_PATH=/home/22/emccallum/gmes_linux_64_4
 export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
@@ -137,7 +127,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
         <tbody>
           <tr><td>funannotate</td><td class="mono">1.8.17</td></tr>
           <tr><td>Python</td><td class="mono">3.8.20</td></tr>
-          <tr><td>augustus</td><td class="mono">3.5.0 — fusarium_graminearum model used</td></tr>
+          <tr><td>augustus</td><td class="mono">3.5.0</td></tr>
           <tr><td>GeneMark-ES</td><td class="mono">4.71_lic</td></tr>
           <tr><td>minimap2</td><td class="mono">2.31-r1302</td></tr>
           <tr><td>hmmscan / hmmsearch (HMMER)</td><td class="mono">3.4</td></tr>
@@ -151,11 +141,11 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
     </div>
 
     <div class="verdict-warn">
-      <strong>eggNOG database unavailable.</strong> eggNOG mapper v2.1.13 was installed successfully but the eggNOG database could not be downloaded — <code>eggnogdb.embl.de</code> is blocked at the cluster network level on both login and compute nodes. This is a Pyrene infrastructure limitation. Funannotate annotate will proceed without eggNOG; all other installed databases (Pfam, InterPro, UniProt, dbCAN, MEROPS, GO, MiBIG, gene2product) remain available.
+      <strong>eggNOG database unavailable.</strong> eggNOG mapper v2.1.13 was installed successfully but the eggNOG database could not be downloaded — <code>eggnogdb.embl.de</code> is blocked at the cluster network level on both login and compute nodes. This is a Pyrene infrastructure limitation. Funannotate annotate will proceed without eggNOG; all other installed databases remain available.
     </div>
 
     <div class="verdict-info">
-      <strong>GeneMark-ES configuration.</strong> GeneMark-ES v4.71 required manual setup: the academic license was obtained from topaz.gatech.edu, the binary package transferred to Pyrene, and Perl script shebangs updated using the included <code>change_path_in_perl_scripts.pl</code> to point to the conda Perl (which has the required YAML.pm module). GeneMark is confirmed working via <code>funannotate check --show-versions</code>.
+      <strong>GeneMark-ES configuration.</strong> GeneMark-ES v4.71 required manual setup: academic license obtained from topaz.gatech.edu, binary package transferred to Pyrene, and Perl script shebangs updated using the included <code>change_path_in_perl_scripts.pl</code> to point to the conda Perl installation (which has the required YAML.pm module). Confirmed working via <code>funannotate check --show-versions</code>.
     </div>
   </div>
 
@@ -164,7 +154,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
     <h2>Database Setup</h2>
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        Funannotate reference databases were downloaded using <code>funannotate setup</code> as SLURM job 1567989. The <code>-w</code> (wget) flag was required because funannotate's default Python downloader does not handle HTTP 308 permanent redirects correctly.
+        Funannotate reference databases downloaded via <code>funannotate setup</code> as SLURM job 1567989. The <code>-w</code> (wget) flag was required because funannotate's default Python downloader does not handle HTTP 308 permanent redirects correctly.
       </p>
       <pre>funannotate setup -i all -d /home/22/emccallum/funannotate_db -w -f</pre>
       <table class="results-table" style="margin-top:14px;">
@@ -210,7 +200,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
       <pre>funannotate clean \
   -i data/assembly/fusarium_final_assembly.fasta \
   -o results/annotation/funannotate/fusarium.clean.fasta</pre>
-      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">SLURM job 1568332 — standard partition, node n005, 8 CPUs, 24G RAM. Runtime: ~3 hours 18 minutes (minimap2 duplication check across 4,282 sub-N50 contigs).</p>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">SLURM job 1568332 — standard partition, node n005, 8 CPUs, 24G RAM. Runtime: 3 hours 18 minutes.</p>
     </div>
     <div class="card">
       <div class="stat-grid">
@@ -222,7 +212,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
       </div>
     </div>
     <div class="verdict-good">
-      <strong>Clean step verdict.</strong> 15 degenerate contigs removed; 0 duplicate contigs found by minimap2. The assembly is clean with no redundant sequences. The removed contigs contained 1–3 nucleotides and are artefacts with no biological content.
+      <strong>Clean step verdict.</strong> 15 degenerate contigs removed; 0 duplicate contigs found by minimap2. The assembly is clean with no redundant sequences.
     </div>
   </div>
 
@@ -231,7 +221,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
     <h2>5.2 funannotate sort</h2>
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        The sort step renames contig headers from verbose SPAdes identifiers (e.g. <code>NODE_1_length_5050286_cov_47.3</code>) to short standardised identifiers (<code>scaffold_1</code>, <code>scaffold_2</code>, etc.) and sorts contigs by length. This step is required before masking and prediction — many downstream tools cannot handle long or special-character contig names. A known bug in funannotate v1.8.17 causes a <code>TypeError</code> if <code>--minlen</code> is not explicitly set; fixed by passing <code>--minlen 0</code>.
+        The sort step renames contig headers from verbose SPAdes identifiers (e.g. <code>NODE_1_length_5050286_cov_47.3</code>) to short standardised identifiers (<code>scaffold_1</code>, <code>scaffold_2</code>, etc.) and sorts contigs by length. Many downstream tools cannot handle long or special-character contig names. A known bug in funannotate v1.8.17 causes a <code>TypeError</code> if <code>--minlen</code> is not explicitly passed; fixed with <code>--minlen 0</code>.
       </p>
       <pre>funannotate sort \
   -i results/annotation/funannotate/fusarium.clean.fasta \
@@ -241,7 +231,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
       <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">Run interactively on login node. Completed in under one minute.</p>
     </div>
     <div class="verdict-good">
-      <strong>Sort verdict.</strong> 4,308 contigs loaded, sorted by length, and renamed to scaffold_1 … scaffold_4308. Output written to <code>fusarium.sorted.fasta</code>.
+      <strong>Sort verdict.</strong> 4,308 contigs sorted by length and renamed scaffold_1 … scaffold_4308.
     </div>
   </div>
 
@@ -250,7 +240,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
     <h2>5.3 funannotate mask — SLURM job 1572174</h2>
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        The mask step identifies repetitive regions (transposable elements, simple repeats) and soft-masks them with lowercase letters. Gene predictors are trained to ignore lowercase-masked regions, preventing false gene calls within repeat elements. Funannotate uses <strong>tantan</strong> for soft-masking of simple repeats against the installed repeat database.
+        The mask step identifies repetitive regions (transposable elements, simple repeats) and soft-masks them with lowercase letters. Gene predictors ignore lowercase-masked regions, preventing false gene calls within repeat elements. Funannotate uses <strong>tantan</strong> for soft-masking against the installed repeat database.
       </p>
       <pre>funannotate mask \
   -i results/annotation/funannotate/fusarium.sorted.fasta \
@@ -263,35 +253,35 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
         <div class="stat stat-good"><div class="s-label">Scaffolds</div><div class="s-value">4,308</div></div>
         <div class="stat stat-good"><div class="s-label">Assembly size</div><div class="s-value">57.4 Mb</div></div>
         <div class="stat"><div class="s-label">Masked repeats</div><div class="s-value">2.08 Mb</div><div class="s-note">3.62% of assembly</div></div>
-        <div class="stat stat-good"><div class="s-label">Output</div><div class="s-value" style="font-size:0.8em;">fusarium.masked.fasta</div></div>
       </div>
     </div>
     <div class="verdict-good">
-      <strong>Mask verdict.</strong> 3.62% repeat content is on the lower end for <em>Fusarium</em> (published <em>F. solani</em> genomes typically 5–15%), consistent with a high-quality assembly. The masked assembly is ready for gene prediction.
+      <strong>Mask verdict.</strong> 3.62% repeat content is on the lower end for <em>Fusarium</em> (published <em>F. solani</em> genomes typically 5–15%), consistent with a high-quality assembly.
     </div>
   </div>
 
   <!-- Predict -->
   <div class="section">
-    <h2>5.4 funannotate predict — SLURM job 1572450</h2>
+    <h2>5.4 funannotate predict — SLURM job 1572453</h2>
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        The predict step is the core gene-finding stage. Funannotate runs multiple ab initio predictors simultaneously — Augustus (using the <code>fusarium_graminearum</code> trained model), GeneMark-ES, SNAP, GlimmerHMM, and CodingQuarry — and uses EvidenceModeler to combine their output into a consensus gene set. Gene models are named with the prefix <code>FUS</code>.
+        The predict step is the core gene-finding stage. Funannotate runs multiple ab initio predictors — Augustus, GeneMark-ES, SNAP, GlimmerHMM, and CodingQuarry — and uses EvidenceModeler to produce a consensus gene set. Gene models are assigned the prefix <code>FUS</code>.
+      </p>
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
+        Note on flag usage: <code>-s</code> sets the organism label written into output files. <code>--augustus_species</code> and <code>--busco_seed_species</code> independently specify which pre-trained models to use for prediction — <em>F. graminearum</em> is the closest available trained model to <em>F. solani</em>.
       </p>
       <pre>funannotate predict \
   -i results/annotation/funannotate/fusarium.masked.fasta \
-  -o results/annotation/funannotate \
+  -o results/annotation/funannotate/predict \
   -s "Fusarium solani" \
-  --species fusarium_graminearum \
+  --augustus_species fusarium_graminearum \
+  --busco_seed_species fusarium_graminearum \
   --cpus 16 \
   --name FUS</pre>
-      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">SLURM job 1572450 — standard partition, 16 CPUs, 32G RAM, 24 hour time limit. Status: running.</p>
-    </div>
-    <div class="verdict-info">
-      <strong>Augustus species model.</strong> Two Fusarium models are available: <code>fusarium</code> (generic) and <code>fusarium_graminearum</code> (species-specific). <em>F. graminearum</em> is a well-studied Sordariomycete closely related to <em>F. solani</em> and provides better gene structure prediction than the generic model.
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">SLURM job 1572453 — standard partition, 16 CPUs, 32G RAM, 48 hour time limit. Status: pending → running.</p>
     </div>
     <div class="verdict-warn">
-      <strong>Results pending.</strong> Job 1572450 is currently running. Output will include a GFF3 gene annotation file and a predicted protein FASTA. Expected gene count for a <em>Fusarium solani</em> genome: approximately 12,000–15,000 gene models.
+      <strong>Results pending.</strong> Job 1572453 submitted and running. Output will include a GFF3 gene annotation file and a predicted protein FASTA in <code>results/annotation/funannotate/predict/</code>. Expected gene count for a <em>Fusarium solani</em> genome: approximately 12,000–15,000 gene models.
     </div>
   </div>
 
@@ -300,7 +290,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
     <h2>5.5 funannotate annotate — Pending</h2>
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">
-        Once predict is complete, the annotate step will assign functional descriptions to each predicted protein by searching against all installed Funannotate databases: Pfam, InterPro, UniProt/Swiss-Prot, dbCAN, MEROPS, GO, MiBIG, and gene2product. EggNOG mapper will not be included due to network restrictions preventing database download on Pyrene. The annotate step produces the final GFF3 and protein FASTA files used in Stage 6.
+        Once predict is complete, the annotate step will assign functional descriptions to each predicted protein by searching against all installed Funannotate databases: Pfam, InterPro, UniProt/Swiss-Prot, dbCAN, MEROPS, GO, MiBIG, and gene2product. eggNOG mapper will not be included due to network restrictions on Pyrene preventing database download. The annotate step produces the final GFF3 and protein FASTA files used in Stage 6.
       </p>
     </div>
   </div>
