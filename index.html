@@ -11,19 +11,22 @@
     header h1 { font-size: 1.9em; font-weight: 600; margin-bottom: 10px; letter-spacing: 0.01em; }
     header p { font-size: 0.95em; opacity: 0.8; margin-bottom: 4px; }
     .badge { display: inline-block; background: #8b6914; color: #f9f3e3; font-size: 0.8em; padding: 5px 14px; border-radius: 20px; margin-top: 14px; letter-spacing: 0.03em; }
+    .badge-active { background: #c8960a; }
     .container { max-width: 860px; margin: 40px auto; padding: 0 20px; }
     .note { background: #fdf6e3; border-left: 4px solid #8b6914; padding: 14px 18px; border-radius: 0 6px 6px 0; margin-bottom: 32px; font-size: 0.91em; color: #5a4a2a; line-height: 1.6; }
     .section { margin-bottom: 36px; }
     .section h2 { font-size: 1.05em; font-weight: 600; color: #2d4a3e; border-bottom: 2px solid #c5d9cc; padding-bottom: 8px; margin-bottom: 16px; letter-spacing: 0.02em; }
     .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
     .stage-card { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 16px; border-top: 3px solid #2d4a3e; }
+    .stage-card.active { border-top-color: #c8960a; background: #fdfaf3; }
+    .stage-card.pending { opacity: 0.6; }
     .stage-card .num { font-size: 0.75em; color: #8a7a60; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
     .stage-card .name { font-size: 0.93em; font-weight: 600; color: #2d4a3e; margin-bottom: 10px; }
     .stage-card .status { font-size: 0.78em; padding: 3px 10px; border-radius: 20px; display: inline-block; font-weight: 500; }
     .stage-card .notebook-link { display: block; margin-top: 10px; font-size: 0.78em; color: #8b6914; text-decoration: none; }
     .stage-card .notebook-link:hover { text-decoration: underline; }
     .status-complete { background: #d6ead9; color: #1e4a28; }
-    .status-progress { background: #d4e4f0; color: #1a3d5c; }
+    .status-progress { background: #fde9b0; color: #6a4a00; }
     .status-pending { background: #ede8df; color: #7a6a50; }
     .report-section { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 20px; margin-bottom: 14px; }
     .report-section h3 { font-size: 0.82em; color: #8a7a60; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 12px; font-weight: 600; }
@@ -33,10 +36,16 @@
     .report-list a { display: flex; align-items: center; justify-content: space-between; padding: 11px 4px; color: #2d4a3e; text-decoration: none; font-size: 0.91em; transition: color 0.15s; }
     .report-list a:hover { color: #8b6914; }
     .report-list a span { font-size: 0.82em; color: #b0a080; }
+    .report-list .pending-item { display: flex; align-items: center; justify-content: space-between; padding: 11px 4px; font-size: 0.91em; color: #b0a080; font-style: italic; }
     .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .meta-item { font-size: 0.88em; }
     .meta-item .label { color: #8a7a60; margin-bottom: 3px; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; }
     .meta-item .value { color: #2c2416; font-weight: 500; }
+    .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 14px; }
+    .stat-box { background: #f4f1ec; border-radius: 6px; padding: 12px; }
+    .stat-box .s-label { font-size: 0.75em; color: #8a7a60; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .stat-box .s-value { font-size: 1.05em; font-weight: 600; color: #2d4a3e; }
+    .stat-box.good .s-value { color: #1e6a28; }
     footer { text-align: center; padding: 32px 20px; color: #a09070; font-size: 0.82em; border-top: 1px solid #d8d0c0; margin-top: 40px; background: #ede8df; }
   </style>
 </head>
@@ -46,7 +55,7 @@
   <h1>Fusarium solani PAH Bioinformatics</h1>
   <p>Identifying candidate genes potentially involved in PAH transformation or degradation</p>
   <p>Operator: Emma McCallum &nbsp;|&nbsp; UPPA Pyrene HPC Cluster &nbsp;|&nbsp; May 2026</p>
-  <span class="badge">Stage 3 complete — Stage 4 in progress</span>
+  <span class="badge badge-active">Stage 5 in progress — funannotate annotate running</span>
 </header>
 
 <div class="container">
@@ -55,6 +64,7 @@
     Candidate enzymes identified through this workflow are hypotheses only. Confirmation requires expression data, enzyme assays, or functional validation.
   </div>
 
+  <!-- Pipeline stages -->
   <div class="section">
     <h2>Pipeline stages</h2>
     <div class="stage-grid">
@@ -79,63 +89,122 @@
       <div class="stage-card">
         <div class="num">Stage 4</div>
         <div class="name">Assembly QC</div>
-        <span class="status status-progress">In Progress</span>
-        <a class="notebook-link" href="notebooks/04_assembly_qc.md">📓 View notebook →</a>
+        <span class="status status-complete">Complete</span>
+        <a class="notebook-link" href="notebooks/04_assembly_qc.html">📓 View notebook →</a>
       </div>
-      <div class="stage-card">
+      <div class="stage-card active">
         <div class="num">Stage 5</div>
         <div class="name">Gene Annotation</div>
-        <span class="status status-pending">Pending</span>
-        <a class="notebook-link" href="notebooks/05_annotation.md">📓 View notebook →</a>
+        <span class="status status-progress">In Progress</span>
+        <a class="notebook-link" href="notebooks/05_gene_prediction.html">📓 View notebook →</a>
       </div>
-      <div class="stage-card">
+      <div class="stage-card pending">
         <div class="num">Stage 6</div>
         <div class="name">PAH Candidates</div>
         <span class="status status-pending">Pending</span>
-        <a class="notebook-link" href="notebooks/06_pah_candidates.md">📓 View notebook →</a>
+        <a class="notebook-link" href="notebooks/06_pah_candidates.html">📓 View notebook →</a>
       </div>
     </div>
   </div>
 
+  <!-- Key assembly statistics -->
+  <div class="section">
+    <h2>Assembly and annotation at a glance</h2>
+    <div class="report-section">
+      <div class="stat-row">
+        <div class="stat-box good">
+          <div class="s-label">Assembly size</div>
+          <div class="s-value">57.4 Mb</div>
+        </div>
+        <div class="stat-box good">
+          <div class="s-label">Scaffolds</div>
+          <div class="s-value">4,308</div>
+        </div>
+        <div class="stat-box good">
+          <div class="s-label">N50</div>
+          <div class="s-value">635,698 bp</div>
+        </div>
+        <div class="stat-box good">
+          <div class="s-label">BUSCO genome</div>
+          <div class="s-value">98.3%</div>
+        </div>
+        <div class="stat-box good">
+          <div class="s-label">BUSCO proteins</div>
+          <div class="s-value">97.0%</div>
+        </div>
+        <div class="stat-box good">
+          <div class="s-label">Predicted genes</div>
+          <div class="s-value">22,338</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-label">Reference genes (SB1)</div>
+          <div class="s-value">18,900</div>
+        </div>
+        <div class="stat-box">
+          <div class="s-label">GC content</div>
+          <div class="s-value">53.63%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QC reports -->
   <div class="section">
     <h2>QC reports</h2>
     <div class="report-section">
-      <h3>Combined report</h3>
+      <h3>Raw and trimmed reads</h3>
       <ul class="report-list">
-        <li><a href="results/multiqc_raw_report.html">MultiQC raw report <span>View &rarr;</span></a></li>
-        <li><a href="results/multiqc_trimmed_report.html">MultiQC trimmed report <span>View &rarr;</span></a></li>
-        <li><a href="results/fastp_report.html">fastp cleaning report <span>View &rarr;</span></a></li>
-      </ul>
-    </div>
-    <div class="report-section">
-      <h3>FastQC raw reads</h3>
-      <ul class="report-list">
-        <li><a href="results/fusa_1_fastqc.html">Fusa_1 raw reads <span>View &rarr;</span></a></li>
-        <li><a href="results/fusa_2_fastqc.html">Fusa_2 raw reads <span>View &rarr;</span></a></li>
-      </ul>
-    </div>
-    <div class="report-section">
-      <h3>FastQC cleaned reads</h3>
-      <ul class="report-list">
-        <li><a href="results/fusa_1_trimmed_fastqc.html">Fusa_1 cleaned reads <span>View &rarr;</span></a></li>
-        <li><a href="results/fusa_2_trimmed_fastqc.html">Fusa_2 cleaned reads <span>View &rarr;</span></a></li>
+        <li><a href="results/multiqc_raw/multiqc_raw_report.html">MultiQC raw report <span>View →</span></a></li>
+        <li><a href="results/multiqc_trimmed/multiqc_trimmed_report.html">MultiQC trimmed report <span>View →</span></a></li>
+        <li><a href="results/fastp_report.html">fastp cleaning report <span>View →</span></a></li>
+        <li><a href="results/fastqc_raw/fusa_1_fastqc.html">FastQC Fusa_1 raw <span>View →</span></a></li>
+        <li><a href="results/fastqc_raw/fusa_2_fastqc.html">FastQC Fusa_2 raw <span>View →</span></a></li>
+        <li><a href="results/fastqc_trimmed/fusa_1_trimmed_fastqc.html">FastQC Fusa_1 trimmed <span>View →</span></a></li>
+        <li><a href="results/fastqc_trimmed/fusa_2_trimmed_fastqc.html">FastQC Fusa_2 trimmed <span>View →</span></a></li>
       </ul>
     </div>
     <div class="report-section">
       <h3>Contamination screening</h3>
       <ul class="report-list">
-        <li><a href="results/kraken2_report.txt">Kraken2 classification report <span>View &rarr;</span></a></li>
+        <li><a href="results/kraken2_report.txt">Kraken2 classification report <span>View →</span></a></li>
       </ul>
     </div>
     <div class="report-section">
       <h3>Assembly QC</h3>
       <ul class="report-list">
-        <li><a href="results/quast_report.html">QUAST assembly statistics <span>View &rarr;</span></a></li>
-        <li><a href="results/busco_summary.txt">BUSCO completeness summary <span>View &rarr;</span></a></li>
+        <li><a href="results/quast/report.html">QUAST assembly statistics <span>View →</span></a></li>
+        <li><a href="results/busco/short_summary.txt">BUSCO genome completeness <span>View →</span></a></li>
       </ul>
     </div>
   </div>
 
+  <!-- Gene prediction reports -->
+  <div class="section">
+    <h2>Gene prediction reports — Stage 5</h2>
+    <div class="report-section">
+      <h3>Predict v2 — key results</h3>
+      <ul class="report-list">
+        <li><a href="results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.stats.json">Fusarium_solani.stats.json <span>Full predict v2 statistics →</span></a></li>
+        <li><a href="results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.error.summary.txt">Fusarium_solani.error.summary.txt <span>Validation warnings →</span></a></li>
+      </ul>
+    </div>
+    <div class="report-section">
+      <h3>BUSCO assessment (dikarya_odb9, run internally by funannotate)</h3>
+      <ul class="report-list">
+        <li><a href="results/annotation/funannotate/predict_v2/predict_misc/busco/run_fusarium_graminearum/short_summary_fusarium_graminearum.txt">BUSCO genome summary — C:98.3% S:97.0% D:1.3% <span>View →</span></a></li>
+        <li><a href="results/annotation/funannotate/predict_v2/predict_misc/busco_proteins/run_fusarium_graminearum/short_summary_fusarium_graminearum.txt">BUSCO protein summary — C:97.0% S:97.0% D:0.0% <span>View →</span></a></li>
+        <li><a href="results/annotation/funannotate/predict_v2/predict_misc/busco_proteins/run_fusarium_graminearum/missing_busco_list_fusarium_graminearum.tsv">Missing BUSCO genes list <span>View →</span></a></li>
+      </ul>
+    </div>
+    <div class="report-section">
+      <h3>Functional annotation — pending</h3>
+      <ul class="report-list">
+        <li class="pending-item">Annotate results — funannotate annotate running (job 1592425) <span>Pending</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Project information -->
   <div class="section">
     <h2>Project information</h2>
     <div class="report-section">
@@ -143,9 +212,11 @@
         <div class="meta-item"><div class="label">Organism</div><div class="value">Fusarium solani species complex</div></div>
         <div class="meta-item"><div class="label">Sequencing</div><div class="value">Paired-end Illumina, 150 bp</div></div>
         <div class="meta-item"><div class="label">Raw reads</div><div class="value">47,232,194 total</div></div>
-        <div class="meta-item"><div class="label">Estimated coverage</div><div class="value">~62x</div></div>
+        <div class="meta-item"><div class="label">Estimated coverage</div><div class="value">~62x (vs SB1 reference)</div></div>
+        <div class="meta-item"><div class="label">Contaminant identified</div><div class="value">Methylorubrum populi (~36% reads)</div></div>
         <div class="meta-item"><div class="label">Reference genome</div><div class="value">GCF_023522795.1 (NDSU_Fsol_1.0)</div></div>
-        <div class="meta-item"><div class="label">Contaminant identified</div><div class="value">Methylorubrum populi</div></div>
+        <div class="meta-item"><div class="label">Assembler</div><div class="value">SPAdes v3.15.5</div></div>
+        <div class="meta-item"><div class="label">Annotation tool</div><div class="value">Funannotate v1.8.17</div></div>
         <div class="meta-item"><div class="label">Platform</div><div class="value">UPPA Pyrene HPC Cluster</div></div>
         <div class="meta-item"><div class="label">GitHub</div><div class="value"><a href="https://github.com/ecmccallum/fusa-pah-bioinfo" style="color:#2d4a3e;">ecmccallum/fusa-pah-bioinfo</a></div></div>
       </div>

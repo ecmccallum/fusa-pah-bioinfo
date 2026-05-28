@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 4 — Assembly QC</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f1ec; color: #2c2416; }
+    header { background: #2d4a3e; color: #f0ebe0; padding: 44px 20px; text-align: center; border-bottom: 4px solid #8b6914; }
+    header h1 { font-size: 1.9em; font-weight: 600; margin-bottom: 10px; }
+    header p { font-size: 0.95em; opacity: 0.8; margin-bottom: 4px; }
+    .badge { display: inline-block; background: #8b6914; color: #f9f3e3; font-size: 0.8em; padding: 5px 14px; border-radius: 20px; margin-top: 14px; letter-spacing: 0.03em; }
+    .container { max-width: 860px; margin: 40px auto; padding: 0 20px; }
+    .nav { font-size: 0.85em; margin-bottom: 28px; color: #8a7a60; }
+    .nav a { color: #2d4a3e; text-decoration: none; }
+    .nav a:hover { text-decoration: underline; }
+    .section { margin-bottom: 32px; }
+    .section h2 { font-size: 1.05em; font-weight: 600; color: #2d4a3e; border-bottom: 2px solid #c5d9cc; padding-bottom: 8px; margin-bottom: 16px; letter-spacing: 0.02em; }
+    .card { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 20px; margin-bottom: 14px; }
+    .note { background: #fdf6e3; border-left: 4px solid #8b6914; padding: 14px 18px; border-radius: 0 6px 6px 0; margin-bottom: 32px; font-size: 0.91em; color: #5a4a2a; line-height: 1.6; }
+    .verdict-good { background: #edf7ee; border-left: 4px solid #2d7a3e; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #1a4a28; line-height: 1.6; margin-bottom: 10px; }
+    .verdict-warn { background: #fdf6e3; border-left: 4px solid #c8960a; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #6a4a0a; line-height: 1.6; margin-bottom: 10px; }
+    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .meta-item .label { color: #8a7a60; margin-bottom: 3px; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; }
+    .meta-item .value { color: #2c2416; font-weight: 500; font-size: 0.88em; }
+    .status-badge { display: inline-block; background: #d6ead9; color: #1e4a28; font-size: 0.78em; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    pre { background: #1e2a22; color: #c8dfc8; font-size: 0.82em; padding: 16px; border-radius: 6px; overflow-x: auto; line-height: 1.7; margin-top: 8px; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 8px; }
+    .stat { background: #f4f1ec; border-radius: 6px; padding: 14px; }
+    .stat .s-label { font-size: 0.78em; color: #8a7a60; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .stat .s-value { font-size: 1.1em; font-weight: 600; color: #2d4a3e; }
+    .stat .s-note { font-size: 0.75em; color: #8a7a60; margin-top: 3px; }
+    .stat-good .s-value { color: #1e6a28; }
+    .results-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-top: 8px; }
+    .results-table th { text-align: left; padding: 8px 12px; background: #f4f1ec; color: #5a4a2a; font-weight: 500; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #d8d0c0; }
+    .results-table td { padding: 8px 12px; border-bottom: 1px solid #ede8df; color: #2c2416; }
+    .results-table tr:last-child td { border-bottom: none; }
+    .good { color: #1e6a28; font-weight: 500; }
+    .warn { color: #8a6200; }
+    .report-link { display: inline-block; margin-top: 10px; font-size: 0.85em; color: #8b6914; text-decoration: none; border-bottom: 1px solid #c8a855; }
+    .report-link:hover { color: #5a3a00; }
+    footer { text-align: center; padding: 32px 20px; color: #a09070; font-size: 0.82em; border-top: 1px solid #d8d0c0; margin-top: 40px; background: #ede8df; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Stage 4 — Assembly Quality Assessment</h1>
+  <p>Operator: Emma McCallum &nbsp;|&nbsp; UPPA Pyrene HPC Cluster &nbsp;|&nbsp; May 2026</p>
+  <span class="badge">Complete</span>
+</header>
+
+<div class="container">
+
+  <div class="nav">
+    <a href="../index.html">← Back to pipeline overview</a>
+    &nbsp;|&nbsp;
+    <a href="03_assembly.html">← Stage 3</a>
+    &nbsp;|&nbsp;
+    <a href="05_annotation.html">Stage 5 →</a>
+  </div>
+
+  <div class="note">
+    Assembly quality is assessed here using two complementary tools: QUAST (contiguity statistics) and BUSCO (gene completeness). Together they answer the question: did SPAdes produce a good assembly?
+  </div>
+
+  <div class="section">
+    <h2>Overview</h2>
+    <div class="card">
+      <div class="meta-grid">
+        <div class="meta-item"><div class="label">Date run</div><div class="value">26 May 2026</div></div>
+        <div class="meta-item"><div class="label">Input</div><div class="value">scaffolds.fasta (59 MB)</div></div>
+        <div class="meta-item"><div class="label">QUAST version</div><div class="value">Run with --eukaryote --fungus flags</div></div>
+        <div class="meta-item"><div class="label">BUSCO version</div><div class="value">6.0.0 — hypocreales_odb10</div></div>
+        <div class="meta-item"><div class="label">BUSCO mode</div><div class="value">euk_genome_min, gene predictor: miniprot</div></div>
+        <div class="meta-item"><div class="label">Status</div><div class="value"><span class="status-badge">Complete</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>QUAST — contiguity results</h2>
+    <div class="card">
+      <table class="results-table">
+        <thead>
+          <tr><th>Metric</th><th>Value</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Total assembly length</td><td class="good">57.4 Mb</td><td>Expected range for <em>F. solani</em> (~50–60 Mb) ✓</td></tr>
+          <tr><td>Total length (≥ 0 bp)</td><td>59.5 Mb</td><td>Includes small fragments</td></tr>
+          <tr><td># contigs (≥ 500 bp)</td><td>4,308</td><td>Working set used by QUAST</td></tr>
+          <tr><td># contigs (≥ 0 bp)</td><td>10,909</td><td>Includes many small fragments — normal for Illumina</td></tr>
+          <tr><td>Largest contig</td><td class="good">2.88 Mb</td><td>Very large — excellent contiguity ✓</td></tr>
+          <tr><td>N50</td><td class="good">635,698 bp</td><td>Outstanding for Illumina-only fungal assembly ✓</td></tr>
+          <tr><td>N90</td><td>12,030 bp</td><td>Tail of smaller contigs — typical</td></tr>
+          <tr><td>L50</td><td class="good">24 contigs</td><td>Only 24 contigs needed to cover 50% of assembly ✓</td></tr>
+          <tr><td>GC content</td><td class="good">53.63%</td><td>Consistent with published <em>F. solani</em> genomes ✓</td></tr>
+          <tr><td>N's per 100 kbp</td><td class="good">4.79</td><td>Very low gap rate ✓</td></tr>
+        </tbody>
+      </table>
+      <a class="report-link" href="../results/quast_report.html">View full interactive QUAST report →</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>BUSCO — gene completeness results</h2>
+    <div class="card">
+      <div class="stat-grid" style="margin-bottom: 16px;">
+        <div class="stat stat-good"><div class="s-label">Complete BUSCOs</div><div class="s-value">99.4%</div><div class="s-note">4,466 / 4,494</div></div>
+        <div class="stat stat-good"><div class="s-label">Single-copy</div><div class="s-value">98.7%</div><div class="s-note">Expected for haploid</div></div>
+        <div class="stat"><div class="s-label">Duplicated</div><div class="s-value">0.7%</div><div class="s-note">Very low — no contamination signal</div></div>
+        <div class="stat"><div class="s-label">Fragmented</div><div class="s-value">0.1%</div><div class="s-note">Negligible</div></div>
+        <div class="stat stat-good"><div class="s-label">Missing</div><div class="s-value">0.5%</div><div class="s-note">Only 23 of 4,494 absent</div></div>
+        <div class="stat"><div class="s-label">Internal stop codons</div><div class="s-value">6.9%</div><div class="s-note">309 complete BUSCOs affected</div></div>
+      </div>
+      <p style="font-size: 0.88em; color: #3a3020; line-height: 1.7;">Lineage: <strong>hypocreales_odb10</strong> (50 genomes, 4,494 BUSCOs, created 2024-01-08)</p>
+      <a class="report-link" href="../results/busco_summary.txt">View BUSCO summary file →</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Interpretation</h2>
+    <div class="verdict-good">
+      <strong>QUAST verdict — excellent contiguity.</strong> The N50 of 635 kb is outstanding for an Illumina-only assembly. Only 24 contigs are needed to span half the genome. Total assembly size (57.4 Mb) and GC content (53.6%) are both consistent with published <em>Fusarium solani</em> genomes.
+    </div>
+    <div class="verdict-good">
+      <strong>BUSCO verdict — near-complete gene space.</strong> 99.4% completeness against the Hypocreales lineage database is excellent. The low duplication rate (0.7%) indicates no significant contamination signal. Only 23 of 4,494 expected genes are missing entirely.
+    </div>
+    <div class="verdict-warn">
+      <strong>Flag — internal stop codons (6.9%).</strong> 309 complete BUSCOs contain internal stop codons. This is likely a consequence of residual <em>Methylorubrum populi</em> reads (identified in Stage 2, ~36% of raw reads) introducing frameshifts in a small proportion of gene models. This does not affect overall assembly quality assessment but should be noted in the write-up.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Commands run</h2>
+    <div class="card">
+<pre>quast.py ~/fusarium_pah/results/assembly/scaffolds.fasta \
+  --eukaryote \
+  --fungus \
+  --threads 8 \
+  -o ~/fusarium_pah/results/quast
+
+busco \
+  -i ~/fusarium_pah/results/assembly/scaffolds.fasta \
+  -o fusarium_busco \
+  --out_path ~/fusarium_pah/results/ \
+  -l hypocreales_odb10 \
+  -m genome \
+  --cpu 8</pre>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Decision</h2>
+    <div class="card">
+      <p style="font-size: 0.91em; line-height: 1.7;">Assembly quality is sufficient to proceed. Both contiguity (QUAST N50 = 635 kb) and gene completeness (BUSCO 99.4%) meet the standards expected for a high-quality fungal genome assembly. Proceeding to Stage 5 — Funannotate functional annotation.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Emma McCallum &nbsp;|&nbsp; Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; May 2026
+</footer>
+
+</body>
+</html>
