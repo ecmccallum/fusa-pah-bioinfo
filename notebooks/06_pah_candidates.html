@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 6 — Candidate PAH-Relevant Gene Screening</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f1ec; color: #2c2416; }
+    header { background: #2d4a3e; color: #f0ebe0; padding: 44px 20px; text-align: center; border-bottom: 4px solid #8b6914; }
+    header h1 { font-size: 1.9em; font-weight: 600; margin-bottom: 10px; }
+    header p { font-size: 0.95em; opacity: 0.8; margin-bottom: 4px; }
+    .badge { display: inline-block; background: #8b6914; color: #f9f3e3; font-size: 0.8em; padding: 5px 14px; border-radius: 20px; margin-top: 14px; letter-spacing: 0.03em; }
+    .badge-active { background: #c8960a; }
+    .container { max-width: 860px; margin: 40px auto; padding: 0 20px; }
+    .nav { font-size: 0.85em; margin-bottom: 28px; color: #8a7a60; }
+    .nav a { color: #2d4a3e; text-decoration: none; }
+    .nav a:hover { text-decoration: underline; }
+    .section { margin-bottom: 32px; }
+    .section h2 { font-size: 1.05em; font-weight: 600; color: #2d4a3e; border-bottom: 2px solid #c5d9cc; padding-bottom: 8px; margin-bottom: 16px; letter-spacing: 0.02em; }
+    .section h3 { font-size: 0.92em; font-weight: 600; color: #2d4a3e; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .card { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 20px; margin-bottom: 14px; }
+    .note { background: #fdf6e3; border-left: 4px solid #8b6914; padding: 14px 18px; border-radius: 0 6px 6px 0; margin-bottom: 32px; font-size: 0.91em; color: #5a4a2a; line-height: 1.6; }
+    .verdict-good { background: #edf7ee; border-left: 4px solid #2d7a3e; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #1a4a28; line-height: 1.6; margin-bottom: 10px; }
+    .verdict-warn { background: #fdf6e3; border-left: 4px solid #c8960a; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #6a4a0a; line-height: 1.6; margin-bottom: 10px; }
+    .verdict-info { background: #e8f0f8; border-left: 4px solid #2d5a8a; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #1a3a5a; line-height: 1.6; margin-bottom: 10px; }
+    .verdict-error { background: #fdf0ee; border-left: 4px solid #a03020; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #5a1a0a; line-height: 1.6; margin-bottom: 10px; }
+    pre { background: #1e2a22; color: #c8dfc8; font-size: 0.82em; padding: 16px; border-radius: 6px; overflow-x: auto; line-height: 1.7; margin-top: 8px; margin-bottom: 8px; }
+    code { background: #eae6de; color: #3a2a10; font-size: 0.83em; padding: 1px 5px; border-radius: 3px; font-family: "SFMono-Regular", Consolas, monospace; }
+    .results-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-top: 8px; }
+    .results-table th { text-align: left; padding: 8px 12px; background: #f4f1ec; color: #5a4a2a; font-weight: 500; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #d8d0c0; }
+    .results-table td { padding: 8px 12px; border-bottom: 1px solid #ede8df; color: #2c2416; vertical-align: top; line-height: 1.55; }
+    .results-table tr:last-child td { border-bottom: none; }
+    .good { color: #1e6a28; font-weight: 500; }
+    .warn { color: #8a6200; }
+    .danger { color: #a03020; font-weight: 500; }
+    .muted { color: #8a7a60; font-style: italic; }
+    .mono { font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.85em; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 8px; }
+    .stat { background: #f4f1ec; border-radius: 6px; padding: 14px; }
+    .stat .s-label { font-size: 0.78em; color: #8a7a60; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .stat .s-value { font-size: 1.1em; font-weight: 600; color: #2d4a3e; }
+    .stat .s-note { font-size: 0.75em; color: #8a7a60; margin-top: 3px; }
+    .stat-good .s-value { color: #1e6a28; }
+    .stat-warn .s-value { color: #8a6200; }
+    .stat-danger .s-value { color: #a03020; }
+    .pipeline-steps { display: flex; gap: 0; margin-bottom: 24px; flex-wrap: wrap; }
+    .pipeline-step { background: #ffffff; border: 1px solid #d8d0c0; padding: 10px 14px; font-size: 0.78em; flex: 1; min-width: 80px; text-align: center; }
+    .pipeline-step .ps-num { font-size: 0.75em; color: #8a7a60; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
+    .pipeline-step .ps-name { font-family: "SFMono-Regular", Consolas, monospace; font-weight: 600; color: #2d4a3e; font-size: 0.9em; }
+    .pipeline-step.done { background: #edf7ee; border-color: #2d7a3e; }
+    .pipeline-step.done .ps-name { color: #1e6a28; }
+    .pipeline-step.active { background: #fdf6e3; border-color: #c8960a; }
+    .pipeline-step.active .ps-name { color: #8a6200; }
+    .pipeline-step.pending { opacity: 0.5; }
+    .report-links { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+    .report-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #f4f1ec; border: 1px solid #d8d0c0; border-radius: 6px; text-decoration: none; color: #2d4a3e; font-size: 0.86em; transition: background 0.15s; }
+    .report-link:hover { background: #e8e2d8; }
+    .report-link .rl-icon { font-size: 1.1em; flex-shrink: 0; }
+    .report-link .rl-label { font-weight: 500; }
+    .report-link .rl-desc { color: #8a7a60; font-size: 0.88em; margin-left: auto; }
+    .section-badge { display: inline-block; font-size: 0.72em; padding: 2px 8px; border-radius: 10px; font-weight: 500; margin-left: 8px; vertical-align: middle; }
+    .badge-oxidative { background: #fde9b0; color: #6a4000; }
+    .badge-downstream { background: #d4e4f0; color: #1a3d5c; }
+    .badge-transport { background: #e8e0f8; color: #3a1a6a; }
+    .badge-stress { background: #ede8df; color: #5a4a2a; }
+    .badge-contamination { background: #fdf0ee; color: #a03020; }
+    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .meta-item .label { color: #8a7a60; margin-bottom: 3px; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; }
+    .meta-item .value { color: #2c2416; font-weight: 500; font-size: 0.88em; }
+    footer { text-align: center; padding: 32px 20px; color: #a09070; font-size: 0.82em; border-top: 1px solid #d8d0c0; margin-top: 40px; background: #ede8df; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Stage 6 — Candidate PAH-Relevant Gene Screening</h1>
+  <p>Operator: Emma McCallum &nbsp;|&nbsp; UPPA Pyrene HPC Cluster &nbsp;|&nbsp; May 2026</p>
+  <span class="badge badge-active">In Progress — 6.1 complete</span>
+</header>
+
+<div class="container">
+
+  <div class="nav">
+    <a href="../index.html">← Back to pipeline overview</a>
+    &nbsp;|&nbsp;
+    <a href="05_annotation.html">← Stage 5</a>
+  </div>
+
+  <div class="note">
+    Annotation evidence identifies candidate genes only. No candidate identified in this stage should be described as a confirmed PAH-degradation gene without experimental validation including protein expression, substrate assay, and activity measurement. All candidates require manual review before reporting. The goal of Stage 6 is to generate a ranked candidate list for manual review and possible downstream validation, not to claim PAH degradation.
+  </div>
+
+  <!-- Pipeline progress -->
+  <div class="section">
+    <h2>Pipeline Progress</h2>
+    <div class="pipeline-steps">
+      <div class="pipeline-step done"><div class="ps-num">6.1</div><div class="ps-name">screen</div></div>
+      <div class="pipeline-step pending"><div class="ps-num">6.2</div><div class="ps-name">curate</div></div>
+      <div class="pipeline-step pending"><div class="ps-num">6.3</div><div class="ps-name">extract</div></div>
+      <div class="pipeline-step pending"><div class="ps-num">6.4</div><div class="ps-name">Galaxy</div></div>
+      <div class="pipeline-step pending"><div class="ps-num">6.5</div><div class="ps-name">BLAST</div></div>
+      <div class="pipeline-step pending"><div class="ps-num">6.6</div><div class="ps-name">integrate</div></div>
+      <div class="pipeline-step pending"><div class="ps-num">6.7</div><div class="ps-name">review</div></div>
+      <div class="pipeline-step pending"><div class="ps-num">6.8</div><div class="ps-name">explore</div></div>
+      <div class="pipeline-step pending"><div class="ps-num">6.9</div><div class="ps-name">report</div></div>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="section">
+    <h2>Overview</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:12px;">
+        Stage 6 uses the completed funannotate predict_v2 and annotate outputs to screen the predicted <em>Fusarium solani</em> proteome for genes and enzyme families potentially relevant to PAH transformation, xenobiotic metabolism, oxidative stress response, and environmental adaptation. The workflow proceeds in layers, from broad annotation-based screening through domain validation, Galaxy-based functional enrichment, targeted sequence similarity validation, and finally a ranked and integrated candidate table.
+      </p>
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">
+        The isolate was recovered from a PAH-contaminated environment. This provides ecological context for the candidate search but does not itself constitute evidence of PAH degradation activity.
+      </p>
+    </div>
+    <div class="card">
+      <div class="meta-grid">
+        <div class="meta-item"><div class="label">Genes screened</div><div class="value">22,338 predicted proteins</div></div>
+        <div class="meta-item"><div class="label">Target families</div><div class="value">33 across 5 sections</div></div>
+        <div class="meta-item"><div class="label">Script</div><div class="value">scripts/stage6a_candidate_screen.py</div></div>
+        <div class="meta-item"><div class="label">Primary input</div><div class="value">annotate_results/Fusarium_solani.gff3</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input files -->
+  <div class="section">
+    <h2>Input Files</h2>
+    <div class="card">
+      <table class="results-table">
+        <thead><tr><th>File</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">annotate_results/Fusarium_solani.gff3</td><td>Primary annotation — all gene models with product names, Pfam IDs, MEROPS, BUSCO</td></tr>
+          <tr><td class="mono">predict_results/Fusarium_solani.proteins.fa</td><td>Full predicted protein FASTA — 22,338 sequences</td></tr>
+          <tr><td class="mono">annotate_results/Fusarium_solani.stats.json</td><td>Annotate statistics</td></tr>
+          <tr><td class="mono">predict_results/Fusarium_solani.stats.json</td><td>Predict statistics</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Search strategy -->
+  <div class="section">
+    <h2>Search Strategy</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
+        Three complementary evidence layers are used across the Stage 6 workflow. Candidates detected by multiple layers are eligible for higher manual confidence ranking during 6.6. The 6.1 script records evidence strength but does not automatically assign final confidence.
+      </p>
+      <table class="results-table">
+        <thead><tr><th>Layer</th><th>Method</th><th>Sensitivity</th><th>Specificity</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Keyword search of annotation text fields (product name, note)</td><td class="good">High</td><td class="warn">Low</td></tr>
+          <tr><td>2</td><td>Pfam domain accession matching</td><td>Medium</td><td class="good">High</td></tr>
+          <tr><td>3</td><td>Homology via BLAST/DIAMOND against reference databases</td><td>Medium</td><td>Medium</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">eggNOG and KEGG are not part of the core Pyrene pipeline due to confirmed database access blocks. They are added as optional enrichment layers via Galaxy in 6.4.</p>
+    </div>
+  </div>
+
+  <!-- Target families -->
+  <div class="section">
+    <h2>Target Family Dictionary</h2>
+    <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
+      All families, search terms, Pfam accessions, default confidence levels, and contamination risk flags are defined in <code>scripts/stage6a_candidate_screen.py</code>.
+    </p>
+
+    <h3>Section 1 — Oxidative Enzymes: Initial PAH Attack <span class="section-badge badge-oxidative">Oxidative</span></h3>
+    <div class="card">
+      <table class="results-table">
+        <thead><tr><th>Family</th><th>Key search terms</th><th>Pfam</th><th>Confidence</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">CYP_general</td><td>cytochrome p450, p450</td><td class="mono">PF00067</td><td>Medium</td><td>All CYPs share PF00067. Subfamily assignment requires FCPD. Broad monooxygenase terms excluded from this category.</td></tr>
+          <tr><td class="mono">CYP5144</td><td>cyp5144</td><td class="muted">none</td><td class="good">High</td><td>Documented PAH-related roles (Moktali 2012)</td></tr>
+          <tr><td class="mono">CYP504</td><td>cyp504</td><td class="muted">none</td><td class="good">High</td><td>Benzoate and aromatic metabolism (Moktali 2012)</td></tr>
+          <tr><td class="mono">CYP52</td><td>cyp52</td><td class="muted">none</td><td class="good">High</td><td>Alkane and fatty acid hydroxylation (Moktali 2012)</td></tr>
+          <tr><td class="mono">CYP53</td><td>cyp53</td><td class="muted">none</td><td class="good">High</td><td>Benzoate and xenobiotic hydroxylation (Moktali 2012)</td></tr>
+          <tr><td class="mono">CYP_reductase</td><td>cytochrome p450 reductase, cpr, p450 reductase</td><td class="muted">none</td><td>Medium</td><td>Redox partner for CYPs — supporting evidence only</td></tr>
+          <tr><td class="mono">laccase_MCO</td><td>laccase, multicopper oxidase, mco</td><td class="mono">PF00394, PF07731, PF07732</td><td>Medium</td><td>Upgrade to High if secretion signal present</td></tr>
+          <tr><td class="mono">manganese_peroxidase</td><td>manganese peroxidase, mnp</td><td class="mono">PF01036</td><td>Medium</td><td>Upgrade if secretion signal present</td></tr>
+          <tr><td class="mono">lignin_peroxidase</td><td>lignin peroxidase, lip</td><td class="mono">PF01036</td><td>Medium</td><td></td></tr>
+          <tr><td class="mono">DyP_peroxidase</td><td>dyp, dye decolourising peroxidase</td><td class="mono">PF04261</td><td>Medium</td><td></td></tr>
+          <tr><td class="mono">FAD_monooxygenase</td><td>fad monooxygenase, flavin monooxygenase, ec 1.14.13.1</td><td class="mono">PF00743</td><td>Medium</td><td>Includes salicylate-1-monooxygenase</td></tr>
+          <tr><td class="mono">phenol_monooxygenase</td><td>phenol monooxygenase, phenol-2-monooxygenase, ec 1.14.13.7</td><td class="mono">PF00743</td><td>Medium</td><td>Annotated in F. solani (San Martin-Davison 2024)</td></tr>
+          <tr><td class="mono">alcohol_oxidase</td><td>alcohol oxidase, methanol oxidase, aryl alcohol oxidase</td><td class="mono">PF01565, PF00732</td><td>Medium</td><td>Vergara-Fernandez 2019</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Section 2 — Downstream Transformation and Detoxification <span class="section-badge badge-downstream">Downstream</span></h3>
+    <div class="card">
+      <table class="results-table">
+        <thead><tr><th>Family</th><th>Key search terms</th><th>Pfam</th><th>Confidence</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">epoxide_hydrolase</td><td>epoxide hydrolase, epoxide hydratase</td><td class="mono">PF00561</td><td>Medium</td><td>Downstream of CYP-mediated oxidation, produces trans-dihydrodiols</td></tr>
+          <tr><td class="mono">aryl_sulfatase</td><td>arylsulfatase, aryl sulfatase, sulfatase, sulfate ester</td><td class="mono">PF00884</td><td>Medium</td><td>Han et al. 2026 — 6-hydroxybenzo[a]pyrene sulfate as key PAH metabolite</td></tr>
+          <tr><td class="mono">GST</td><td>glutathione s-transferase, glutathione transferase, gst</td><td class="mono">PF00043, PF02798</td><td>Medium</td><td>Core conjugation and detoxification family</td></tr>
+          <tr><td class="mono">UGT</td><td>glycosyltransferase, udp-glucosyltransferase, ugt</td><td class="mono">PF00201</td><td>Medium</td><td>Phase II conjugation</td></tr>
+          <tr><td class="mono">formaldehyde_dehydrogenase</td><td>formaldehyde dehydrogenase</td><td class="mono">PF00107</td><td>Medium</td><td>Downstream of methanol oxidase (Vergara-Fernandez 2019)</td></tr>
+          <tr><td class="mono">aldehyde_dehydrogenase</td><td>aldehyde dehydrogenase, aldh</td><td class="mono">PF00171</td><td class="warn">Low</td><td>Large family. Pfam support required for meaningful hits.</td></tr>
+          <tr><td class="mono">SDR</td><td>short-chain dehydrogenase, sdr</td><td class="mono">PF00106</td><td class="warn">Low</td><td>Very large superfamily. Pfam support required. Keyword alone not meaningful.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Section 3 — Aromatic Ring-Related Enzymes <span class="section-badge badge-contamination">Contamination Risk</span></h3>
+    <div class="card">
+      <div class="verdict-error" style="margin-bottom:14px;">
+        <strong>Contamination caution.</strong> Given the previously detected <em>Methylorubrum populi</em> signal in the raw-read contamination screen, all hits in this section must be treated as potentially indicative of bacterial contamination in the assembly rather than fungal biology. Any hit requires manual review: check BLAST taxonomy, scaffold GC content, and scaffold length before biological interpretation.
+      </div>
+      <table class="results-table">
+        <thead><tr><th>Family</th><th>Key search terms</th><th>Pfam</th><th>Confidence</th><th>Contamination risk</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">dioxygenase</td><td>dioxygenase, ring cleavage, catechol dioxygenase, ring-hydroxylating dioxygenase</td><td class="mono">PF00775, PF00848</td><td class="warn">Low</td><td class="danger">High</td></tr>
+          <tr><td class="mono">aromatic_oxygenase</td><td>aromatic oxygenase, ring hydroxylating oxygenase</td><td class="muted">none</td><td class="warn">Low</td><td class="danger">High</td></tr>
+          <tr><td class="mono">catechol_related</td><td>catechol, protocatechuate, gentisate</td><td class="muted">none</td><td class="warn">Low</td><td class="danger">High</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Section 4 — Transport and Efflux <span class="section-badge badge-transport">Transport</span></h3>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:12px;">Transporters are not direct PAH-degrading enzymes. They are relevant for PAH tolerance, efflux, and membrane transport. Results from this section are reported separately from catalytic enzyme candidates.</p>
+      <table class="results-table">
+        <thead><tr><th>Family</th><th>Key search terms</th><th>Pfam</th><th>Confidence</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">ABC_transporter</td><td>abc transporter, atp-binding cassette</td><td class="mono">PF00005</td><td class="warn">Low</td></tr>
+          <tr><td class="mono">MFS_transporter</td><td>major facilitator, mfs transporter</td><td class="mono">PF07690</td><td class="warn">Low</td></tr>
+          <tr><td class="mono">PDR_transporter</td><td>pleiotropic drug resistance, pdr transporter</td><td class="muted">none</td><td class="warn">Low</td></tr>
+          <tr><td class="mono">efflux_pump</td><td>efflux transporter, multidrug transporter</td><td class="muted">none</td><td class="warn">Low</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Section 5 — Oxidative Stress and Cellular Defence <span class="section-badge badge-stress">Stress</span></h3>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:12px;">General stress response enzymes expected in any fungal genome. Relevant as supporting context for PAH exposure response, but annotation alone is weak evidence for PAH-specific roles.</p>
+      <table class="results-table">
+        <thead><tr><th>Family</th><th>Key search terms</th><th>Pfam</th><th>Confidence</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">catalase</td><td>catalase</td><td class="mono">PF00199</td><td class="warn">Low</td></tr>
+          <tr><td class="mono">SOD</td><td>superoxide dismutase, sod</td><td class="mono">PF00080, PF00081</td><td class="warn">Low</td></tr>
+          <tr><td class="mono">peroxiredoxin</td><td>peroxiredoxin, thioredoxin peroxidase</td><td class="mono">PF00578</td><td class="warn">Low</td></tr>
+          <tr><td class="mono">glutathione_peroxidase</td><td>glutathione peroxidase, gpx</td><td class="mono">PF00255</td><td class="warn">Low</td></tr>
+          <tr><td class="mono">thioredoxin_glutaredoxin</td><td>thioredoxin, glutaredoxin</td><td class="muted">none</td><td class="warn">Low</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Contamination Markers <span class="section-badge badge-contamination">Contamination</span></h3>
+    <div class="card">
+      <table class="results-table">
+        <thead><tr><th>Family</th><th>Key search terms</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">bacterial_contamination_marker</td><td>groel, flagellar, flagellin, xoxf, lanthanide, methanol dehydrogenase, lold, phnc, flgi, nqo3, nuoa, nuof</td><td>Likely <em>Methylorubrum populi</em> contamination. Verify scaffold GC content and BLAST taxonomy before any biological interpretation.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Confidence framework -->
+  <div class="section">
+    <h2>Confidence Framework</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">Default confidence is set at the family level. No automatic upgrades are applied by the 6.1 script. Manual review during 6.6 determines final confidence assignments.</p>
+      <table class="results-table">
+        <thead><tr><th>Factor</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>CYP assignable to CYP5144, CYP504, CYP52, or CYP53 via FCPD or phylogeny</td><td class="good">Upgrade to High</td></tr>
+          <tr><td>Secretion signal present for laccase, peroxidase, or hydrolase candidates</td><td class="good">Upgrade</td></tr>
+          <tr><td>Multiple evidence types agree across keyword, Pfam, and UniProt</td><td class="good">Eligible for upgrade at 6.6</td></tr>
+          <tr><td>Co-located CYP reductase on same scaffold as a CYP candidate</td><td>Supporting evidence note</td></tr>
+          <tr><td>Best BLAST or DIAMOND hit is bacterial rather than fungal</td><td class="danger">Downgrade and contamination flag</td></tr>
+          <tr><td>Gene on short or suspicious scaffold</td><td class="danger">Downgrade and contamination flag</td></tr>
+          <tr><td>SDR or ALDH with keyword match only and no Pfam support</td><td class="warn">Downgrade to minimal</td></tr>
+          <tr><td>BUSCO evidence</td><td class="muted">Quality context only — does not increase PAH candidate confidence</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Evidence strength values (assigned automatically by script)</p>
+      <table class="results-table">
+        <thead><tr><th>Value</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">keyword_only</td><td>Matched product or note text only. Lower specificity.</td></tr>
+          <tr><td class="mono">pfam_only</td><td>Matched Pfam domain accession only.</td></tr>
+          <tr><td class="mono">keyword_plus_pfam</td><td>Matched both keyword and Pfam domain. Stronger evidence.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 6.1 -->
+  <div class="section">
+    <h2>6.1 First-Pass Candidate Screen</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
+        The script parses every mRNA feature in the annotated GFF3 and searches three fields per gene: <code>product=</code> (product name free text), <code>Dbxref=PFAM:</code> (Pfam domain accessions), and <code>note=</code> (MEROPS, BUSCO, and other database hits). Multiple family matches per gene are preserved. The script does not automatically upgrade confidence. All confidence assessments remain at family-level priors pending manual review in 6.6.
+      </p>
+      <pre>python scripts/stage6a_candidate_screen.py \
+  --gff results/annotation/funannotate/predict_v2/annotate_results/Fusarium_solani.gff3 \
+  --outdir results/stage6</pre>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">Run date: 28 May 2026. Platform: Pyrene HPC, interactive session.</p>
+    </div>
+
+    <div class="card">
+      <div class="stat-grid">
+        <div class="stat stat-good"><div class="s-label">Genes screened</div><div class="s-value">22,338</div></div>
+        <div class="stat stat-good"><div class="s-label">Candidate hits</div><div class="s-value">1,824</div></div>
+        <div class="stat stat-danger"><div class="s-label">Contamination flagged</div><div class="s-value">22</div><div class="s-note">require manual review</div></div>
+        <div class="stat"><div class="s-label">Target families</div><div class="s-value">33</div><div class="s-note">across 5 sections</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Hits by family</p>
+      <table class="results-table">
+        <thead><tr><th>Family</th><th>Hits</th><th>Section</th><th>Confidence</th><th>Contamination</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">MFS_transporter</td><td>653</td><td><span class="section-badge badge-transport">Transport</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">SDR</td><td>331</td><td><span class="section-badge badge-downstream">Downstream</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">ABC_transporter</td><td>148</td><td><span class="section-badge badge-transport">Transport</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">formaldehyde_dehydrogenase</td><td>135</td><td><span class="section-badge badge-downstream">Downstream</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">CYP_general</td><td>130</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">alcohol_oxidase</td><td>112</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">epoxide_hydrolase</td><td>77</td><td><span class="section-badge badge-downstream">Downstream</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">aldehyde_dehydrogenase</td><td>70</td><td><span class="section-badge badge-downstream">Downstream</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">GST</td><td>50</td><td><span class="section-badge badge-downstream">Downstream</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">aryl_sulfatase</td><td>24</td><td><span class="section-badge badge-downstream">Downstream</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">lignin_peroxidase</td><td>23</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">laccase_MCO</td><td>19</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">dioxygenase</td><td>15</td><td><span class="section-badge badge-contamination">Contamination</span></td><td class="warn">Low</td><td class="danger">YES</td></tr>
+          <tr><td class="mono">peroxiredoxin</td><td>14</td><td><span class="section-badge badge-stress">Stress</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">catalase</td><td>11</td><td><span class="section-badge badge-stress">Stress</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">FAD_monooxygenase</td><td>10</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">phenol_monooxygenase</td><td>10</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">bacterial_contamination_marker</td><td>7</td><td><span class="section-badge badge-contamination">Contamination</span></td><td class="warn">Low</td><td class="danger">YES</td></tr>
+          <tr><td class="mono">SOD</td><td>6</td><td><span class="section-badge badge-stress">Stress</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">manganese_peroxidase</td><td>5</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">efflux_pump</td><td>4</td><td><span class="section-badge badge-transport">Transport</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">glutathione_peroxidase</td><td>4</td><td><span class="section-badge badge-stress">Stress</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">thioredoxin_glutaredoxin</td><td>3</td><td><span class="section-badge badge-stress">Stress</span></td><td class="warn">Low</td><td class="muted">no</td></tr>
+          <tr><td class="mono">UGT</td><td>2</td><td><span class="section-badge badge-downstream">Downstream</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">DyP_peroxidase</td><td>1</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+          <tr><td class="mono">CYP_reductase</td><td>1</td><td><span class="section-badge badge-oxidative">Oxidative</span></td><td>Medium</td><td class="muted">no</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Hits by section</p>
+      <table class="results-table">
+        <thead><tr><th>Section</th><th>Hits</th></tr></thead>
+        <tbody>
+          <tr><td>1 — Oxidative enzymes</td><td class="good">311</td></tr>
+          <tr><td>2 — Downstream and detoxification</td><td class="good">689</td></tr>
+          <tr><td>3 — Aromatic, contamination risk</td><td class="warn">15</td></tr>
+          <tr><td>4 — Transport</td><td>805</td></tr>
+          <tr><td>5 — Stress defence</td><td>38</td></tr>
+          <tr><td>0 — Contamination markers</td><td class="danger">7</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="verdict-warn">
+      <strong>CYP count note.</strong> The initial CYP_general count was 130 hits, but this category requires stricter filtering to retain only explicit cytochrome P450 or PF00067-supported candidates before comparison with published <em>Fusarium</em> CYP counts. After filtering, the CYP count can be compared with the approximately 133 CYP genes predicted for <em>F. solani</em> genomes by Moktali et al. 2012.
+    </div>
+
+    <div class="verdict-warn">
+      <strong>Formaldehyde dehydrogenase note.</strong> The count of 135 hits is high and warrants investigation. This may reflect keyword overlap with alcohol dehydrogenase or oxidoreductase annotations. Manual review is required before interpreting this number.
+    </div>
+
+    <div class="verdict-error">
+      <strong>Contamination-flagged hits.</strong> The 22 contamination-flagged hits (15 dioxygenase, 7 bacterial markers) must be reviewed individually. Each requires BLAST taxonomy confirmation, scaffold GC content check, and scaffold length assessment before any biological interpretation.
+    </div>
+
+    <h3>6.1 Output Files</h3>
+    <div class="card">
+      <div class="report-links">
+        <a class="report-link" href="../results/stage6/candidate_keyword_domain_hits.tsv">
+          <span class="rl-icon">📋</span>
+          <span class="rl-label">candidate_keyword_domain_hits.tsv</span>
+          <span class="rl-desc">Full candidate table — 1,824 hits</span>
+        </a>
+        <a class="report-link" href="../results/stage6/candidate_family_summary.tsv">
+          <span class="rl-icon">📊</span>
+          <span class="rl-label">candidate_family_summary.tsv</span>
+          <span class="rl-desc">Per-family hit counts and metadata</span>
+        </a>
+        <a class="report-link" href="../results/stage6/stage6a_screen_log.txt">
+          <span class="rl-icon">📝</span>
+          <span class="rl-label">stage6a_screen_log.txt</span>
+          <span class="rl-desc">Full run log</span>
+        </a>
+        <a class="report-link" href="../scripts/stage6a_candidate_screen.py">
+          <span class="rl-icon">🐍</span>
+          <span class="rl-label">stage6a_candidate_screen.py</span>
+          <span class="rl-desc">Screening script — Python 3</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending stages -->
+  <div class="section">
+    <h2>6.2 Candidate Table Curation — Pending</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">The raw candidate table from 6.1 will be manually reviewed and curated to separate well-supported candidates from broad or noisy categories. CYP_general hits will be filtered to retain only those with explicit cytochrome P450 product annotation or PF00067 Pfam support. SDR, ALDH, ABC, and MFS hits with keyword-only evidence and no Pfam support will be downgraded. All contamination-flagged hits will be individually reviewed. BUSCO evidence will be retained as quality context only.</p>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">Expected output: <code>results/stage6/cleaned_candidate_hits.tsv</code></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6.3 Candidate Protein Extraction — Pending</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">Protein sequences for all candidate gene IDs will be extracted from the full predicted protein FASTA. This creates the input file for Galaxy functional enrichment tools in 6.4 and targeted BLAST/DIAMOND validation in 6.5.</p>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">Expected output: <code>results/stage6/candidate_proteins.faa</code></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6.4 Galaxy Functional Enrichment — Pending</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">The candidate protein FASTA will be uploaded to Galaxy (usegalaxy.eu) for analysis with tools unavailable on Pyrene. Galaxy tools will be applied to the candidate protein set only, not the full 22,338-protein proteome.</p>
+      <table class="results-table">
+        <thead><tr><th>Tool</th><th>Evidence added</th></tr></thead>
+        <tbody>
+          <tr><td>eggNOG-mapper</td><td>Ortholog group assignments, functional descriptions, GO terms, KEGG pathway hints, COG categories, EC numbers</td></tr>
+          <tr><td>InterProScan</td><td>InterPro domain IDs, Pfam domain confirmation, domain architecture, GO terms linked to domains</td></tr>
+          <tr><td>SignalP</td><td>Secretion signal predictions — important for laccases, peroxidases, and hydrolases</td></tr>
+          <tr><td>Phobius</td><td>Transmembrane domain predictions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6.5 Targeted BLAST/DIAMOND Validation — Pending</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">Targeted BLAST or DIAMOND will be run after candidate proteins are extracted. Priority targets include CYP candidates, laccase and multicopper oxidase candidates, peroxidases, epoxide hydrolases, GSTs, aryl sulfatases, and all contamination-flagged hits. CYP candidates will require specialist classification using FCPD, curated CYP reference comparison, BLAST/DIAMOND, or phylogenetic analysis. FCPD classification and BLAST are complementary and should not be treated as equivalent.</p>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">Expected output: <code>results/stage6/blast_validation.tsv</code></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6.6 Evidence Integration and Ranking — Pending</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">All evidence layers will be merged into one ranked candidate table. Evidence sources to integrate: funannotate product name and Pfam hits, MEROPS annotation, dbCAN/CAZyme annotation, eggNOG orthology, InterProScan domains, SignalP secretion prediction, Phobius transmembrane prediction, BLAST/DIAMOND best hits, contamination flags, protein length, gene location and scaffold, and manual review notes.</p>
+      <p style="font-size:0.82em;color:#8a7a60;">Expected output: <code>results/stage6/ranked_candidate_genes.tsv</code></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6.7 High-Priority Family Review — Pending</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:10px;"><strong>Primary catalytic candidates:</strong> CYPs, epoxide hydrolases, laccases and multicopper oxidases, peroxidases, FAD-dependent monooxygenases, aryl sulfatases, GSTs.</p>
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:10px;"><strong>Secondary and support candidates:</strong> aldehyde dehydrogenases, formaldehyde dehydrogenases, alcohol oxidases, SDRs, ABC and MFS transporters, oxidative stress enzymes.</p>
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;"><strong>Contamination-sensitive:</strong> dioxygenases, catechol and protocatechuate and gentisate pathway enzymes, flagellar proteins, GroEL-like proteins, XoxF-like proteins, bacterial import and transport proteins.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6.8 Poorly Annotated Candidate Search — Pending</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">After recognisable candidate families are mapped, proteins annotated as hypothetical or with only partial domain support will be investigated. This step looks for proteins that are annotated as hypothetical protein with a relevant Pfam domain, vaguely annotated as hydrolase or oxidoreductase or monooxygenase or transferase without a specific product name, possibly secreted based on SignalP results, or located near candidate metabolism gene clusters on the same scaffold. The goal is not to claim novel genes. The goal is to identify uncharacterised proteins of possible interest for future investigation.</p>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">Expected output: <code>results/stage6/uncharacterized_candidate_proteins.tsv</code></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6.9 Final Interpretation and Reporting — Pending</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:12px;">The final Stage 6 report will state clearly that this analysis identified candidate PAH-relevant gene families from the predicted <em>F. solani</em> proteome using annotation text, Pfam evidence, and sequence-similarity-derived functional predictions. All candidates require domain confirmation, homology review, contamination screening, and experimental validation before any functional claims can be made.</p>
+      <div class="verdict-good">
+        <strong>Appropriate framing.</strong> "This workflow identified a broad first-pass inventory of candidate enzyme families potentially involved in PAH transformation, xenobiotic metabolism, detoxification, transport, oxidative stress response, and fungal environmental adaptation. These candidates are based on annotation text, Pfam evidence, and sequence-similarity-derived functional predictions. They require domain confirmation, homology review, contamination screening, and experimental validation before any functional claims can be made."
+      </div>
+    </div>
+  </div>
+
+  <!-- What would be interesting -->
+  <div class="section">
+    <h2>What Would Be Interesting to Find</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:12px;">The most scientifically meaningful result would be a coherent genomic toolkit rather than isolated hits: a combination of CYPs, epoxide hydrolases, GSTs, aryl sulfatases, aldehyde dehydrogenases, secreted laccases or peroxidases, and transporters. This would support the hypothesis that this strain carries a genomic repertoire consistent with fungal PAH transformation and detoxification.</p>
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:12px;">The most interesting specific discovery would be CYPs assignable to PAH-relevant subfamilies (CYP5144, CYP504, CYP52, CYP53) via FCPD classification or phylogenetic analysis. PF00067 alone detects all CYPs equally and cannot distinguish subfamilies.</p>
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">The most publishable direction would combine genome annotation with comparative genomics showing enrichment of xenobiotic metabolism enzyme families relative to reference <em>Fusarium</em> genomes, ideally supported by experimental degradation or expression data.</p>
+    </div>
+  </div>
+
+  <!-- Literature -->
+  <div class="section">
+    <h2>Literature Basis for Target Family Selections</h2>
+    <div class="card">
+      <table class="results-table">
+        <thead><tr><th>Source</th><th>Contribution</th></tr></thead>
+        <tbody>
+          <tr><td>Moktali et al. 2012 (FCPD)</td><td>CYP subfamily prioritisation: CYP5144, CYP504, CYP52, CYP53</td></tr>
+          <tr><td>Han et al. 2026</td><td>Aryl sulfatases: 6-hydroxybenzo[a]pyrene sulfate as key metabolite</td></tr>
+          <tr><td>Vergara-Fernandez et al. 2019</td><td>CYP reductases, alcohol and methanol oxidases, formaldehyde dehydrogenases, ALDHs</td></tr>
+          <tr><td>San Martin-Davison et al. 2024</td><td>Phenol-2-monooxygenase and unspecific monooxygenase EC numbers annotated in <em>F. solani</em></td></tr>
+          <tr><td>Fayeulle et al. 2014</td><td>Intracellular degradation mechanism — supports intracellular enzyme search</td></tr>
+          <tr><td>Kadri et al. 2017</td><td>General fungal enzyme mechanism context</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Emma McCallum &nbsp;|&nbsp; Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; May 2026
+</footer>
+
+</body>
+</html>
