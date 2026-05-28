@@ -1,0 +1,63 @@
+#Name	Passed Description
+3BETAHYDROXYSTEROID	3-beta-hydroxysteroid dehydrogenase
+AA9A	AA9 lytic polysaccharide monooxygenase A
+ALKB1	N6-methyladenosine RNA demethylase alkb1
+AUH1	Methylglutaconyl-CoA hydratase 1, mitochondrial
+BKDA1	2-oxoisovalerate dehydrogenase subunit alpha
+CHEB3	Protein-glutamate methylesterase/protein-glutamine glutaminase 3
+CHS3B	Chitin synthase 3B
+CRH3	Crh-like protein 3
+DCTA4	C4-dicarboxylate transport protein 4
+EIX1	Ethylene-inducing xylanase 1
+EPD1	Elicitor of plant defense protein 1
+ERG3A	Delta(7)-sterol 5(6)-desaturase erg3a
+ERG3B	Delta(7)-sterol 5(6)-desaturase erg3b
+ERG5A	C-22 sterol desaturase erg5a
+ERG24B	Delta(14)-sterol reductase erg24b
+ERG25B	Methylsterol monooxygenase erg25B
+FABI1	Enoyl-[acyl-carrier-protein] reductase [NADH] 1
+FADA6	Steroid 3-ketoacyl-CoA thiolase FadA6
+FDHB1	Formate dehydrogenase iron-sulfur subunit
+FGAQP1	Aquaporin-1
+FGAQP2	Probable aquaglyceroporin-2
+FGAQP3	Probable aquaporin-3
+FGAQP5	Probable aquaporin-5
+FGL4	Secreted lipase 4
+FGR3	Acetyltransferase fgr3
+FLGI2	Flagellar P-ring protein 2
+FTF2	Zn(2)-C6 fungal-type transcription factor ftf2
+GLGA1	Glycogen synthase 1
+GROEL2	Chaperonin GroEL 2
+KUP2	Probable potassium transport system protein Kup 2
+LOLD1	Lipoprotein-releasing system ATP-binding protein LolD 1
+LPMO9D	AA9 lytic polysaccharide monooxygenase D
+LUC1	Methyltransferase luc1
+LUC2	Cytochrome P450 monooxygenase luc2
+LUC3	Aldehyde dehydrogenase luc3
+LUC4	MFS-type efflux pump luc4
+LUC5	Hybrid PKS-NRPS synthetase luc5
+LUC6	Hydrolase luc6
+MIP11	MST50-interacting protein 11
+MQO2	Probable malate:quinone oxidoreductase 2
+MSRA2	Peptide methionine sulfoxide reductase MsrA 2
+MST11	Mitogen-activated protein kinase kinae kinase mst11
+NHL1	Secreted mono- and diacylglycerol lipase 1
+NQO3	NADH-quinone oxidoreductase chain 3
+NQO13	NADH-quinone oxidoreductase chain 13
+NUOA1	NADH-quinone oxidoreductase subunit A 1
+NUOF1	NADH-quinone oxidoreductase subunit F 1
+OMM1	Mitochondrial voltage-dependent anion channel Omm1
+P5CR2	Pyrroline-5-carboxylate reductase 2
+PHNC2	Phosphonates import ATP-binding protein PhnC 2
+PURC1	Phosphoribosylaminoimidazole-succinocarboxamide synthase A
+PURC2	Putative phosphoribosylaminoimidazole-succinocarboxamide synthase 2
+RGE13	Hydroxymethylglutaryl-CoA synthase ERG13
+RTCB1	RNA-splicing ligase RtcB1
+RUTF1	FMN reductase (NADH) RutF 1
+SIR5	NAD-dependent protein deacylase sir5
+UG46DH	UDP-D-glucose 4,6-dehydratase
+URED1	Urease accessory protein UreD 1
+UREG1	Urease accessory protein UreG 1
+XOXF1	Lanthanide-dependent methanol dehydrogenase
+XYL43B	Xylosidase/arabinosidase 43B
+XYLL43A	Xylosidase/arabinosidase 43A

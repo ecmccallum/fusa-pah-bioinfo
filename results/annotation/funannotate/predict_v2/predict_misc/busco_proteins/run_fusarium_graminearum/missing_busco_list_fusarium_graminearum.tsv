@@ -1,0 +1,44 @@
+# BUSCO version is: 2.0 
+# The lineage dataset is: dikarya_odb9 (Creation date: 2016-02-13, number of species: 75, number of BUSCOs: 1312)
+# To reproduce this run: python /home/22/emccallum/.conda/envs/funannotate_env/lib/python3.8/site-packages/funannotate/aux_scripts/funannotate-BUSCO2.py -i /zfs/home/22/emccallum/fusa-pah-bioinfo/results/annotation/funannotate/predict_v2/predict_misc/busco_augustus.proteins.fasta -o fusarium_graminearum -l /home/22/emccallum/funannotate_db/dikarya/ -m proteins -c 16 -sp fusarium_graminearum
+#
+EOG09260GIX
+EOG09260HSP
+EOG09260KM4
+EOG09261DHR
+EOG09261ONU
+EOG09261YV6
+EOG092620EL
+EOG09262D0D
+EOG09262DKA
+EOG09262LI4
+EOG09262SWJ
+EOG09262X01
+EOG09262YAU
+EOG09262YP5
+EOG092630MJ
+EOG092631MU
+EOG09263483
+EOG09263C4C
+EOG09263KVG
+EOG09263Q7N
+EOG09263SFX
+EOG09263WWI
+EOG09263Y3L
+EOG092643QM
+EOG092644DY
+EOG092644ZU
+EOG092646C6
+EOG09264G4X
+EOG09264SUZ
+EOG09264TQ5
+EOG09264UKL
+EOG09264XVU
+EOG09264ZI5
+EOG092651K1
+EOG092653NM
+EOG092656CM
+EOG09265E8A
+EOG09265K60
+EOG09265PWR
+EOG09265RGI

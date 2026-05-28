@@ -1,0 +1,120 @@
+{
+    "format": "annotation",
+    "command": "/home/22/emccallum/.conda/envs/funannotate_env/bin/funannotate annotate -i results/annotation/funannotate/predict_v2 --cpus 16 --busco_db dikarya",
+    "organism": "Fusarium_solani",
+    "software": {
+        "name": "funannotate",
+        "version": "1.8.17",
+        "date": "2026-05-28",
+        "resources": {
+            "repeats": {
+                "type": "diamond",
+                "version": "1.0",
+                "date": "2026-05-26",
+                "num-records": "11950"
+            },
+            "merops": {
+                "type": "diamond",
+                "version": "12.5",
+                "date": "2023-01-19",
+                "num-records": "5098"
+            },
+            "uniprot": {
+                "type": "diamond",
+                "version": "2026_01",
+                "date": "2026-01-28",
+                "num-records": "574627"
+            },
+            "dbCAN": {
+                "type": "hmmer3",
+                "version": "14.0",
+                "date": "2025-08-26",
+                "num-records": "699"
+            },
+            "pfam": {
+                "type": "hmmer3",
+                "version": "38.1",
+                "date": "2025-09",
+                "num-records": "27481"
+            },
+            "go": {
+                "type": "text",
+                "version": "2026-03-25",
+                "date": "2026-03-25",
+                "num-records": "48291"
+            },
+            "mibig": {
+                "type": "diamond",
+                "version": "1.4",
+                "date": "2026-05-26",
+                "num-records": "31023"
+            },
+            "interpro": {
+                "type": "xml",
+                "version": "108.0",
+                "date": "2026-01-29",
+                "num-records": "51489"
+            },
+            "busco_outgroups": {
+                "type": "outgroups",
+                "version": "1.0",
+                "date": "2026-05-26",
+                "num-records": "8"
+            },
+            "gene2product": {
+                "type": "text",
+                "version": "1.98",
+                "date": "2026-05-18",
+                "num-records": "34505"
+            }
+        }
+    },
+    "assembly": {
+        "num_contigs": 4308,
+        "length": 57423733,
+        "mean_length": 13329.56,
+        "N50": 635698,
+        "L50": 24,
+        "N90": 12030,
+        "L90": 319,
+        "GC_content": 53.63
+    },
+    "annotation": {
+        "genes": 22679,
+        "common_name": 1177,
+        "mRNA": 22338,
+        "tRNA": 341,
+        "ncRNA": 0,
+        "rRNA": 0,
+        "avg_gene_length": 1318.7,
+        "transcript-level": {
+            "CDS_transcripts": 22338,
+            "CDS_five_utr": 0,
+            "CDS_three_utr": 0,
+            "CDS_no_utr": 22338,
+            "CDS_five_three_utr": 0,
+            "CDS_complete": 19179,
+            "CDS_no-start": 798,
+            "CDS_no-stop": 1628,
+            "CDS_no-start_no-stop": 733,
+            "total_exons": 50539,
+            "total_cds_exons": 50539,
+            "multiple_exon_transcript": 12746,
+            "single_exon_transcript": 9592,
+            "avg_exon_length": 0,
+            "avg_protein_length": 416.12,
+            "functional": {
+                "go_terms": 0,
+                "interproscan": 0,
+                "eggnog": 0,
+                "pfam": 15170,
+                "cazyme": 754,
+                "merops": 760,
+                "busco": 1317,
+                "secretion": 0
+            },
+            "pct_exon_overlap_protein_evidence": 22.7,
+            "avg_exon_lenth": 462.95
+        }
+    }
+}

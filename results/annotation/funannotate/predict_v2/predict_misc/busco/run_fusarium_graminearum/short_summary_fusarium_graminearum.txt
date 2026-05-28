@@ -1,0 +1,15 @@
+# BUSCO version is: 2.0 
+# The lineage dataset is: dikarya_odb9 (Creation date: 2016-02-13, number of species: 75, number of BUSCOs: 1312)
+# To reproduce this run: python /home/22/emccallum/.conda/envs/funannotate_env/lib/python3.8/site-packages/funannotate/aux_scripts/funannotate-BUSCO2.py -i /zfs/home/22/emccallum/fusa-pah-bioinfo/results/annotation/funannotate/predict_v2/predict_misc/genome.softmasked.fa -o fusarium_graminearum -l /home/22/emccallum/funannotate_db/dikarya/ -m genome -c 16 -sp fusarium_graminearum
+#
+# Summarized benchmarking in BUSCO notation for file /zfs/home/22/emccallum/fusa-pah-bioinfo/results/annotation/funannotate/predict_v2/predict_misc/genome.softmasked.fa
+# BUSCO was run in mode: genome
+
+	C:98.3%[S:97.0%,D:1.3%],F:1.0%,M:0.7%,n:1312
+
+	1289	Complete BUSCOs (C)
+	1272	Complete and single-copy BUSCOs (S)
+	17	Complete and duplicated BUSCOs (D)
+	13	Fragmented BUSCOs (F)
+	10	Missing BUSCOs (M)
+	1312	Total BUSCO groups searched
