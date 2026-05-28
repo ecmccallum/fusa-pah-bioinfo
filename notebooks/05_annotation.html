@@ -419,6 +419,10 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
         </tbody>
       </table>
     </div>
+<div class="verdict-info">
+  <strong>Comparison with <em>F. solani</em> SB1 reference annotation.</strong> The <em>F. solani</em> SB1 reference genome (GCF_023522795.1), used by Novogene as the mapping reference for resequencing, carries 18,900 annotated mRNA gene models in its NCBI RefSeq GFF3 annotation file. The v2 predict run produced 22,338 predicted protein-coding gene models — approximately 3,400 more than the reference strain, representing an 18% excess. A proportion of this excess is likely attributable to ab initio over-prediction in the absence of RNA-seq evidence, which is expected for this pipeline configuration. However, some fraction may reflect genuine genomic differences between the PAH-contaminated soil isolate and the SB1 reference strain, which is one of the biological questions this de novo assembly was designed to address. Distinguishing between these two sources will require functional annotation filtering in Stage 6 and discussion with the postdoc regarding the plausibility of the gene count given the assembly statistics.
+</div>
+    
     <div class="verdict-good">
       <strong>BUSCO verdict.</strong> The genome BUSCO score of 98.3% complete indicates a near-complete assembly with respect to conserved fungal core genes. The protein BUSCO score of 97.0% complete with 0% duplication and 0% fragmentation indicates a high-quality predicted gene set. The 0% duplication result in protein mode argues against large-scale duplication of conserved genes, although it does not exclude smaller-scale overprediction of non-BUSCO ORFs. The total gene count of 22,338 is higher than the 12,000–16,000 range reported for many published <em>F. solani</em> genomes and warrants discussion with the postdoc; however, the BUSCO scores argue against a catastrophic annotation failure or major assembly duplication artefact.
     </div>
