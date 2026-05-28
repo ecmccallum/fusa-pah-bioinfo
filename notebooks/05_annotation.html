@@ -18,11 +18,13 @@
     .nav a:hover { text-decoration: underline; }
     .section { margin-bottom: 32px; }
     .section h2 { font-size: 1.05em; font-weight: 600; color: #2d4a3e; border-bottom: 2px solid #c5d9cc; padding-bottom: 8px; margin-bottom: 16px; letter-spacing: 0.02em; }
+    .section h3 { font-size: 0.92em; font-weight: 600; color: #2d4a3e; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.04em; }
     .card { background: #ffffff; border: 1px solid #d8d0c0; border-radius: 8px; padding: 20px; margin-bottom: 14px; }
     .note { background: #fdf6e3; border-left: 4px solid #8b6914; padding: 14px 18px; border-radius: 0 6px 6px 0; margin-bottom: 32px; font-size: 0.91em; color: #5a4a2a; line-height: 1.6; }
     .verdict-good { background: #edf7ee; border-left: 4px solid #2d7a3e; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #1a4a28; line-height: 1.6; margin-bottom: 10px; }
     .verdict-warn { background: #fdf6e3; border-left: 4px solid #c8960a; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #6a4a0a; line-height: 1.6; margin-bottom: 10px; }
     .verdict-info { background: #e8f0f8; border-left: 4px solid #2d5a8a; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #1a3a5a; line-height: 1.6; margin-bottom: 10px; }
+    .verdict-error { background: #fdf0ee; border-left: 4px solid #a03020; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #5a1a0a; line-height: 1.6; margin-bottom: 10px; }
     .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .meta-item .label { color: #8a7a60; margin-bottom: 3px; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; }
     .meta-item .value { color: #2c2416; font-weight: 500; font-size: 0.88em; }
@@ -36,6 +38,7 @@
     .stat .s-value { font-size: 1.1em; font-weight: 600; color: #2d4a3e; }
     .stat .s-note { font-size: 0.75em; color: #8a7a60; margin-top: 3px; }
     .stat-good .s-value { color: #1e6a28; }
+    .stat-warn .s-value { color: #8a6200; }
     .results-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-top: 8px; }
     .results-table th { text-align: left; padding: 8px 12px; background: #f4f1ec; color: #5a4a2a; font-weight: 500; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #d8d0c0; }
     .results-table td { padding: 8px 12px; border-bottom: 1px solid #ede8df; color: #2c2416; vertical-align: top; line-height: 1.55; }
@@ -53,6 +56,18 @@
     .pipeline-step.active { background: #fdf6e3; border-color: #c8960a; }
     .pipeline-step.active .ps-name { color: #8a6200; }
     .pipeline-step.pending { opacity: 0.55; }
+    .report-links { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+    .report-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #f4f1ec; border: 1px solid #d8d0c0; border-radius: 6px; text-decoration: none; color: #2d4a3e; font-size: 0.86em; transition: background 0.15s; }
+    .report-link:hover { background: #e8e2d8; }
+    .report-link .rl-icon { font-size: 1.1em; flex-shrink: 0; }
+    .report-link .rl-label { font-weight: 500; }
+    .report-link .rl-desc { color: #8a7a60; font-size: 0.88em; margin-left: auto; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-top: 8px; }
+    .compare-table th { padding: 8px 12px; background: #2d4a3e; color: #f0ebe0; font-weight: 500; font-size: 0.82em; text-align: left; }
+    .compare-table th.highlight { background: #1e6a28; }
+    .compare-table td { padding: 8px 12px; border-bottom: 1px solid #ede8df; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .improve { color: #1e6a28; font-weight: 600; }
     footer { text-align: center; padding: 32px 20px; color: #a09070; font-size: 0.82em; border-top: 1px solid #d8d0c0; margin-top: 40px; background: #ede8df; }
   </style>
 </head>
@@ -61,7 +76,7 @@
 <header>
   <h1>Stage 5 — Gene Prediction and Annotation</h1>
   <p>Operator: Emma McCallum &nbsp;|&nbsp; UPPA Pyrene HPC Cluster &nbsp;|&nbsp; May 2026</p>
-  <span class="badge badge-active">In Progress</span>
+  <span class="badge badge-active">In Progress — funannotate annotate running</span>
 </header>
 
 <div class="container">
@@ -75,7 +90,7 @@
   </div>
 
   <div class="note">
-    Stage 5 uses Funannotate v1.8.17 to perform ab initio gene prediction and functional annotation on the cleaned assembly. The pipeline runs in five sequential steps: clean → sort → mask → predict → annotate. No RNA-seq data is available; gene prediction relies entirely on ab initio methods.
+    Stage 5 uses Funannotate v1.8.17 to perform ab initio gene prediction and functional annotation on the repeat-masked assembly. The pipeline runs in five sequential steps: clean → sort → mask → predict → annotate. No RNA-seq data is available; gene prediction relies on ab initio methods supplemented by protein evidence from UniProt.
   </div>
 
   <!-- Pipeline progress -->
@@ -85,8 +100,8 @@
       <div class="pipeline-step done"><div class="ps-num">5.1</div><div class="ps-name">clean</div></div>
       <div class="pipeline-step done"><div class="ps-num">5.2</div><div class="ps-name">sort</div></div>
       <div class="pipeline-step done"><div class="ps-num">5.3</div><div class="ps-name">mask</div></div>
-      <div class="pipeline-step active"><div class="ps-num">5.4</div><div class="ps-name">predict</div></div>
-      <div class="pipeline-step pending"><div class="ps-num">5.5</div><div class="ps-name">annotate</div></div>
+      <div class="pipeline-step done"><div class="ps-num">5.4</div><div class="ps-name">predict</div></div>
+      <div class="pipeline-step active"><div class="ps-num">5.5</div><div class="ps-name">annotate</div></div>
     </div>
   </div>
 
@@ -100,7 +115,9 @@
         <div class="meta-item"><div class="label">Input assembly</div><div class="value">fusarium_final_assembly.fasta</div></div>
         <div class="meta-item"><div class="label">Platform</div><div class="value">Pyrene HPC, standard partition</div></div>
         <div class="meta-item"><div class="label">RNA-seq</div><div class="value">None — ab initio only</div></div>
-        <div class="meta-item"><div class="label">Status</div><div class="value"><span class="status-badge status-badge-active">In Progress</span></div></div>
+        <div class="meta-item"><div class="label">Protein evidence</div><div class="value">fusarium_solani_uniprot.fasta (62,404 sequences)</div></div>
+        <div class="meta-item"><div class="label">Authoritative predict run</div><div class="value">v2 — SLURM job 1577440</div></div>
+        <div class="meta-item"><div class="label">Status</div><div class="value"><span class="status-badge status-badge-active">funannotate annotate running</span></div></div>
       </div>
     </div>
   </div>
@@ -127,25 +144,25 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
         <tbody>
           <tr><td>funannotate</td><td class="mono">1.8.17</td></tr>
           <tr><td>Python</td><td class="mono">3.8.20</td></tr>
-          <tr><td>augustus</td><td class="mono">3.5.0</td></tr>
+          <tr><td>Augustus</td><td class="mono">3.5.0</td></tr>
           <tr><td>GeneMark-ES</td><td class="mono">4.71_lic</td></tr>
           <tr><td>minimap2</td><td class="mono">2.31-r1302</td></tr>
-          <tr><td>hmmscan / hmmsearch (HMMER)</td><td class="mono">3.4</td></tr>
+          <tr><td>HMMER (hmmscan / hmmsearch)</td><td class="mono">3.4</td></tr>
           <tr><td>diamond</td><td class="mono">2.2.0</td></tr>
-          <tr><td>glimmerhmm</td><td class="mono">3.0.4</td></tr>
-          <tr><td>snap</td><td class="mono">2006-07-28</td></tr>
+          <tr><td>GlimmerHMM</td><td class="mono">3.0.4</td></tr>
+          <tr><td>SNAP</td><td class="mono">2006-07-28</td></tr>
           <tr><td>CodingQuarry</td><td class="mono">2.0</td></tr>
-          <tr><td>eggNOG mapper</td><td class="mono">2.1.13 — installed, database unavailable (see note)</td></tr>
+          <tr><td>eggNOG-mapper</td><td class="mono">2.1.13 — installed, database unavailable (see note below)</td></tr>
         </tbody>
       </table>
     </div>
 
-    <div class="verdict-warn">
-      <strong>eggNOG database unavailable.</strong> eggNOG mapper v2.1.13 was installed successfully but the eggNOG database could not be downloaded — <code>eggnogdb.embl.de</code> is blocked at the cluster network level on both login and compute nodes. This is a Pyrene infrastructure limitation. Funannotate annotate will proceed without eggNOG; all other installed databases remain available.
+    <div class="verdict-error">
+      <strong>eggNOG database permanently unavailable.</strong> eggNOG-mapper v2.1.13 was installed successfully but the eggNOG database cannot be downloaded — <code>eggnogdb.embl.de</code> is blocked at the cluster network level on both login and compute nodes. This was confirmed through multiple attempts across interactive sessions and SLURM jobs, with consistent DNS resolution failures. This is a permanent Pyrene infrastructure constraint, not a transient error. eggNOG and KEGG annotation are excluded from this pipeline. All other installed funannotate databases remain available.
     </div>
 
     <div class="verdict-info">
-      <strong>GeneMark-ES configuration.</strong> GeneMark-ES v4.71 required manual setup: academic license obtained from topaz.gatech.edu, binary package transferred to Pyrene, and Perl script shebangs updated using the included <code>change_path_in_perl_scripts.pl</code> to point to the conda Perl installation (which has the required YAML.pm module). Confirmed working via <code>funannotate check --show-versions</code>.
+      <strong>GeneMark-ES configuration.</strong> GeneMark-ES v4.71 required manual setup: academic license obtained from topaz.gatech.edu, binary package transferred to Pyrene, and Perl script shebangs updated using the included <code>change_path_in_perl_scripts.pl</code> to point to the conda Perl installation (which carries the required YAML.pm module). Confirmed working via <code>funannotate check --show-versions</code>, which reported <code>gmes_petap.pl: 4.71_lic</code>.
     </div>
   </div>
 
@@ -172,7 +189,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
           <tr><td>gene2product</td><td class="mono">text</td><td class="mono">1.98</td><td class="mono">2026-05-18</td><td class="mono">34,505</td></tr>
         </tbody>
       </table>
-      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">NR, KEGG, CARD, and BacMet (recommended by Bang Liu) are not part of <code>funannotate setup</code> and were not installed. These could be incorporated in a future annotation pass if required.</p>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">NR, KEGG, CARD, and BacMet are not part of <code>funannotate setup</code> and were not installed. These could be incorporated in a future annotation pass if required.</p>
     </div>
   </div>
 
@@ -206,13 +223,13 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
       <div class="stat-grid">
         <div class="stat"><div class="s-label">Input contigs</div><div class="s-value">10,909</div></div>
         <div class="stat"><div class="s-label">Degenerate removed</div><div class="s-value">15</div><div class="s-note">1–3 nucleotides only</div></div>
-        <div class="stat stat-good"><div class="s-label">Duplicates found</div><div class="s-value">0</div><div class="s-note">Assembly is clean</div></div>
+        <div class="stat stat-good"><div class="s-label">Duplicates found</div><div class="s-value">0</div><div class="s-note">Under this strategy</div></div>
         <div class="stat stat-good"><div class="s-label">Contigs written</div><div class="s-value">4,308</div></div>
         <div class="stat stat-good"><div class="s-label">N50</div><div class="s-value">629,823 bp</div></div>
       </div>
     </div>
     <div class="verdict-good">
-      <strong>Clean step verdict.</strong> 15 degenerate contigs removed; 0 duplicate contigs found by minimap2. The assembly is clean with no redundant sequences.
+      <strong>Clean step verdict.</strong> 15 degenerate contigs removed. No duplicated contigs were detected by funannotate clean under this comparison strategy (minimap2 alignment of scaffolds shorter than N50).
     </div>
   </div>
 
@@ -221,7 +238,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
     <h2>5.2 funannotate sort</h2>
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        The sort step renames contig headers from verbose SPAdes identifiers (e.g. <code>NODE_1_length_5050286_cov_47.3</code>) to short standardised identifiers (<code>scaffold_1</code>, <code>scaffold_2</code>, etc.) and sorts contigs by length. Many downstream tools cannot handle long or special-character contig names. A known bug in funannotate v1.8.17 causes a <code>TypeError</code> if <code>--minlen</code> is not explicitly passed; fixed with <code>--minlen 0</code>.
+        The sort step renames contig headers from verbose SPAdes identifiers (e.g. <code>NODE_1_length_5050286_cov_47.3</code>) to short standardised identifiers (<code>scaffold_1</code>, <code>scaffold_2</code>, etc.) and sorts contigs by descending length. Many downstream tools cannot handle long or special-character contig names. A known bug in funannotate v1.8.17 causes a <code>TypeError</code> if <code>--minlen</code> is not explicitly passed; fixed with <code>--minlen 0</code>.
       </p>
       <pre>funannotate sort \
   -i results/annotation/funannotate/fusarium.clean.fasta \
@@ -240,7 +257,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
     <h2>5.3 funannotate mask — SLURM job 1572174</h2>
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        The mask step identifies repetitive regions (transposable elements, simple repeats) and soft-masks them with lowercase letters. Gene predictors ignore lowercase-masked regions, preventing false gene calls within repeat elements. Funannotate uses <strong>tantan</strong> for soft-masking against the installed repeat database.
+        The mask step identifies repetitive regions (transposable elements, simple repeats) using <strong>tantan</strong> and soft-masks them with lowercase letters. Soft-masking marks repetitive regions in lowercase so downstream gene predictors can treat these regions differently and reduce false gene calls in repetitive sequence.
       </p>
       <pre>funannotate mask \
   -i results/annotation/funannotate/fusarium.sorted.fasta \
@@ -252,24 +269,29 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
       <div class="stat-grid">
         <div class="stat stat-good"><div class="s-label">Scaffolds</div><div class="s-value">4,308</div></div>
         <div class="stat stat-good"><div class="s-label">Assembly size</div><div class="s-value">57.4 Mb</div></div>
-        <div class="stat"><div class="s-label">Masked repeats</div><div class="s-value">2.08 Mb</div><div class="s-note">3.62% of assembly</div></div>
+        <div class="stat"><div class="s-label">Masked repeats</div><div class="s-value">3.62%</div><div class="s-note">2.08 Mb</div></div>
       </div>
     </div>
-    <div class="verdict-good">
-      <strong>Mask verdict.</strong> 3.62% repeat content is on the lower end for <em>Fusarium</em> (published <em>F. solani</em> genomes typically 5–15%), consistent with a high-quality assembly.
+    <div class="verdict-warn">
+      <strong>Mask verdict.</strong> The masked repeat fraction was 3.62%. This is relatively low for <em>Fusarium</em> and should be interpreted cautiously — repeat detection depends strongly on the masking method and database used. tantan is a conservative masker and may not detect all species-specific repeat families.
     </div>
   </div>
 
   <!-- Predict -->
   <div class="section">
-    <h2>5.4 funannotate predict — SLURM job 1572453</h2>
+    <h2>5.4 funannotate predict</h2>
+
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        The predict step is the core gene-finding stage. Funannotate runs multiple ab initio predictors — Augustus, GeneMark-ES, SNAP, GlimmerHMM, and CodingQuarry — and uses EvidenceModeler to produce a consensus gene set. Gene models are assigned the prefix <code>FUS</code>.
+        The predict step is the core gene-finding stage. Funannotate runs multiple ab initio predictors — Augustus, GeneMark-ES, SNAP, GlimmerHMM, and CodingQuarry — trains gene models using BUSCO outgroups, and uses EvidenceModeler (EVM) to produce a consensus gene set weighted by predictor reliability. Gene models are assigned the locus tag prefix <code>FUS</code>.
       </p>
-      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        Note on flag usage: <code>-s</code> sets the organism label written into output files. <code>--augustus_species</code> and <code>--busco_seed_species</code> independently specify which pre-trained models to use for prediction — <em>F. graminearum</em> is the closest available trained model to <em>F. solani</em>.
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">
+        <strong>Note on flags:</strong> <code>-s</code> sets the organism label written into output files. <code>--augustus_species</code> and <code>--busco_seed_species</code> independently specify which pre-trained models to use — <em>F. graminearum</em> is the closest available trained species in the Augustus database. <code>--protein_evidence</code> passes external protein sequences to EVM to provide additional support for evaluating gene models.
       </p>
+    </div>
+
+    <h3>Predict v1 — SLURM job 1572453</h3>
+    <div class="card">
       <pre>funannotate predict \
   -i results/annotation/funannotate/fusarium.masked.fasta \
   -o results/annotation/funannotate/predict \
@@ -278,28 +300,232 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
   --busco_seed_species fusarium_graminearum \
   --cpus 16 \
   --name FUS</pre>
-      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">SLURM job 1572453 — standard partition, 16 CPUs, 32G RAM, 48 hour time limit. Status: pending → running.</p>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">Standard partition, 16 CPUs, 32G RAM. Runtime: ~3.5 hours on node n004.</p>
+    </div>
+    <div class="card">
+      <div class="stat-grid">
+        <div class="stat"><div class="s-label">mRNA genes</div><div class="s-value">22,319</div></div>
+        <div class="stat"><div class="s-label">tRNA</div><div class="s-value">341</div></div>
+        <div class="stat stat-good"><div class="s-label">Complete CDS</div><div class="s-value">19,152</div></div>
+        <div class="stat"><div class="s-label">Avg protein</div><div class="s-value">415.62 aa</div></div>
+        <div class="stat stat-warn"><div class="s-label">Protein evidence overlap</div><div class="s-value">3.0%</div><div class="s-note">Exon bp overlap</div></div>
+      </div>
     </div>
     <div class="verdict-warn">
-      <strong>Results pending.</strong> Job 1572453 submitted and running. Output will include a GFF3 gene annotation file and a predicted protein FASTA in <code>results/annotation/funannotate/predict/</code>. Expected gene count for a <em>Fusarium solani</em> genome: approximately 12,000–15,000 gene models.
+      <strong>Reason for rerun.</strong> The v1 command did not include external protein evidence, so EVM had less independent protein-level support for evaluating gene models. 62,404 <em>F. solani</em> protein sequences were subsequently downloaded from UniProt (organism_id:5507) and incorporated in v2.
+    </div>
+
+    <h3>Predict v2 — SLURM job 1577440 — Current authoritative result</h3>
+    <div class="card">
+      <pre>funannotate predict \
+  -i results/annotation/funannotate/fusarium.masked.fasta \
+  -o results/annotation/funannotate/predict_v2 \
+  -s "Fusarium solani" \
+  --augustus_species fusarium_graminearum \
+  --busco_seed_species fusarium_graminearum \
+  --protein_evidence data/fusarium_solani_uniprot.fasta \
+  --cpus 16 \
+  --name FUS</pre>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">Standard partition, 16 CPUs, 32G RAM. Runtime: ~2.5 hours on node n020.</p>
+    </div>
+
+    <div class="card">
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">EVM predictor weights and counts</p>
+      <table class="results-table">
+        <thead><tr><th>Source</th><th>Weight</th><th>Count</th></tr></thead>
+        <tbody>
+          <tr><td>Augustus</td><td>1</td><td class="mono">20,387</td></tr>
+          <tr><td>Augustus HiQ</td><td>2</td><td class="mono">1,703</td></tr>
+          <tr><td>GeneMark</td><td>1</td><td class="mono">23,407</td></tr>
+          <tr><td>GlimmerHMM</td><td>1</td><td class="mono">21,849</td></tr>
+          <tr><td>SNAP</td><td>1</td><td class="mono">20,625</td></tr>
+          <tr><td><strong>Total</strong></td><td>—</td><td class="mono"><strong>87,971</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">267 gene models removed post-EVM: 10 too short (&lt;50 aa), 34 spanning assembly gaps, 223 matching transposable elements.</p>
+    </div>
+
+    <div class="card">
+      <div class="stat-grid">
+        <div class="stat stat-good"><div class="s-label">mRNA genes</div><div class="s-value">22,338</div></div>
+        <div class="stat"><div class="s-label">tRNA</div><div class="s-value">341</div></div>
+        <div class="stat stat-good"><div class="s-label">Complete CDS</div><div class="s-value">19,179</div></div>
+        <div class="stat"><div class="s-label">Avg protein</div><div class="s-value">416.12 aa</div></div>
+        <div class="stat stat-good"><div class="s-label">Protein evidence overlap</div><div class="s-value">22.7%</div><div class="s-note">Exon bp overlap</div></div>
+        <div class="stat"><div class="s-label">Assembly GC</div><div class="s-value">53.63%</div></div>
+        <div class="stat stat-good"><div class="s-label">N50</div><div class="s-value">635,698 bp</div></div>
+        <div class="stat"><div class="s-label">L50</div><div class="s-value">24 contigs</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Validation warnings (NCBI tbl2asn)</p>
+      <table class="results-table">
+        <thead><tr><th>Severity</th><th>Code</th><th>Count</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td class="warn">WARNING</td><td class="mono">SEQ_FEAT.PartialProblem</td><td>89</td><td>Partial gene models at contig boundaries — expected in fragmented assembly</td></tr>
+          <tr><td class="warn">WARNING</td><td class="mono">SEQ_FEAT.ShortExon</td><td>166</td><td>Short exons — expected without RNA-seq support</td></tr>
+          <tr><td class="muted">INFO</td><td class="mono">SEQ_FEAT.RareSpliceConsensusDonor</td><td>762</td><td>Non-canonical splice sites — informational only</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>v1 vs v2 comparison</h3>
+    <div class="card">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>v1 (no protein evidence)</th>
+            <th class="highlight">v2 (+ UniProt F. solani)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>mRNA genes</td><td>22,319</td><td class="improve">22,338</td></tr>
+          <tr><td>Complete CDS</td><td>19,152</td><td class="improve">19,179</td></tr>
+          <tr><td>Average protein length</td><td>415.62 aa</td><td class="improve">416.12 aa</td></tr>
+          <tr><td>Exon / protein evidence overlap</td><td class="warn">3.0%</td><td class="improve">22.7% (+7.5×)</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">Gene count is essentially unchanged between runs, indicating that protein evidence refined existing predictions rather than inflating the gene set. v2 is the current authoritative result for all downstream analyses.</p>
+    </div>
+
+    <h3>BUSCO assessment (run internally by funannotate)</h3>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
+        BUSCO v2.0 was run internally by funannotate against the <strong>dikarya_odb9</strong> lineage dataset (1,312 core genes, 75 species). Results are identical between v1 and v2 because the underlying assembly and Augustus training parameters are the same. BUSCO results are stored in the predict_misc directory of each run — they do not require a separate job.
+      </p>
+      <table class="results-table">
+        <thead><tr><th>Mode</th><th>Complete</th><th>Single-copy</th><th>Duplicated</th><th>Fragmented</th><th>Missing</th><th>n</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Genome</td>
+            <td class="good">98.3%</td>
+            <td class="good">97.0%</td>
+            <td>1.3%</td>
+            <td>1.0%</td>
+            <td class="good">0.7%</td>
+            <td class="mono">1,312</td>
+          </tr>
+          <tr>
+            <td>Proteins</td>
+            <td class="good">97.0%</td>
+            <td class="good">97.0%</td>
+            <td class="good">0.0%</td>
+            <td class="good">0.0%</td>
+            <td>3.0%</td>
+            <td class="mono">1,312</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="verdict-good">
+      <strong>BUSCO verdict.</strong> The genome BUSCO score of 98.3% complete indicates a near-complete assembly with respect to conserved fungal core genes. The protein BUSCO score of 97.0% complete with 0% duplication and 0% fragmentation indicates a high-quality predicted gene set. The 0% duplication result in protein mode argues against large-scale duplication of conserved genes, although it does not exclude smaller-scale overprediction of non-BUSCO ORFs. The total gene count of 22,338 is higher than the 12,000–16,000 range reported for many published <em>F. solani</em> genomes and warrants discussion with the postdoc; however, the BUSCO scores argue against a catastrophic annotation failure or major assembly duplication artefact.
+    </div>
+
+    <h3>Predict v2 — Report links</h3>
+    <div class="card">
+      <div class="report-links">
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.stats.json">
+          <span class="rl-icon">📊</span>
+          <span class="rl-label">Fusarium_solani.stats.json</span>
+          <span class="rl-desc">Full predict v2 statistics</span>
+        </a>
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.gff3">
+          <span class="rl-icon">🧬</span>
+          <span class="rl-label">Fusarium_solani.gff3</span>
+          <span class="rl-desc">Gene annotation coordinates</span>
+        </a>
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.proteins.fa">
+          <span class="rl-icon">🔬</span>
+          <span class="rl-label">Fusarium_solani.proteins.fa</span>
+          <span class="rl-desc">22,338 predicted proteins</span>
+        </a>
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.error.summary.txt">
+          <span class="rl-icon">⚠️</span>
+          <span class="rl-label">Fusarium_solani.error.summary.txt</span>
+          <span class="rl-desc">tbl2asn validation warnings</span>
+        </a>
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_misc/busco_proteins/run_fusarium_graminearum/short_summary_fusarium_graminearum.txt">
+          <span class="rl-icon">✅</span>
+          <span class="rl-label">BUSCO protein summary (v2)</span>
+          <span class="rl-desc">dikarya_odb9 — C:97.0% S:97.0% D:0.0%</span>
+        </a>
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_misc/busco/run_fusarium_graminearum/short_summary_fusarium_graminearum.txt">
+          <span class="rl-icon">✅</span>
+          <span class="rl-label">BUSCO genome summary (v2)</span>
+          <span class="rl-desc">dikarya_odb9 — C:98.3% S:97.0% D:1.3%</span>
+        </a>
+        <a class="report-link" href="../data/fusarium_solani_uniprot.fasta">
+          <span class="rl-icon">📥</span>
+          <span class="rl-label">fusarium_solani_uniprot.fasta</span>
+          <span class="rl-desc">62,404 UniProt F. solani proteins used as evidence</span>
+        </a>
+      </div>
     </div>
   </div>
 
   <!-- Annotate -->
-
   <div class="section">
-  <h2>5.5 funannotate annotate — Pending</h2>
-  <div class="card">
-    <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:10px;">
-      Once <code>funannotate predict</code> is complete, the <code>funannotate annotate</code> step will assign functional descriptions to the predicted gene models by searching against the installed Funannotate databases, including Pfam, InterPro, UniProt/Swiss-Prot, dbCAN, MEROPS, GO, MiBIG, and gene2product.
-    </p>
-    <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:10px;">
-      This step will convert the predicted gene set into a functionally annotated genome annotation, producing annotated GFF3, GenBank, protein FASTA, transcript FASTA, and related summary files. These outputs will be used for downstream candidate gene screening in Stage 6.
-    </p>
-    <p style="font-size:0.88em;color:#3a3020;line-height:1.7;">
-      eggNOG mapper is not part of the current Funannotate environment and will not be included in this annotation step. It may be added later as a separate downstream orthology-based annotation analysis if the required eggNOG database can be made available on Pyrene.
-    </p>
+    <h2>5.5 funannotate annotate — Running</h2>
+    <div class="card">
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
+        Following successful completion and quality assessment of predict v2, <code>funannotate annotate</code> was submitted to assign functional descriptions to the predicted gene models. This step searches the predicted proteins against the installed funannotate databases to assign Pfam domains, GO terms, MEROPS protease families, dbCAN carbohydrate-active enzyme families, MiBIG biosynthetic gene cluster matches, UniProt/Swiss-Prot descriptions, and gene2product names.
+      </p>
+      <pre>funannotate annotate \
+  -i results/annotation/funannotate/predict_v2 \
+  --cpus 16 \
+  --busco_db dikarya</pre>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">Standard partition, 16 CPUs, 32G RAM, 24 hour time limit. <code>--busco_db dikarya</code> matches the dikarya_odb9 lineage used internally during predict.</p>
+    </div>
+
+    <div class="verdict-warn">
+      <strong>InterPro XML vs InterProScan — important distinction.</strong> The funannotate database includes an InterPro XML file (v108.0) which provides cross-reference data for domain naming. This is <em>not</em> equivalent to running InterProScan. InterProScan performs active domain searches against Pfam, PANTHER, TIGRFAM, and other member databases using the query protein sequences. InterProScan is not installed on Pyrene and represents a significant gap in this annotation. Resolution with the postdoc is required before Stage 6 analysis is considered complete.
+    </div>
+
+    <div class="verdict-warn">
+      <strong>eggNOG excluded.</strong> eggNOG-based orthology annotation is not included in this annotate run due to the confirmed permanent database access block at cluster level. This means GO term and KEGG pathway assignments from orthology mapping will be absent from the annotation output.
+    </div>
+
+    <div class="card">
+      <p style="font-size:0.88em;color:#8a7a60;line-height:1.7;">Output will be written to <code>results/annotation/funannotate/predict_v2/annotate_results/</code> upon completion. Expected output files include annotated GFF3, GenBank, protein FASTA, transcript FASTA, and a functional annotation summary. These will form the primary input for candidate PAH-relevant enzyme screening in Stage 6.</p>
+    </div>
   </div>
+
+  <!-- Output files -->
+  <div class="section">
+    <h2>Output Files</h2>
+    <div class="card">
+      <table class="results-table">
+        <thead><tr><th>File</th><th>Path</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Cleaned assembly</td><td class="mono">results/annotation/funannotate/fusarium.clean.fasta</td><td class="good">✓</td></tr>
+          <tr><td>Sorted assembly</td><td class="mono">results/annotation/funannotate/fusarium.sorted.fasta</td><td class="good">✓</td></tr>
+          <tr><td>Masked assembly</td><td class="mono">results/annotation/funannotate/fusarium.masked.fasta</td><td class="good">✓</td></tr>
+          <tr><td>Predicted proteins (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.proteins.fa</td><td class="good">✓</td></tr>
+          <tr><td>mRNA transcripts (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.mrna-transcripts.fa</td><td class="good">✓</td></tr>
+          <tr><td>Gene annotation GFF3 (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.gff3</td><td class="good">✓</td></tr>
+          <tr><td>GenBank file (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.gbk</td><td class="good">✓</td></tr>
+          <tr><td>Predict stats JSON (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.stats.json</td><td class="good">✓</td></tr>
+          <tr><td>UniProt F. solani proteins</td><td class="mono">data/fusarium_solani_uniprot.fasta</td><td class="good">✓</td></tr>
+          <tr><td>BUSCO genome summary (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_misc/busco/run_fusarium_graminearum/short_summary_fusarium_graminearum.txt</td><td class="good">✓</td></tr>
+          <tr><td>BUSCO protein summary (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_misc/busco_proteins/run_fusarium_graminearum/short_summary_fusarium_graminearum.txt</td><td class="good">✓</td></tr>
+          <tr><td>Annotate results</td><td class="mono">results/annotation/funannotate/predict_v2/annotate_results/</td><td class="warn">⏳ Pending</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Conclusions -->
+  <div class="section">
+    <h2>Conclusions</h2>
+    <div class="card">
+      <p style="font-size:0.91em;color:#3a3020;line-height:1.8;">
+        Gene prediction is complete. The v2 predict run produced 22,338 predicted protein-coding gene models and 341 tRNAs from a 57.4 Mb assembly. BUSCO scores of 98.3% complete at genome level and 97.0% complete at protein level, with low duplication, indicate that the assembly and conserved gene space are highly complete. The 22.7% exon-protein evidence overlap represents a 7.5-fold improvement over v1 and indicates substantially improved protein support for the v2 gene models. The total gene count remains higher than expected for many published <em>Fusarium</em> genomes and should be discussed with the postdoc, but the BUSCO results argue against major assembly duplication or a catastrophic annotation failure. Functional annotation via <code>funannotate annotate</code> is currently running, and its outputs will be used for candidate PAH-relevant enzyme screening in Stage 6.
+      </p>
+    </div>
+  </div>
+
 </div>
 
 <footer>
