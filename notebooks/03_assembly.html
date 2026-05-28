@@ -87,7 +87,7 @@
     <div class="step">
       <h3>Attempts 1–4 — OOM kills on standard partition</h3>
       <p>Four successive SLURM jobs (IDs 1467968, 1471686, 1471906, 1476604) failed with OS return value -9 (SIGKILL). SLURM logs confirmed out-of-memory kills via cgroup handler. Jobs were submitted to the standard partition with 64G reserved and SPAdes told to use 48G — insufficient for the scaffolding step.</p>
-      <div class="error-box">slurmstepd: error: Detected 1 oom-kill event(s) in step XXXXXX.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.</div>
+      <div class="error-box">slurmstepd: error: Detected 1 oom-kill event(s) in step XXXXXX.batch cgroup. Some processes may have been killed by the cgroup out-of-memory handler.</div>
       <p>Crucially, k-mer graph construction at K21, K33, K55, and K77 completed successfully across these runs and was preserved on disk.</p>
     </div>
 
