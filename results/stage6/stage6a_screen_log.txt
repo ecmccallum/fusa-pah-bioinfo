@@ -1,0 +1,61 @@
+Stage 6A — PAH Candidate Screen
+Run: 2026-05-28 16:55:17
+GFF3: results/annotation/funannotate/predict_v2/annotate_results/Fusarium_solani.gff3
+Target families: 33
+
+Total mRNA features processed: 22338
+Total candidate hits: 1824
+Contamination-flagged hits: 22
+
+Hits by family (sorted by count):
+  MFS_transporter: 653 (Low)
+  SDR: 331 (Low)
+  ABC_transporter: 148 (Low)
+  formaldehyde_dehydrogenase: 135 (Medium)
+  CYP_general: 130 (Medium)
+  alcohol_oxidase: 112 (Medium)
+  epoxide_hydrolase: 77 (Medium)
+  aldehyde_dehydrogenase: 70 (Low)
+  GST: 50 (Medium)
+  aryl_sulfatase: 24 (Medium)
+  lignin_peroxidase: 23 (Medium)
+  laccase_MCO: 19 (Medium)
+  dioxygenase: 15 (Low) [CONTAMINATION RISK]
+  peroxiredoxin: 14 (Low)
+  catalase: 11 (Low)
+  FAD_monooxygenase: 10 (Medium)
+  phenol_monooxygenase: 10 (Medium)
+  bacterial_contamination_marker: 7 (Low) [CONTAMINATION RISK]
+  SOD: 6 (Low)
+  manganese_peroxidase: 5 (Medium)
+  efflux_pump: 4 (Low)
+  glutathione_peroxidase: 4 (Low)
+  thioredoxin_glutaredoxin: 3 (Low)
+  UGT: 2 (Medium)
+  DyP_peroxidase: 1 (Medium)
+  CYP_reductase: 1 (Medium)
+
+Hits by section:
+  0_contamination_marker: 7
+  1_oxidative: 311
+  2_downstream: 689
+  3_aromatic_contamination_risk: 15
+  4_transport: 805
+  5_stress_defence: 38
+
+Output files:
+  results/stage6/candidate_keyword_domain_hits.tsv
+  results/stage6/candidate_family_summary.tsv
+  results/stage6/stage6a_screen_log.txt
+
+IMPORTANT: All candidates are provisional.
+No hit should be interpreted as a confirmed PAH-degradation
+gene without experimental validation.
+
+evidence_strength values:
+  keyword_only       — matched by product/note text only
+  pfam_only          — matched by Pfam domain accession only
+  keyword_plus_pfam  — matched by both (stronger evidence)
+
+default_confidence reflects family-level prior from Stage 6 plan.
+No automatic upgrades are applied — manual review required.

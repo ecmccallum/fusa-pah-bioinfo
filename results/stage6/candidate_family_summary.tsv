@@ -1,0 +1,34 @@
+section	family	hit_count	default_confidence	contamination_risk	notes
+0_contamination_marker	bacterial_contamination_marker	7	Low	True	Likely Methylorubrum populi contamination — verify scaffold GC and taxonomy
+1_oxidative	CYP504	0	High	False	High-priority — benzoate/aromatic compound metabolism (Moktali 2012)
+1_oxidative	CYP5144	0	High	False	High-priority — documented PAH-related roles (Moktali 2012)
+1_oxidative	CYP52	0	High	False	High-priority — alkane/fatty acid hydroxylation (Moktali 2012)
+1_oxidative	CYP53	0	High	False	High-priority — benzoate/xenobiotic hydroxylation (Moktali 2012)
+1_oxidative	CYP_general	130	Medium	False	All CYPs share PF00067. Subfamily assignment requires FCPD. monooxygenase keyword kept intentionally — clean up at manual review stage.
+1_oxidative	CYP_reductase	1	Medium	False	Supporting evidence — redox partner for CYPs (Vergara-Fernandez 2019)
+1_oxidative	DyP_peroxidase	1	Medium	False	
+1_oxidative	FAD_monooxygenase	10	Medium	False	Includes salicylate-1-monooxygenase
+1_oxidative	alcohol_oxidase	112	Medium	False	Vergara-Fernandez 2019
+1_oxidative	laccase_MCO	19	Medium	False	Upgrade to High if secretion signal present
+1_oxidative	lignin_peroxidase	23	Medium	False	
+1_oxidative	manganese_peroxidase	5	Medium	False	Upgrade if secretion signal present
+1_oxidative	phenol_monooxygenase	10	Medium	False	Annotated in F. solani (San Martin-Davison 2024)
+2_downstream	GST	50	Medium	False	Core conjugation/detoxification family
+2_downstream	SDR	331	Low	False	Very large superfamily — Pfam support required; keyword alone not meaningful
+2_downstream	UGT	2	Medium	False	Phase II conjugation
+2_downstream	aldehyde_dehydrogenase	70	Low	False	Large family — keyword match alone insufficient; require Pfam support for meaningful hits
+2_downstream	aryl_sulfatase	24	Medium	False	Han et al. 2026 — 6-hydroxybenzo[a]pyrene sulfate metabolite
+2_downstream	epoxide_hydrolase	77	Medium	False	Downstream of CYP-mediated hydroxylation. ' eh ' keyword removed — too short, risk of false matches.
+2_downstream	formaldehyde_dehydrogenase	135	Medium	False	Vergara-Fernandez 2019 — downstream of methanol oxidase
+3_aromatic_contamination_risk	aromatic_oxygenase	0	Low	True	HIGH contamination risk — bacterial pathway
+3_aromatic_contamination_risk	catechol_related	0	Low	True	HIGH contamination risk — predominantly bacterial pathways
+3_aromatic_contamination_risk	dioxygenase	15	Low	True	HIGH contamination risk — check BLAST hit taxonomy and scaffold GC content
+4_transport	ABC_transporter	148	Low	False	Broad family — relevant for PAH efflux/tolerance. Report separately.
+4_transport	MFS_transporter	653	Low	False	Report separately from catalytic enzymes
+4_transport	PDR_transporter	0	Low	False	Fungal xenobiotic efflux
+4_transport	efflux_pump	4	Low	False	
+5_stress_defence	SOD	6	Low	False	
+5_stress_defence	catalase	11	Low	False	General stress response — expected in any fungal genome
+5_stress_defence	glutathione_peroxidase	4	Low	False	
+5_stress_defence	peroxiredoxin	14	Low	False	
+5_stress_defence	thioredoxin_glutaredoxin	3	Low	False	
