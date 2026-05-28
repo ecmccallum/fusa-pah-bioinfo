@@ -76,7 +76,7 @@
 <header>
   <h1>Stage 5 — Gene Prediction and Annotation</h1>
   <p>Operator: Emma McCallum &nbsp;|&nbsp; UPPA Pyrene HPC Cluster &nbsp;|&nbsp; May 2026</p>
-  <span class="badge badge-active">In Progress — funannotate annotate running</span>
+  <span class="badge">Complete</span>
 </header>
 
 <div class="container">
@@ -101,7 +101,7 @@
       <div class="pipeline-step done"><div class="ps-num">5.2</div><div class="ps-name">sort</div></div>
       <div class="pipeline-step done"><div class="ps-num">5.3</div><div class="ps-name">mask</div></div>
       <div class="pipeline-step done"><div class="ps-num">5.4</div><div class="ps-name">predict</div></div>
-      <div class="pipeline-step active"><div class="ps-num">5.5</div><div class="ps-name">annotate</div></div>
+      <div class="pipeline-step done"><div class="ps-num">5.5</div><div class="ps-name">annotate</div></div>
     </div>
   </div>
 
@@ -117,7 +117,7 @@
         <div class="meta-item"><div class="label">RNA-seq</div><div class="value">None — ab initio only</div></div>
         <div class="meta-item"><div class="label">Protein evidence</div><div class="value">fusarium_solani_uniprot.fasta (62,404 sequences)</div></div>
         <div class="meta-item"><div class="label">Authoritative predict run</div><div class="value">v2 — SLURM job 1577440</div></div>
-        <div class="meta-item"><div class="label">Status</div><div class="value"><span class="status-badge status-badge-active">funannotate annotate running</span></div></div>
+        <div class="meta-item"><div class="label">Status</div><div class="value"><span class="status-badge">Complete</span></div></div>
       </div>
     </div>
   </div>
@@ -419,10 +419,11 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
         </tbody>
       </table>
     </div>
-<div class="verdict-info">
-  <strong>Comparison with <em>F. solani</em> SB1 reference annotation.</strong> The <em>F. solani</em> SB1 reference genome (GCF_023522795.1), used by Novogene as the mapping reference for resequencing, carries 18,900 annotated mRNA gene models in its NCBI RefSeq GFF3 annotation file. The v2 predict run produced 22,338 predicted protein-coding gene models — approximately 3,400 more than the reference strain, representing an 18% excess. A proportion of this excess is likely attributable to ab initio over-prediction in the absence of RNA-seq evidence, which is expected for this pipeline configuration. However, some fraction may reflect genuine genomic differences between the PAH-contaminated soil isolate and the SB1 reference strain, which is one of the biological questions this de novo assembly was designed to address. Distinguishing between these two sources will require functional annotation filtering in Stage 6 and discussion with the postdoc regarding the plausibility of the gene count given the assembly statistics.
-</div>
-    
+
+    <div class="verdict-info">
+      <strong>Comparison with <em>F. solani</em> SB1 reference annotation.</strong> The <em>F. solani</em> SB1 reference genome (GCF_023522795.1), used by Novogene as the mapping reference for resequencing, carries 18,900 annotated mRNA gene models in its NCBI RefSeq GFF3 annotation file. The v2 predict run produced 22,338 predicted protein-coding gene models — approximately 3,400 more than the reference strain, representing an 18% excess. A proportion of this excess is likely attributable to ab initio over-prediction in the absence of RNA-seq evidence, which is expected for this pipeline configuration. However, some fraction may reflect genuine genomic differences between the PAH-contaminated soil isolate and the SB1 reference strain, which is one of the biological questions this de novo assembly was designed to address. Distinguishing between these two sources will require functional annotation filtering in Stage 6 and discussion with the postdoc regarding the plausibility of the gene count given the assembly statistics.
+    </div>
+
     <div class="verdict-good">
       <strong>BUSCO verdict.</strong> The genome BUSCO score of 98.3% complete indicates a near-complete assembly with respect to conserved fungal core genes. The protein BUSCO score of 97.0% complete with 0% duplication and 0% fragmentation indicates a high-quality predicted gene set. The 0% duplication result in protein mode argues against large-scale duplication of conserved genes, although it does not exclude smaller-scale overprediction of non-BUSCO ORFs. The total gene count of 22,338 is higher than the 12,000–16,000 range reported for many published <em>F. solani</em> genomes and warrants discussion with the postdoc; however, the BUSCO scores argue against a catastrophic annotation failure or major assembly duplication artefact.
     </div>
@@ -434,16 +435,6 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
           <span class="rl-icon">📊</span>
           <span class="rl-label">Fusarium_solani.stats.json</span>
           <span class="rl-desc">Full predict v2 statistics</span>
-        </a>
-        <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.gff3">
-          <span class="rl-icon">🧬</span>
-          <span class="rl-label">Fusarium_solani.gff3</span>
-          <span class="rl-desc">Gene annotation coordinates</span>
-        </a>
-        <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.proteins.fa">
-          <span class="rl-icon">🔬</span>
-          <span class="rl-label">Fusarium_solani.proteins.fa</span>
-          <span class="rl-desc">22,338 predicted proteins</span>
         </a>
         <a class="report-link" href="../results/annotation/funannotate/predict_v2/predict_results/Fusarium_solani.error.summary.txt">
           <span class="rl-icon">⚠️</span>
@@ -460,39 +451,129 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
           <span class="rl-label">BUSCO genome summary (v2)</span>
           <span class="rl-desc">dikarya_odb9 — C:98.3% S:97.0% D:1.3%</span>
         </a>
-        <a class="report-link" href="../data/fusarium_solani_uniprot.fasta">
-          <span class="rl-icon">📥</span>
-          <span class="rl-label">fusarium_solani_uniprot.fasta</span>
-          <span class="rl-desc">62,404 UniProt F. solani proteins used as evidence</span>
-        </a>
       </div>
     </div>
   </div>
 
   <!-- Annotate -->
   <div class="section">
-    <h2>5.5 funannotate annotate — Running</h2>
+    <h2>5.5 funannotate annotate — SLURM job 1592425</h2>
+
     <div class="card">
       <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:14px;">
-        Following successful completion and quality assessment of predict v2, <code>funannotate annotate</code> was submitted to assign functional descriptions to the predicted gene models. This step searches the predicted proteins against the installed funannotate databases to assign Pfam domains, GO terms, MEROPS protease families, dbCAN carbohydrate-active enzyme families, MiBIG biosynthetic gene cluster matches, UniProt/Swiss-Prot descriptions, and gene2product names.
+        The annotate step assigns functional descriptions to the predicted gene models from predict_v2 by searching the predicted proteins against the installed funannotate databases. The step ran on node n025, 16 CPUs, 32G RAM, and completed successfully at 12:50 PM on 28 May 2026. Runtime: approximately 1 hour.
       </p>
       <pre>funannotate annotate \
   -i results/annotation/funannotate/predict_v2 \
   --cpus 16 \
   --busco_db dikarya</pre>
-      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">Standard partition, 16 CPUs, 32G RAM, 24 hour time limit. <code>--busco_db dikarya</code> matches the dikarya_odb9 lineage used internally during predict.</p>
-    </div>
-
-    <div class="verdict-warn">
-      <strong>InterPro XML vs InterProScan — important distinction.</strong> The funannotate database includes an InterPro XML file (v108.0) which provides cross-reference data for domain naming. This is <em>not</em> equivalent to running InterProScan. InterProScan performs active domain searches against Pfam, PANTHER, TIGRFAM, and other member databases using the query protein sequences. InterProScan is not installed on Pyrene and represents a significant gap in this annotation. Resolution with the postdoc is required before Stage 6 analysis is considered complete.
-    </div>
-
-    <div class="verdict-warn">
-      <strong>eggNOG excluded.</strong> eggNOG-based orthology annotation is not included in this annotate run due to the confirmed permanent database access block at cluster level. This means GO term and KEGG pathway assignments from orthology mapping will be absent from the annotation output.
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:6px;">SLURM job 1592425 — standard partition, node n025, 16 CPUs, 32G RAM, 24 hour time limit.</p>
     </div>
 
     <div class="card">
-      <p style="font-size:0.88em;color:#8a7a60;line-height:1.7;">Output will be written to <code>results/annotation/funannotate/predict_v2/annotate_results/</code> upon completion. Expected output files include annotated GFF3, GenBank, protein FASTA, transcript FASTA, and a functional annotation summary. These will form the primary input for candidate PAH-relevant enzyme screening in Stage 6.</p>
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Functional annotation results</p>
+      <table class="results-table">
+        <thead><tr><th>Database</th><th>Type</th><th>Version</th><th>Records searched</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Pfam</td><td class="mono">hmmer3</td><td class="mono">38.1</td><td class="mono">27,481</td><td class="good">15,170 genes with Pfam domains</td></tr>
+          <tr><td>UniProt/Swiss-Prot</td><td class="mono">diamond</td><td class="mono">2026_01</td><td class="mono">574,627</td><td class="good">1,177 gene product names assigned</td></tr>
+          <tr><td>MEROPS</td><td class="mono">diamond</td><td class="mono">12.5</td><td class="mono">5,098</td><td class="good">760 protease annotations</td></tr>
+          <tr><td>dbCAN / CAZymes</td><td class="mono">hmmer3</td><td class="mono">14.0</td><td class="mono">699</td><td class="good">754 CAZyme annotations</td></tr>
+          <tr><td>BUSCO dikarya</td><td class="mono">outgroups</td><td class="mono">1.0</td><td class="mono">8</td><td class="good">1,317 annotations</td></tr>
+          <tr><td>Gene2Products</td><td class="mono">text</td><td class="mono">1.98</td><td class="mono">34,505</td><td class="good">1,177 product descriptions</td></tr>
+          <tr><td>InterPro XML</td><td class="mono">xml</td><td class="mono">108.0</td><td class="mono">51,489</td><td class="warn">0 — InterProScan not installed (see note)</td></tr>
+          <tr><td>eggNOG</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="warn">0 — database blocked (see note)</td></tr>
+          <tr><td>MiBIG</td><td class="mono">diamond</td><td class="mono">1.4</td><td class="mono">31,023</td><td class="muted">included in total entries</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">Funannotate reported 31,980 total valid annotation entries. Note that a single gene can carry multiple annotation entries from different databases; this figure does not mean 31,980 separate genes were annotated.</p>
+    </div>
+
+    <div class="card">
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Annotation coverage summary</p>
+      <div class="stat-grid">
+        <div class="stat stat-good"><div class="s-label">Pfam domains</div><div class="s-value">15,170</div><div class="s-note">genes annotated</div></div>
+        <div class="stat stat-good"><div class="s-label">CAZymes</div><div class="s-value">754</div><div class="s-note">dbCAN v14.0</div></div>
+        <div class="stat stat-good"><div class="s-label">Proteases</div><div class="s-value">760</div><div class="s-note">MEROPS v12.5</div></div>
+        <div class="stat stat-good"><div class="s-label">BUSCO</div><div class="s-value">1,317</div><div class="s-note">dikarya outgroups</div></div>
+        <div class="stat stat-good"><div class="s-label">UniProt names</div><div class="s-value">1,177</div><div class="s-note">product descriptions</div></div>
+        <div class="stat"><div class="s-label">GO terms</div><div class="s-value">0</div><div class="s-note">see note below</div></div>
+        <div class="stat"><div class="s-label">InterProScan</div><div class="s-value">0</div><div class="s-note">not installed</div></div>
+        <div class="stat"><div class="s-label">Secretome</div><div class="s-value">0</div><div class="s-note">SignalP absent</div></div>
+      </div>
+    </div>
+
+    <div class="verdict-warn">
+      <strong>Steps skipped and reasons.</strong>
+      <ul style="margin-top:8px;margin-left:16px;line-height:1.9;">
+        <li><strong>eggNOG-mapper</strong> — installed but database permanently inaccessible on Pyrene (eggnogdb.embl.de blocked at cluster network level). GO term and KEGG pathway assignments from orthology mapping are absent as a result.</li>
+        <li><strong>InterProScan</strong> — although the InterPro XML resource (v108.0) was present in the funannotate database, InterProScan itself was not installed, so no InterProScan domain search results were generated. This is a significant gap in the annotation. Resolution with the postdoc is required.</li>
+        <li><strong>SignalP / Phobius</strong> — not installed. Secretome predictions (signal peptides, transmembrane domains) were not performed. 0 secretome annotations added.</li>
+      </ul>
+    </div>
+
+    <div class="verdict-info">
+      <strong>Note on GO terms.</strong> GO terms are listed as 0 in the annotation statistics. In this workflow, GO terms were not assigned because the main sources that would normally contribute GO annotations — especially InterProScan and eggNOG-mapper — were unavailable. This is an expected consequence of the missing tools and is not an error in the annotation pipeline itself.
+    </div>
+
+    <div class="card">
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Gene2Products quality check</p>
+      <table class="results-table">
+        <thead><tr><th>Category</th><th>Count</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>Must-fix</td><td class="good">0</td><td>No product names require correction</td></tr>
+          <tr><td>Need curating</td><td class="good">0</td><td>No product names flagged for review</td></tr>
+          <tr><td>New names passed</td><td>62</td><td>Product names not yet present in gene2product database</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">Zero must-fix and zero need-curating indicates all product names assigned are valid. The 62 new names represent product names encountered in this annotation that were not already present in the funannotate gene2product database — they are not necessarily unique to this strain.</p>
+    </div>
+
+    <div class="card">
+      <p style="font-size:0.82em;color:#5a4a2a;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Preliminary enzyme families of interest from UniProt product assignments</p>
+      <p style="font-size:0.88em;color:#3a3020;line-height:1.7;margin-bottom:12px;">
+        The 1,177 gene product names assigned via UniProt/Swiss-Prot include several enzyme families potentially relevant to PAH transformation or xenobiotic metabolism. Selected examples include:
+      </p>
+      <table class="results-table">
+        <thead><tr><th>Gene symbol</th><th>Predicted annotation</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">LUC2</td><td>Predicted cytochrome P450 monooxygenase-like protein</td><td>CYP family — primary target enzyme class for Stage 6</td></tr>
+          <tr><td class="mono">LUC3</td><td>Predicted aldehyde dehydrogenase-like protein</td><td>Downstream PAH oxidation metabolism</td></tr>
+          <tr><td class="mono">LUC6</td><td>Predicted hydrolase-like protein</td><td>Potentially epoxide hydrolase activity</td></tr>
+          <tr><td class="mono">ERG25B</td><td>Predicted methylsterol monooxygenase-like protein</td><td>Monooxygenase family — primarily sterol metabolism; PAH relevance unconfirmed</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.82em;color:#8a7a60;margin-top:10px;">These are preliminary sequence-similarity-based annotations. They should be carried forward as candidates for Stage 6 screening, not interpreted as confirmed PAH-degradation genes.</p>
+    </div>
+
+    <div class="verdict-good">
+      <strong>Annotate verdict.</strong> Functional annotation completed successfully and added Pfam, UniProt/Swiss-Prot, MEROPS, dbCAN/CAZyme, BUSCO, and Gene2Products annotations. eggNOG, InterProScan, SignalP, and Phobius were unavailable, so GO terms, KEGG-style orthology assignments, InterProScan domain annotations, and secretome predictions are absent. The resulting annotation is sufficient for preliminary candidate enzyme-family screening, but Stage 6 should explicitly label all hits as candidate PAH-relevant genes based on sequence similarity, not confirmed degradation genes.
+    </div>
+
+    <h3>Annotate — Report links</h3>
+    <div class="card">
+      <div class="report-links">
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/annotate_results/Fusarium_solani.stats.json">
+          <span class="rl-icon">📊</span>
+          <span class="rl-label">Fusarium_solani.stats.json</span>
+          <span class="rl-desc">Full annotate statistics</span>
+        </a>
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/annotate_results/Gene2Products.must-fix.txt">
+          <span class="rl-icon">✅</span>
+          <span class="rl-label">Gene2Products.must-fix.txt</span>
+          <span class="rl-desc">0 entries — no fixes required</span>
+        </a>
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/annotate_results/Gene2Products.need-curating.txt">
+          <span class="rl-icon">✅</span>
+          <span class="rl-label">Gene2Products.need-curating.txt</span>
+          <span class="rl-desc">0 entries — no curation required</span>
+        </a>
+        <a class="report-link" href="../results/annotation/funannotate/predict_v2/annotate_results/Gene2Products.new-names-passed.txt">
+          <span class="rl-icon">📋</span>
+          <span class="rl-label">Gene2Products.new-names-passed.txt</span>
+          <span class="rl-desc">62 new product names</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -514,7 +595,10 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
           <tr><td>UniProt F. solani proteins</td><td class="mono">data/fusarium_solani_uniprot.fasta</td><td class="good">✓</td></tr>
           <tr><td>BUSCO genome summary (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_misc/busco/run_fusarium_graminearum/short_summary_fusarium_graminearum.txt</td><td class="good">✓</td></tr>
           <tr><td>BUSCO protein summary (v2)</td><td class="mono">results/annotation/funannotate/predict_v2/predict_misc/busco_proteins/run_fusarium_graminearum/short_summary_fusarium_graminearum.txt</td><td class="good">✓</td></tr>
-          <tr><td>Annotate results</td><td class="mono">results/annotation/funannotate/predict_v2/annotate_results/</td><td class="warn">⏳ Pending</td></tr>
+          <tr><td>Annotate stats JSON</td><td class="mono">results/annotation/funannotate/predict_v2/annotate_results/Fusarium_solani.stats.json</td><td class="good">✓</td></tr>
+          <tr><td>Gene2Products new names</td><td class="mono">results/annotation/funannotate/predict_v2/annotate_results/Gene2Products.new-names-passed.txt</td><td class="good">✓</td></tr>
+          <tr><td>Annotated GFF3</td><td class="mono">results/annotation/funannotate/predict_v2/annotate_results/Fusarium_solani.gff3</td><td class="good">✓ (on Pyrene only)</td></tr>
+          <tr><td>Annotated GenBank</td><td class="mono">results/annotation/funannotate/predict_v2/annotate_results/Fusarium_solani.gbk</td><td class="good">✓ (on Pyrene only)</td></tr>
         </tbody>
       </table>
     </div>
@@ -525,7 +609,7 @@ export PATH=/home/22/emccallum/gmes_linux_64_4:$PATH</pre>
     <h2>Conclusions</h2>
     <div class="card">
       <p style="font-size:0.91em;color:#3a3020;line-height:1.8;">
-        Gene prediction is complete. The v2 predict run produced 22,338 predicted protein-coding gene models and 341 tRNAs from a 57.4 Mb assembly. BUSCO scores of 98.3% complete at genome level and 97.0% complete at protein level, with low duplication, indicate that the assembly and conserved gene space are highly complete. The 22.7% exon-protein evidence overlap represents a 7.5-fold improvement over v1 and indicates substantially improved protein support for the v2 gene models. The total gene count remains higher than expected for many published <em>Fusarium</em> genomes and should be discussed with the postdoc, but the BUSCO results argue against major assembly duplication or a catastrophic annotation failure. Functional annotation via <code>funannotate annotate</code> is currently running, and its outputs will be used for candidate PAH-relevant enzyme screening in Stage 6.
+        Gene prediction and functional annotation are complete. The v2 predict run produced 22,338 predicted protein-coding gene models and 341 tRNAs from a 57.4 Mb assembly. BUSCO scores of 98.3% complete at genome level and 97.0% complete at protein level, with low duplication, indicate that the assembly and conserved gene space are highly complete. The 22.7% exon-protein evidence overlap represents a 7.5-fold improvement over v1 and indicates substantially improved protein support for the v2 gene models. Functional annotation added Pfam domain assignments to 15,170 genes, CAZyme annotations to 754 genes, protease annotations to 760 genes, and UniProt product names to 1,177 genes. eggNOG, InterProScan, SignalP, and Phobius were unavailable, so GO terms, KEGG-style orthology assignments, InterProScan domain annotations, and secretome predictions are absent. The total gene count remains higher than expected for many published <em>Fusarium</em> genomes and should be discussed with the postdoc, but the BUSCO results argue against major assembly duplication or a catastrophic annotation failure. The annotated gene set is now ready for candidate PAH-relevant enzyme screening in Stage 6.
       </p>
     </div>
   </div>
