@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Stage 6A — PAH Candidate Gene Screen
+Stage 6A — PAH Candidate Gene Screening
 Fusarium solani PAH Bioinformatics Project
 Author: Emma McCallum | UPPA | May 2026
 
