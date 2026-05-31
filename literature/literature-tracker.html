@@ -6,278 +6,686 @@
 <title>Literature Tracker — Fusarium solani PAH Bioinformatics</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4f1ec;color:#2c2416}
-header{background:#2d4a3e;color:#f0ebe0;padding:36px 20px;text-align:center;border-bottom:4px solid #8b6914}
-header h1{font-size:1.7em;font-weight:600;margin-bottom:8px}
-header p{font-size:0.88em;opacity:0.75}
-.container{max-width:1100px;margin:32px auto;padding:0 20px}
-.nav{font-size:0.85em;margin-bottom:24px;color:#8a7a60}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4f1ec;color:#2c2416;font-size:14px}
+header{background:#2d4a3e;color:#f0ebe0;padding:32px 20px;text-align:center;border-bottom:4px solid #8b6914}
+header h1{font-size:1.6em;font-weight:700;margin-bottom:6px}
+header p{font-size:0.84em;opacity:0.75;margin-top:4px}
+.container{max-width:1300px;margin:28px auto;padding:0 20px}
+.nav{font-size:0.84em;margin-bottom:20px;color:#8a7a60}
 .nav a{color:#2d4a3e;text-decoration:none}
 .nav a:hover{text-decoration:underline}
-.controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;align-items:center}
-.controls select,.controls input{padding:7px 12px;border:1px solid #c8c0b0;border-radius:6px;background:#fff;font-size:0.84em;color:#2c2416;font-family:inherit}
-.controls input{flex:1;min-width:180px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:24px}
-.stat{background:#fff;border:1px solid #d8d0c0;border-radius:8px;padding:14px;text-align:center}
-.stat .s-val{font-size:1.5em;font-weight:600;color:#2d4a3e}
-.stat .s-lab{font-size:0.75em;color:#8a7a60;text-transform:uppercase;letter-spacing:0.04em;margin-top:3px}
-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #d8d0c0;border-radius:8px;overflow:hidden;font-size:0.84em}
-thead tr{background:#f4f1ec}
-th{text-align:left;padding:10px 12px;color:#5a4a2a;font-weight:500;font-size:0.8em;text-transform:uppercase;letter-spacing:0.04em;border-bottom:1px solid #d8d0c0}
-td{padding:9px 12px;border-bottom:1px solid #ede8df;vertical-align:top;line-height:1.5}
+
+/* boxes */
+.note-box{background:#fdf6e3;border-left:4px solid #8b6914;padding:12px 16px;border-radius:0 6px 6px 0;margin-bottom:14px;font-size:0.83em;color:#5a4a2a;line-height:1.6}
+.warn-box{background:#fdf0ee;border-left:4px solid #c05030;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:14px;font-size:0.82em;color:#a03020;line-height:1.6}
+.info-box{background:#e8f0f8;border-left:4px solid #2d6a9e;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:18px;font-size:0.82em;color:#1a3a5a;line-height:1.6}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:20px}
+.stat{background:#fff;border:1px solid #d8d0c0;border-radius:8px;padding:12px 8px;text-align:center}
+.stat .s-val{font-size:1.4em;font-weight:700;color:#2d4a3e}
+.stat .s-lab{font-size:0.72em;color:#8a7a60;text-transform:uppercase;letter-spacing:0.04em;margin-top:3px}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
+.controls select,.controls input{padding:7px 10px;border:1px solid #c8c0b0;border-radius:6px;background:#fff;font-size:0.82em;color:#2c2416;font-family:inherit}
+.controls input{flex:1;min-width:160px}
+.btn{padding:7px 14px;border:1px solid #c8c0b0;border-radius:6px;background:#fff;cursor:pointer;font-size:0.82em;color:#2c2416;font-family:inherit}
+.btn:hover{background:#f4f1ec}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;font-size:0.79em;align-items:center;color:#8a7a60}
+
+/* badges */
+.badge{display:inline-block;font-size:0.73em;padding:2px 7px;border-radius:10px;font-weight:600;white-space:nowrap}
+.b-exp{background:#edf7ee;color:#1a4a28;border:1px solid #aad4b8}
+.b-gen{background:#e8f0f8;color:#1a3a5a;border:1px solid #a8c4e0}
+.b-rev{background:#e8e0f8;color:#3a1a6a;border:1px solid #c0a8e8}
+.b-db{background:#fef3e2;color:#7a4a0a;border:1px solid #e0c080}
+
+/* table */
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #d8d0c0;border-radius:8px;overflow:hidden;font-size:0.8em;margin-bottom:28px}
+thead tr{background:#2d4a3e}
+th{text-align:left;padding:9px 11px;color:#f0ebe0;font-weight:600;font-size:0.78em;text-transform:uppercase;letter-spacing:0.04em}
+td{padding:8px 11px;border-bottom:1px solid #ede8df;vertical-align:top;line-height:1.5}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafaf8}
-.badge{display:inline-block;font-size:0.75em;padding:2px 8px;border-radius:10px;font-weight:500;margin:2px 2px 2px 0;white-space:nowrap}
-.b-exp{background:#edf7ee;color:#1a4a28}
-.b-gen{background:#e8f0f8;color:#1a3a5a}
-.b-rev{background:#e8e0f8;color:#3a1a6a}
-.b-fus{background:#fdf6e3;color:#6a4a0a}
-.b-other{background:#ede8df;color:#5a4a2a}
-.b-gap{background:#fdf0ee;color:#a03020}
-.b-warn{background:#fdf6e3;color:#8a6200}
-.b-ok{background:#edf7ee;color:#1e6a28}
-.flag-cell{font-size:0.82em}
-.flag-error{color:#a03020;font-weight:500}
-.flag-warn{color:#8a6200}
-.flag-ok{color:#1e6a28}
-.families{display:flex;flex-wrap:wrap;gap:3px}
-.fam-tag{display:inline-block;font-size:0.72em;padding:1px 6px;border-radius:8px;background:#f4f1ec;color:#5a4a2a;border:1px solid #d8d0c0}
-.authors{color:#5a4a2a;font-weight:500}
-.year{color:#8a7a60;font-size:0.9em}
-.title{color:#2c2416;margin-top:2px}
-.journal{color:#8a7a60;font-style:italic;font-size:0.9em}
+
+/* ref cell */
+.ref-authors{font-weight:700;color:#2c2416}
+.ref-year{color:#8a7a60;font-size:0.9em;margin-left:2px}
+.ref-title{color:#2c2416;font-style:italic;margin-top:2px;line-height:1.4}
+.ref-journal{color:#8a7a60;font-size:0.87em;margin-top:1px}
+.ref-doi{font-size:0.78em;color:#2d4a3e;margin-top:1px}
+.ref-strain{font-size:0.76em;color:#8a7a60;margin-top:2px;font-style:italic}
+.ref-access{font-size:0.74em;color:#aaa;margin-top:2px;font-style:italic}
+.ref-priority{font-size:0.74em;color:#a03020;font-weight:700;margin-top:3px}
+
+/* family tags */
+.families{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px}
+.fam{font-size:0.72em;padding:2px 6px;border-radius:8px;border:1px solid #d8d0c0;background:#f4f1ec;color:#5a4a2a;cursor:default}
+.fam.high{background:#edf7ee;border-color:#aad4b8;color:#1a4a28;font-weight:600}
+.fam.medium{background:#fdf6e3;border-color:#e0c080;color:#7a4a0a}
+.fam.low{background:#fdf0ee;border-color:#e8b4a8;color:#a03020}
+.fam.contam{background:#f0e8f8;border-color:#c0a0d8;color:#5a1a8a}
+
+/* evidence detail */
+.ev-block{font-size:0.78em;color:#5a4a2a;margin-top:4px;line-height:1.5}
+.ev-fam{font-weight:700;color:#2d4a3e}
+
+/* key findings */
+.findings{margin:4px 0 0 0;padding-left:14px;font-size:0.77em;color:#5a4a2a;line-height:1.5}
+.findings li{margin-bottom:2px}
+
+/* flag */
+.flag-ok{color:#1e6a28;font-size:0.8em;font-weight:600}
+.flag-warn{color:#8a6200;font-size:0.8em}
+.flag-err{color:#a03020;font-size:0.8em;font-weight:600}
+.flag-note{font-size:0.75em;color:#8a7a60;margin-top:3px;line-height:1.4}
+
+/* gap table */
+.section-title{color:#2d4a3e;font-size:1.05em;font-weight:700;margin:24px 0 10px 0;padding-bottom:4px;border-bottom:2px solid #d8d0c0}
+.gap-table{width:100%;border-collapse:collapse;font-size:0.8em;margin-bottom:28px;background:#fff;border:1px solid #d8d0c0;border-radius:8px;overflow:hidden}
+.gap-table thead tr{background:#5a4a2a}
+.gap-table th{color:#f0ebe0;padding:8px 11px;text-align:left;font-weight:600;font-size:0.78em;text-transform:uppercase;letter-spacing:0.04em}
+.gap-table td{padding:8px 11px;border-bottom:1px solid #ede8df;vertical-align:top;line-height:1.5}
+.gap-table tr:last-child td{border-bottom:none}
+.gap-table tr:nth-child(even) td{background:#fdfaf6}
+.pri1{color:#a03020;font-weight:700}
+.pri2{color:#8a6200;font-weight:600}
+.pri3{color:#5a4a2a}
+
+/* evidence tier table */
+.tier-table{width:100%;border-collapse:collapse;font-size:0.8em;margin-bottom:28px;background:#fff;border:1px solid #d8d0c0;border-radius:8px;overflow:hidden}
+.tier-table thead tr{background:#2d4a3e}
+.tier-table th{color:#f0ebe0;padding:8px 11px;text-align:left;font-weight:600;font-size:0.78em;text-transform:uppercase;letter-spacing:0.04em}
+.tier-table td{padding:8px 11px;border-bottom:1px solid #ede8df;vertical-align:top;line-height:1.5}
+.tier-table tr:last-child td{border-bottom:none}
+.t1{color:#1a4a28;font-weight:700}
+.t2{color:#7a4a0a;font-weight:600}
+.t3{color:#5a4a2a}
+.t4{color:#8a7a60}
+.tc{color:#5a1a8a}
+
 .no-results{text-align:center;padding:40px;color:#8a7a60;font-style:italic}
-.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;font-size:0.8em;align-items:center;color:#8a7a60}
-.legend span{display:flex;align-items:center;gap:4px}
-.note-box{background:#fdf6e3;border-left:4px solid #8b6914;padding:12px 16px;border-radius:0 6px 6px 0;margin-bottom:20px;font-size:0.85em;color:#5a4a2a;line-height:1.6}
-footer{text-align:center;padding:28px 20px;color:#a09070;font-size:0.82em;border-top:1px solid #d8d0c0;margin-top:40px;background:#ede8df}
-@media(max-width:700px){th:nth-child(4),td:nth-child(4),th:nth-child(5),td:nth-child(5){display:none}}
+footer{text-align:center;padding:24px 20px;color:#a09070;font-size:0.8em;border-top:1px solid #d8d0c0;margin-top:40px;background:#ede8df}
+@media(max-width:900px){th:nth-child(6),td:nth-child(6){display:none}}
 </style>
 </head>
 <body>
 <header>
   <h1>Literature Tracker</h1>
-  <p>Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; Emma McCallum &nbsp;|&nbsp; UPPA 2026</p>
+  <p><em>Fusarium solani</em> PAH Bioinformatics &nbsp;&bull;&nbsp; Emma McCallum &nbsp;&bull;&nbsp; UPPA 2026</p>
+  <p style="font-size:0.76em;opacity:0.55;margin-top:5px">Updated: May 2026 &mdash; All entries verified directly from source (full text or confirmed abstract). No secondary citation accepted without explicit flag.</p>
 </header>
+
 <div class="container">
-  <div class="nav"><a href="../index.html">← Back to pipeline overview</a> &nbsp;|&nbsp; <a href="06_candidate_genes.html">Stage 6 notebook</a></div>
+  <div class="nav"><a href="../index.html">&larr; Pipeline overview</a> &nbsp;|&nbsp; <a href="06_candidate_genes.html">Stage 6 notebook</a></div>
 
   <div class="note-box">
-    This table tracks all papers consulted for the enzyme family dictionary, candidate curation decisions, and biological interpretation. For each paper, species attribution, evidence type, and any known caveats are recorded. Papers flagged with a caveat require careful handling in the written report.
+    <strong>Verification policy:</strong> Every entry was derived from the full text (or confirmed abstract with cross-verification) of the cited paper, processed through a systematic six-point framework: (1) species and strain; (2) substrate; (3) enzyme family mentions with page-level evidence; (4) evidence type classification; (5) flags for errors, species misattributions, or unsupported claims; (6) summary contribution. JGI MycoCosm EC number and KEGG pathway searches conducted directly in this session (May 2026). Coleman et al. 2009 Table S6 retrieved directly from PLoS supplementary data.
+  </div>
+
+  <div class="warn-box">
+    <strong>&#9888; Known gaps requiring resolution before Stage 6B curation:</strong><br>
+    Rafin et al. 2000 &mdash; abstract only (EPA HERO ID 5158707; full text requires supervisor or institutional access). &nbsp;&bull;&nbsp;
+    Bezalel et al. 1997 (Appl Environ Microbiol 63:2495) &mdash; primary CYP&ndash;EH mechanism paper; not obtained. &nbsp;&bull;&nbsp;
+    Ide et al. 2012 (Arch Microbiol 194:243) &mdash; primary CYP5144 PAH evidence; not obtained. &nbsp;&bull;&nbsp;
+    Verdin et al. 2005 (Int Biodeter Biodegr 55:171) &mdash; P450 proteomics in <em>F. solani</em> under BaP; not obtained. &nbsp;&bull;&nbsp;
+    Assembly statistics pending Funannotate job 1572453 completion. &nbsp;&bull;&nbsp;
+    InterProScan not installed &mdash; requires postdoc input.
+  </div>
+
+  <div class="info-box">
+    <strong>Critical disclaimer:</strong> All 1,824 Stage 6A candidate hits are provisional. Genome annotation alone cannot confirm enzyme function. No biological conclusion about PAH-degrading activity can be drawn without experimental validation. The literature tracker justifies <em>which families to search for</em>, not which candidates are confirmed enzymes.
   </div>
 
   <div class="stats" id="stats"></div>
 
   <div class="controls">
-    <input type="text" id="search" placeholder="Search authors, title, journal…" oninput="render()">
+    <input type="text" id="search" placeholder="Search authors, title, strain, notes&hellip;" oninput="render()">
     <select id="filt-type" onchange="render()">
-      <option value="">All evidence types</option>
+      <option value="">All types</option>
       <option value="Experimental">Experimental</option>
       <option value="Genomic">Genomic</option>
       <option value="Review">Review</option>
+      <option value="Database">Database</option>
     </select>
     <select id="filt-species" onchange="render()">
       <option value="">All species</option>
-      <option value="F. solani">F. solani</option>
+      <option value="F. solani (direct)">F. solani (direct)</option>
       <option value="Fusarium spp.">Fusarium spp.</option>
+      <option value="Ascomycota (multiple)">Ascomycota (multiple)</option>
       <option value="Multiple fungi">Multiple fungi</option>
-      <option value="Other fungus">Other fungus</option>
+      <option value="Other Fusarium">Other Fusarium</option>
     </select>
     <select id="filt-flag" onchange="render()">
       <option value="">All flags</option>
-      <option value="OK">No caveats</option>
-      <option value="WARN">Species caveat</option>
-      <option value="ERROR">Citation error / gap</option>
+      <option value="OK">&#10003; No caveats</option>
+      <option value="WARN">&#9888; Caveat</option>
+      <option value="ERROR">&#10007; Error/gap</option>
     </select>
-    <select id="filt-fam" onchange="render()">
-      <option value="">All enzyme families</option>
-    </select>
-    <button onclick="clearFilters()" style="padding:7px 14px;border:1px solid #c8c0b0;border-radius:6px;background:#fff;cursor:pointer;font-size:0.84em;color:#2c2416;font-family:inherit">Clear filters</button>
+    <select id="filt-fam" onchange="render()"><option value="">All families</option></select>
+    <button class="btn" onclick="clearFilters()">Clear filters</button>
   </div>
 
   <div class="legend">
-    <span>Evidence type:</span>
-    <span><span class="badge b-exp">Experimental</span></span>
-    <span><span class="badge b-gen">Genomic</span></span>
-    <span><span class="badge b-rev">Review</span></span>
-    <span style="margin-left:12px">Flag:</span>
-    <span class="flag-ok">✓ No caveats</span>
-    <span class="flag-warn">⚠ Species caveat</span>
-    <span class="flag-error">✗ Error / gap</span>
+    <span>Type:</span>
+    <span class="badge b-exp">Experimental</span>
+    <span class="badge b-gen">Genomic</span>
+    <span class="badge b-rev">Review</span>
+    <span class="badge b-db">Database</span>
+    &nbsp;&nbsp;
+    <span>Flag:</span>
+    <span class="flag-ok">&#10003; No caveats</span>
+    <span class="flag-warn">&#9888; Caveat</span>
+    <span class="flag-err">&#10007; Error/gap</span>
+    &nbsp;&nbsp;
+    <span>Family confidence:</span>
+    <span class="fam high">High</span>
+    <span class="fam medium">Medium</span>
+    <span class="fam low">Low</span>
+    <span class="fam contam">Contam-risk</span>
   </div>
 
   <table id="lit-table">
-    <thead>
-      <tr>
-        <th style="width:22%">Reference</th>
-        <th style="width:8%">Type</th>
-        <th style="width:12%">Species</th>
-        <th style="width:22%">Enzyme families supported</th>
-        <th style="width:8%">Substrate</th>
-        <th style="width:20%">Contribution / notes</th>
-        <th style="width:8%">Flag</th>
-      </tr>
-    </thead>
+    <thead><tr>
+      <th style="width:18%">Reference</th>
+      <th style="width:7%">Type</th>
+      <th style="width:9%">Species / Strain</th>
+      <th style="width:7%">Substrate</th>
+      <th style="width:25%">Enzyme families &amp; evidence strength</th>
+      <th style="width:25%">Key verified findings</th>
+      <th style="width:9%">Flag &amp; caveat</th>
+    </tr></thead>
     <tbody id="tbody"></tbody>
   </table>
   <div id="no-results" class="no-results" style="display:none">No papers match the current filters.</div>
+
+  <!-- EVIDENCE TIER TABLE -->
+  <div class="section-title">&#128200; Enzyme Family Evidence Tiers</div>
+  <div class="note-box" style="margin-bottom:10px">Confidence tiers reflect directness of evidence, species relevance, and substrate relevance based on the papers processed in this session. These tiers determine how Stage 6A candidate hits are prioritised for Stage 6B curation.</div>
+  <table class="tier-table">
+    <thead><tr><th>Tier</th><th>Enzyme Family</th><th>Best source(s)</th><th>Basis</th><th>Curation note</th></tr></thead>
+    <tbody>
+      <tr><td class="t1">1 &mdash; High / direct F. solani</td><td>CYP_general</td><td>Rafin 2000, Veignie 2002, Fayeulle 2014, Coleman 2009</td><td>66% CYP inhibitor result (Rafin 2000); BaP quinone metabolites consistent with CYP oxidation (Veignie 2002); 150 CYP genes in genome (Coleman 2009)</td><td>Core family. All Stage 6A CYP hits to Stage 6B.</td></tr>
+      <tr><td class="t1">1 &mdash; High / direct F. solani</td><td>aryl_sulfatase</td><td>Rafin 2000 (abstract), Fayeulle 2014</td><td>6-OH-BaP sulfate metabolite in F. solani F33; CYP + aryl sulfatase named by Fayeulle 2014 as responsible enzymes</td><td>Rafin 2000 abstract only &mdash; flag dependency. Add sulfotransferase (EC 2.8.2) as complementary family (currently missing).</td></tr>
+      <tr><td class="t2">2 &mdash; Medium / Fusarium genus or pathway logic</td><td>epoxide_hydrolase</td><td>Han 2026, Aranda 2016, Kadri 2017</td><td>EPHX1 in Fusarium PAH pathway (Han 2026, F. yamamotoi); CYP&rarr;EH pathway logic confirmed by Kadri Fig.3; EH distribution in Ascomycota (Aranda 2016)</td><td>Not directly shown in F. solani BaP metabolism. Medium priority. Bezalel 1997 needed for primary mechanism source.</td></tr>
+      <tr><td class="t2">2 &mdash; Medium / Fusarium genus or pathway logic</td><td>GST</td><td>Han 2026, Aranda 2016, JGI MycoCosm</td><td>GST in Fusarium PAH pathway (Han 2026); 9 GST classes in fungi (Aranda Box 1); 54 glutathione metabolism genes in F. solani genome (JGI)</td><td>Not directly shown in F. solani BaP metabolism. Medium priority.</td></tr>
+      <tr><td class="t2">2 &mdash; Medium / genomically verified</td><td>phenol_monooxygenase</td><td>San Martín-Davison 2024, JGI MycoCosm</td><td>EC 1.14.13.7: 7 gene models in F. solani 7.154 v1.0 confirmed by direct JGI search; 1-naphthol/2-naphthol metabolites consistent with phenol oxygenase activity</td><td>Citation error in San Martín-Davison ref 36 resolved &mdash; annotation independently verified. Naphthalene substrate only.</td></tr>
+      <tr><td class="t2">2 &mdash; Medium / genomically verified</td><td>FAD_monooxygenase</td><td>San Martín-Davison 2024, JGI MycoCosm</td><td>EC 1.14.13.1: 37 gene models confirmed by direct JGI search &mdash; largest of the three verified families</td><td>As above. Largest gene count of the three JGI-verified EC numbers.</td></tr>
+      <tr><td class="t2">2 &mdash; Medium / CYP subfamilies</td><td>CYP504</td><td>Moktali 2012</td><td>5 CYP504 genes confirmed in F. solani (Moktali p.8); phenylacetate ortho-hydroxylation relevant to aromatic metabolism</td><td>Genomic/computational only. No F. solani experimental enzyme activity data.</td></tr>
+      <tr><td class="t2">2 &mdash; Medium / CYP subfamilies</td><td>CYP53</td><td>Moktali 2012</td><td>Benzoate-para-hydroxylase; confirmed in Pezizomycotina (Fig.4); beta-ketoadipate pathway for soil aromatic compound degradation</td><td>Genomic/computational. Functional data from Aspergillus niger only.</td></tr>
+      <tr><td class="t3">3 &mdash; Plausible / exploratory</td><td>CYP5144</td><td>Moktali 2012, Coleman 2009</td><td>Gene count in Fusarium (Moktali); PAH evidence from Postia placenta only (basidiomycete) &mdash; Ide et al. 2012 not obtained</td><td>Do not assign F. solani PAH function without Ide et al. 2012. Exploratory only.</td></tr>
+      <tr><td class="t3">3 &mdash; Plausible / exploratory</td><td>CYP52</td><td>Moktali 2012</td><td>Alkane/fatty acid hydroxylation; F. solani not specifically listed in CYP52 section</td><td>Low-to-medium. Hydrocarbon context only.</td></tr>
+      <tr><td class="t3">3 &mdash; Plausible / exploratory</td><td>laccase_MCO</td><td>Kadri 2017, Aranda 2016</td><td>Laccases well-documented in white rot fungi; Aranda 2016 states LME unlikely to be primary mechanism in Sordariomycetes in PAH-polluted soil</td><td>Downgrade to low confidence without SignalP secretion evidence. F. solani primarily intracellular pathway.</td></tr>
+      <tr><td class="t3">3 &mdash; Plausible / exploratory</td><td>manganese_peroxidase</td><td>Kadri 2017</td><td>MnP well-documented in basidiomycetes (Kadri); no direct F. solani MnP data</td><td>Low confidence. Extracellular enzyme unlikely primary mechanism.</td></tr>
+      <tr><td class="t3">3 &mdash; Plausible / analogical</td><td>alcohol_oxidase</td><td>Vergara-Fernández 2019</td><td>Methanol oxidase homolog confirmed in F. solani genome (XP_003043760); methane pathway analogy</td><td>Methane substrate, not PAH. Analogical support only.</td></tr>
+      <tr><td class="t3">3 &mdash; Plausible / analogical</td><td>formaldehyde_dehydrogenase</td><td>Vergara-Fernández 2019</td><td>Formaldehyde biodegradation demonstrated in F. solani; downstream C1 pathway component</td><td>Not PAH-specific. Downstream detoxification context. Expect noise in hits (135 hits is high).</td></tr>
+      <tr><td class="t3">3 &mdash; Missing &mdash; add to script</td><td>sulfotransferase</td><td>&mdash;</td><td>Sulfate conjugation is documented (6-OH-BaP sulfate metabolite) but only aryl sulfatase (EC 3.1.6, removes sulfate) was screened. Sulfotransferases (EC 2.8.2, add sulfate) are distinct and missing from dictionary.</td><td>Add to script. EC 2.8.2 PAPS-dependent sulfotransferase. Aranda 2016 confirms sulfotransferases restricted to Ascomycota. Medium priority.</td></tr>
+      <tr><td class="t3">3 &mdash; Missing &mdash; add to script</td><td>dihydrodiol_dehydrogenase</td><td>Han 2026</td><td>DHDH mentioned in Fusarium yamamotoi PAH pathway (Han 2026); EH produces dihydrodiols needing further oxidation</td><td>Add to script. AKR/aldo-keto reductase terms. Evidence thin (one species, genomic only) &mdash; label exploratory.</td></tr>
+      <tr><td class="t3">3 &mdash; Missing &mdash; add to script</td><td>quinone_reductase</td><td>Veignie 2002, Aranda 2016</td><td>BaP quinones are major metabolites (Veignie 2002); cytosolic quinone reductase mentioned in Aranda 2016 Figure 1</td><td>Add to script. Low-to-medium. Quinone detoxification/redox support. Not primary degradation enzyme.</td></tr>
+      <tr><td class="tc">Contam-review only</td><td>dioxygenase</td><td>Han 2026, Aranda 2016</td><td>Fusarium PAH pathway lacks bacterial dioxygenases (Han 2026 p.9); ~36% reads from M. populi (GC 68-72%); bacterial contamination most likely explanation</td><td>Do not advance without BLAST taxonomy + scaffold GC verification. Coleman 2009 notes dioxygenase expansion in F. solani &mdash; verify carefully before excluding all hits.</td></tr>
+      <tr><td class="tc">Contam-review only</td><td>bacterial_contamination_markers</td><td>Kraken2 decontamination</td><td>M. populi confirmed at 97.84% BLAST identity; groEL, flagellar genes, phosphonate import, methanol dehydrogenase flagged</td><td>QC/screening safeguard only. Not PAH candidate family.</td></tr>
+    </tbody>
+  </table>
+
+  <!-- GAPS TABLE -->
+  <div class="section-title">&#128203; Priority Gaps &mdash; Papers Still Needed</div>
+  <table class="gap-table">
+    <thead><tr><th>Priority</th><th>Reference</th><th>Why needed</th><th>How to get</th></tr></thead>
+    <tbody>
+      <tr><td class="pri1">1 &mdash; Critical</td><td>Rafin et al. 2000<br><em>Polycycl Aromat Compd</em> 21:311&ndash;329<br>DOI: 10.1080/10406630008028542</td><td>Primary experimental source for CYP inhibitor data (66% reduction) and aryl sulfatase / 6-OH-BaP sulfate evidence. Currently abstract-only via EPA HERO (ID 5158707). Founding paper for this project.</td><td>Email supervisor (UPPA lab paper). UPPA library Lean Library extension: download.leanlibrary.com/UPPA. Lean Library did not resolve access in this session.</td></tr>
+      <tr><td class="pri1">1 &mdash; Critical</td><td>Bezalel et al. 1997<br><em>Appl Environ Microbiol</em> 63(6):2495&ndash;2501<br>PMID: 9172339</td><td>Primary experimental source for CYP + epoxide hydrolase mechanism in fungal PAH metabolism (oxygen isotope labelling in Pleurotus ostreatus). Currently cited only through Kadri 2017 and Aranda 2016 &mdash; secondary citation not acceptable at PhD level.</td><td>Open access via PMC. Search PubMed: Bezalel Hadar Cerniglia 1997 phenanthrene dihydrodiol.</td></tr>
+      <tr><td class="pri1">1 &mdash; Critical</td><td>Ide et al. 2012<br><em>Arch Microbiol</em> 194(4):243&ndash;253<br>DOI: 10.1007/s00203-011-0744-8</td><td>Primary experimental source for CYP5144 PAH-degradation evidence in Postia placenta. Moktali 2012 cites this (ref 28) as the basis for CYP5144 PAH function, but we currently cite Moktali as if it were the primary source &mdash; incorrect at PhD level.</td><td>Springer link. Search: Ide Ichinose Wariishi 2012 Postia placenta P450 PAH.</td></tr>
+      <tr><td class="pri2">2 &mdash; Important</td><td>Verdin et al. 2005<br><em>Int Biodeterior Biodegrad</em> 55(3):171&ndash;174<br>DOI: 10.1016/j.ibiod.2004.11.006</td><td>Primary source for P450 overexpression in F. solani proteomics under BaP exposure and intracellular PAH storage in lipid vesicles. Currently cited via Aranda 2016 only &mdash; key evidence not read directly.</td><td>Elsevier ScienceDirect. Try UPPA library access.</td></tr>
+      <tr><td class="pri2">2 &mdash; Important</td><td>Van Loo et al. 2006<br><em>Appl Environ Microbiol</em> 72(5):2905&ndash;2917</td><td>Primary source for epoxide hydrolase genome diversity across fungi. Cited in Aranda 2016 for EH distribution claims but not read directly.</td><td>Open access via PMC/ASM journals.</td></tr>
+      <tr><td class="pri2">2 &mdash; Important</td><td>Morel et al. 2013<br><em>Microbial Biotechnol</em> 6(3):248&ndash;263</td><td>Primary source for xenomic network / GST class diversity in fungi. Cited in Aranda 2016 for GST class definitions (Box 1) but not read directly.</td><td>Wiley open access.</td></tr>
+      <tr><td class="pri2">2 &mdash; Important</td><td>Delsarte et al. 2018<br><em>Environ Sci Pollut Res</em><br>DOI: 10.1007/s11356-017-1164-y</td><td>Links lipid metabolism to BaP degradation in F. solani (UPPA lab). Catalase inhibitor experiment showing 76% BaP degradation with olive oil carbon source + 3-AT. Supports peroxisome/H2O2 pathway and lipid body storage context. PDF available on Academia.edu.</td><td>Academia.edu PDF available. DOI link. Full text obtained in this session &mdash; ready to process through six-point framework.</td></tr>
+      <tr><td class="pri3">3 &mdash; Useful</td><td>Veignie et al. 2004<br><em>Environ Pollut</em> 129(1):1&ndash;4<br>DOI: 10.1016/j.envpol.2003.11.007</td><td>H2O2 role in BaP degradation by F. solani. UPPA lab paper. Contradicts Fayeulle 2014 on passive vs active uptake &mdash; contradiction unresolved and must be addressed explicitly in report.</td><td>Email supervisor. Elsevier ScienceDirect.</td></tr>
+      <tr><td class="pri3">3 &mdash; Useful</td><td>Thuillier et al. 2011<br><em>Int J Evol Biol</em> 2011:938308</td><td>GST Ure2p class expression after PAH treatment in P. chrysosporium. Primary source for specific GST class induction data cited in Aranda 2016.</td><td>Hindawi open access.</td></tr>
+      <tr><td class="pri3">3 &mdash; Useful</td><td>Saparrat et al. 2000<br><em>World J Microbiol Biotechnol</em> 16:799&ndash;803</td><td>Ligninolytic enzyme production by F. solani strains. Needed to properly contextualise the laccase/MCO downgrade &mdash; Aranda 2016 cites it but acknowledges F. solani can produce LME under some conditions.</td><td>Springer.</td></tr>
+    </tbody>
+  </table>
+
 </div>
-<footer>Emma McCallum &nbsp;|&nbsp; Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; May 2026</footer>
+
+<footer>
+  Emma McCallum &nbsp;|&nbsp; Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; May 2026<br>
+  <small>All tracker entries verified from source. No secondary citation accepted without explicit flag. Rafin et al. 2000: abstract only, cross-verified. Coleman et al. 2009 Table S6: directly retrieved from PLoS supplementary data. JGI MycoCosm: direct EC and KEGG search performed May 2026.</small>
+</footer>
 
 <script>
-  
 const PAPERS = [
   {
-  authors:"Moktali et al.",
-  year:2012,
-  title:"Systematic and searchable classification of cytochrome P450 proteins encoded by fungal and oomycete genomes",
-  journal:"BMC Genomics",           // was "PLOS ONE" — incorrect
-  type:"Genomic",
-  species:"Fusarium spp.",          // confirmed — F. solani mentioned but not focal
-  families:["CYP_general","CYP5144","CYP504","CYP52","CYP53"],
-  substrate:"Aromatic/xenobiotic (inferred)",
-  notes:"Primary CYP subfamily reference. FCPD v1.2 database paper. F. solani confirmed with 5 CYP504 genes. CYP5144 PAH-degradation evidence is from Postia placenta (basidiomycete) only — no functional claim made for Fusarium CYP5144 specifically. CYP52 absent from Fusarium in this paper. CYP53 confirmed present in Pezizomycotina (Fig. 4). All Fusarium CYP assignments are genomic inference by sequence similarity, not experimental.",
-  flag:"WARN",
-  flagNote:"PAH-degradation evidence for CYP5144 is basidiomycete-only (Postia placenta). No experimental data for F. solani. Obtain Ide et al. 2012 (Arch Microbiol 194:243) as secondary source for CYP5144 function."
-},
-  {
-    authors:"Han et al.",
-    year:2026,
-    title:"Aryl sulfatase activity and benzo[a]pyrene sulfate metabolite identification in Fusarium yamamotoi",
-    journal:"Environmental Microbiology (assumed)",
-    type:"Experimental",
-    species:"Other fungus",
-    families:["aryl_sulfatase"],
-    substrate:"Benzo[a]pyrene",
-    notes:"Identifies 6-hydroxybenzo[a]pyrene sulfate as a key PAH metabolite. Aryl sulfatase involvement confirmed experimentally.",
+    authors:"Rafin et al.",year:2000,
+    title:"Degradation of benzo[a]pyrene as sole carbon source by a non white rot fungus, Fusarium solani",
+    journal:"Polycyclic Aromatic Compounds",volume:"21(1-4):311-329",
+    doi:"10.1080/10406630008028542",
+    type:"Experimental",species:"F. solani (direct)",
+    strain:"F. solani F33 &mdash; fuel-contaminated soil isolate, UPPA laboratory, Dunkerque",
+    substrate:"Benzo[a]pyrene (sole carbon source)",
+    families:[
+      {name:"CYP_general",conf:"high"},
+      {name:"aryl_sulfatase",conf:"high"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH &mdash; Direct experimental inhibitor assay: 66% reduction in 14CO2 mineralisation with 1-aminobenzotriazole (specific CYP P450 inhibitor). Strongest direct CYP evidence in entire dataset.",
+      "aryl_sulfatase":"HIGH &mdash; 6-OH-BaP sulfate metabolite attributed to CYP + aryl sulfatase activity in F. solani F33 (confirmed via Fayeulle 2014 citations to this paper)"
+    },
+    findings:[
+      "F. solani F33 mineralises [7,10-14C]BaP as sole carbon source &mdash; most stringent experimental condition",
+      "0.2% BaP mineralised as 14CO2 over 10 days",
+      "66% reduction in 14CO2 with CYP inhibitor 1-aminobenzotriazole &mdash; strongest direct CYP evidence in dataset",
+      "Fluorescent vesicles in hyphae &mdash; early intracellular BaP/metabolite storage observation",
+      "6-OH-BaP sulfate metabolite and aryl sulfatase involvement confirmed via Fayeulle 2014 cross-citation"
+    ],
     flag:"WARN",
-    flagNote:"F. yamamotoi, not F. solani. Evidence is from a related Fusarium species only."
+    flagNote:"ABSTRACT ONLY &mdash; accessed via Taylor &amp; Francis DOI page + EPA HERO database (ID 5158707). Full text not obtained. Key findings cross-verified via Veignie 2002 (cites as ref 12) and Fayeulle 2014 (cites repeatedly). Journal confirmed as Polycyclic Aromatic Compounds by three independent papers. CRITICAL GAP: aryl sulfatase detail and complete metabolite data remain in full text only. Email supervisor.",
+    accessed:"Abstract via Taylor & Francis + EPA HERO ID 5158707",
+    priority:"FOUNDING PAPER &mdash; must obtain full text"
   },
   {
-    authors:"Vergara-Fernandez et al.",
-    year:2019,
-    title:"Fungal mechanisms for hydrocarbon uptake and transformation",
-    journal:"Biotechnology Advances (assumed)",
-    type:"Review",
-    species:"Multiple fungi",
-    families:["CYP_reductase","alcohol_oxidase","formaldehyde_dehydrogenase","aldehyde_dehydrogenase"],
-    substrate:"Hydrocarbons general",
-    notes:"CYP reductases as redox partners; alcohol oxidases and formaldehyde/aldehyde dehydrogenases as downstream pathway components.",
+    authors:"Veignie et al.",year:2002,
+    title:"Metabolization of the polycyclic aromatic hydrocarbon benzo(a)pyrene by a non-white rot fungus (Fusarium solani) in a batch reactor",
+    journal:"Polycyclic Aromatic Compounds",volume:"22(1):87-97",
+    doi:"10.1080/10406630290026189",
+    type:"Experimental",species:"F. solani (direct)",
+    strain:"F. solani F33 &mdash; petroleum-contaminated soil, UPPA laboratory (same lineage as Rafin 2000)",
+    substrate:"Benzo[a]pyrene (cometabolic, batch fermentor)",
+    families:[
+      {name:"CYP_general",conf:"high"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH &mdash; 1,6-BaP quinone and 3,6-BaP quinone metabolites identified by TLC/HPLC/MS. Oxidation at C-1, C-3, C-6 is mechanistically consistent with CYP P450-mediated radical cation oxidation."
+    },
+    findings:[
+      "BaP mineralised in biphasic pattern correlated with germination and death phases",
+      "1.2% as 14CO2, 5.3% incorporated into biomass after 256 hr",
+      "Metabolites: 1,6-BaP quinone + 3,6-BaP quinone confirmed by TLC/HPLC/MS",
+      "C-1, C-3, C-6 oxidation positions consistent with CYP radical cation mechanism",
+      "CRITICAL NEGATIVE RESULT: no sulfated or glucuronide conjugates detected in culture filtrate under these conditions",
+      "BaP mineralisation linked to lipid metabolism phases &mdash; connects to Delsarte 2018 lipid context",
+      "Quinone accumulation may inhibit CYP activity (Shen et al. 1979 cited) &mdash; supports quinone_reductase addition",
+      "Confirms Rafin 2000 journal as Polycyclic Aromatic Compounds 21:311-329"
+    ],
     flag:"WARN",
-    flagNote:"Not F. solani specific. Species and substrate context needs confirming from the actual paper — currently unverified."
+    flagNote:"Condition-dependent results: no sulfate conjugates under high-load fermentor conditions &mdash; does NOT contradict aryl sulfatase evidence, but shows pathway is condition-dependent. Full text read.",
+    accessed:"Full PDF read"
   },
   {
-    authors:"San Martin-Davison et al.",
-    year:2024,
-    title:"Genomic and functional characterisation of Fusarium solani xenobiotic metabolism",
-    journal:"Fungal Biology (assumed)",
-    type:"Genomic",
-    species:"F. solani",
-    families:["phenol_monooxygenase","FAD_monooxygenase"],
-    substrate:"Phenolic/aromatic compounds",
-    notes:"Phenol-2-monooxygenase and unspecific monooxygenase EC numbers annotated in F. solani proteome.",
-    flag:"ERROR",
-    flagNote:"Contains citation error: Mesny et al. 2021 cited for F. solani genome annotations but Fusarium does not appear in that paper. Handle all citations from this paper with caution."
-  },
-  {
-    authors:"Fayeulle et al.",
-    year:2014,
-    title:"Fungal degradation of polycyclic aromatic hydrocarbons: intracellular mechanisms",
-    journal:"Applied Microbiology and Biotechnology (assumed)",
-    type:"Experimental",
-    species:"Multiple fungi",
-    families:["CYP_general","epoxide_hydrolase","GST"],
-    substrate:"PAH general",
-    notes:"Intracellular PAH degradation mechanism. Supports search for intracellular enzymes. Reference for CYP-epoxide hydrolase-GST pathway sequence.",
+    authors:"Fayeulle et al.",year:2014,
+    title:"Energy-dependent uptake of benzo[a]pyrene and its cytoskeleton-dependent intracellular transport by the telluric fungus Fusarium solani",
+    journal:"Environmental Science and Pollution Research",volume:"21(6):3515-3523",
+    doi:"10.1007/s11356-013-2324-3",
+    type:"Experimental",species:"F. solani (direct)",
+    strain:"Isolate 14, UCEIV mycology collection, Dunkerque (same UPPA lab lineage as F33; CBS-KNAW identified)",
+    substrate:"Benzo[a]pyrene + phenanthrene (comparison)",
+    families:[
+      {name:"CYP_general",conf:"high"},
+      {name:"aryl_sulfatase",conf:"high"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH &mdash; CYP monooxygenase explicitly named as enzyme mediating intracellular BaP detoxification in F. solani (citing Rafin 2000/2006)",
+      "aryl_sulfatase":"HIGH &mdash; Aryl sulfatases explicitly named alongside CYP. 6-OH-BaP sulfate named as BaP metabolite product in F. solani (citing Rafin 2000/2006). Strongest species-specific aryl sulfatase citation."
+    },
+    findings:[
+      "BaP uptake is energy-dependent &mdash; blocked by 100 mM NaN3. CONTRADICTS Verdin et al. 2004 (passive uptake claim).",
+      "BaP stored in intracellular lipid bodies &mdash; confirmed by BODIPY co-localisation (confocal microscopy)",
+      "Actin cytoskeleton required for BaP transport &mdash; blocked by cytochalasin B. CONTRADICTS Verdin 2004.",
+      "82.9% of initial BaP incorporated into biomass within 48 hr",
+      "CYP monooxygenase and aryl sulfatases explicitly named as enzymes mediating BaP detoxification",
+      "6-OH-BaP sulfate named as BaP metabolite in F. solani (citing Rafin 2000/2006)",
+      "Confirms Veignie 2002 journal as Polycyclic Aromatic Compounds 22:87-97",
+      "BaP uptake pathway distinct from classical FM4-64 vacuolar pathway"
+    ],
     flag:"WARN",
-    flagNote:"Species attribution unverified — need to confirm whether F. solani is included or whether this covers other fungal species only."
+    flagNote:"Enzyme evidence (CYP + aryl sulfatase) cited from Rafin 2000/2006 &mdash; not independently demonstrated here. Cell biology/uptake paper primarily. Note contradiction with Verdin 2004 on passive vs active uptake and cytoskeleton role &mdash; unresolved in literature; Fayeulle 2014 is later and methodologically stronger. Full text read.",
+    accessed:"Full PDF read"
   },
   {
-    authors:"Kadri et al.",
-    year:2017,
-    title:"Fungal enzymes involved in environmental organic compound transformation",
-    journal:"World Journal of Microbiology and Biotechnology (assumed)",
-    type:"Review",
-    species:"Multiple fungi",
-    families:["laccase_MCO","manganese_peroxidase","lignin_peroxidase"],
-    substrate:"Aromatic/PAH",
-    notes:"General fungal enzyme mechanism context. Laccases, manganese peroxidases, and lignin peroxidases as oxidative enzymes relevant to aromatic compound transformation.",
-    flag:"WARN",
-    flagNote:"Not F. solani specific. Review paper — cited for general enzyme mechanism context only."
-  },
-  {
-    authors:"Coleman et al.",
-    year:2009,
+    authors:"Coleman et al.",year:2009,
     title:"The genome of Nectria haematococca: contribution of supernumerary chromosomes to gene expansion",
-    journal:"PLOS Genetics",
-    type:"Genomic",
-    species:"F. solani",
-    families:["CYP_general","CYP5144","CYP504","CYP52","CYP53"],
-    substrate:"N/A — genome paper",
-    notes:"Primary F. solani genome reference. Essential for baseline gene count comparison and CYP complement context.",
-    flag:"ERROR",
-    flagNote:"NOT YET OBTAINED. Priority paper — needed before finalising candidate counts and comparisons."
+    journal:"PLoS Genetics",volume:"5(8):e1000618",
+    doi:"10.1371/journal.pgen.1000618",
+    type:"Genomic",species:"F. solani (direct)",
+    strain:"N. haematococca MPVI isolate 77-13-4 (laboratory cross progeny; FGSC 9596) &mdash; different isolate from study strain",
+    substrate:"N/A &mdash; genome sequencing and annotation paper",
+    families:[
+      {name:"CYP_general",conf:"high"},
+      {name:"CYP5144",conf:"medium"},
+      {name:"CYP504",conf:"high"},
+      {name:"CYP52",conf:"medium"},
+      {name:"CYP53",conf:"medium"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH &mdash; 150 CYP genes + 11 pseudogenes = 161 total (Table S6 directly retrieved from PLoS supplementary in this session). Largest ascomycete CYP complement in comparison. 34% more than F. graminearum (112).",
+      "CYP5144":"MEDIUM &mdash; CYP gene expansion noted but no CYP5144-specific PAH claim made. CYP544 pseudoparalog identified.",
+      "CYP504":"HIGH &mdash; Confirmed in F. solani via Moktali 2012 (ref 63 here). Detoxification CYP on dispensable chromosomes.",
+      "CYP52":"MEDIUM &mdash; Noted in oxidoreductase expansion context. No specific CYP52 PAH claim.",
+      "CYP53":"MEDIUM &mdash; Part of expanded gene families; benzoate hydroxylation function confirmed in Pezizomycotina."
+    },
+    findings:[
+      "Genome: 54.43 Mb, 15,707 predicted genes &mdash; largest ascomycete genome at time of publication",
+      "150 CYP genes + 11 pseudogenes = 161 total (Table S6 DIRECTLY RETRIEVED in this session)",
+      "34% more CYP genes than F. graminearum (112); comparable to P. chrysosporium (149, basidiomycete)",
+      "Oxidoreductases, monooxygenases, dioxygenases among most expanded families vs F. graminearum",
+      "Supernumerary chromosomes 14, 15, 17: lower GC, enriched in unique/duplicated genes",
+      "CYP genes for pisatin detoxification (phytoalexin) on dispensable chromosomes &mdash; metabolic flexibility via accessory genome",
+      "Confirms Rafin 2000 journal: Polycyclic Aromatic Compounds 21:311-329 (ref 25 herein)",
+      "CYP544 pseudoparalog identified in F. solani (relevant to FCPD CYP5144 classification)"
+    ],
+    flag:"OK",
+    flagNote:"Primary F. solani genome reference. Table S6 CYP counts directly retrieved from PLoS supplementary data in this session (May 2026). Strain 77-13-4 (MPVI) is different isolate from study strain &mdash; gene counts are baseline comparators, not exact matches. Coleman 2009 cites Rafin 2000 as ref 25 &mdash; independently confirms journal name.",
+    accessed:"Full PDF read + Table S6 retrieved directly from supplementary .doc file"
   },
   {
-    authors:"Rafin et al.",
-    year:2000,
-    title:"PAH degradation by Fusarium solani isolated from contaminated soil",
-    journal:"Mycological Research (assumed)",
-    type:"Experimental",
-    species:"F. solani",
-    families:["CYP_general","laccase_MCO"],
-    substrate:"PAH (pyrene assumed)",
-    notes:"UPPA lab paper. Experimental evidence for F. solani PAH degradation activity. Critical experimental baseline for this project.",
-    flag:"ERROR",
-    flagNote:"NOT YET OBTAINED. Priority paper — essential for experimental context."
+    authors:"Moktali et al.",year:2012,
+    title:"Systematic and searchable classification of cytochrome P450 proteins encoded by fungal and oomycete genomes",
+    journal:"BMC Genomics",volume:"13:525",
+    doi:"10.1186/1471-2164-13-525",
+    type:"Genomic",species:"Fusarium spp.",
+    strain:"Pan-fungal computational study &mdash; 213 species. F. solani mentioned in CYP504 (p.8) and CYP544 (ref 63 = Coleman 2009) sections specifically.",
+    substrate:"Aromatic/xenobiotic (inferred from sequence similarity to characterised CYPs)",
+    families:[
+      {name:"CYP_general",conf:"high"},
+      {name:"CYP5144",conf:"medium"},
+      {name:"CYP504",conf:"high"},
+      {name:"CYP52",conf:"medium"},
+      {name:"CYP53",conf:"high"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH &mdash; FCPD v1.2 database; primary reference for CYP subfamily classification framework. 22,940 CYPs from 213 species classified.",
+      "CYP5144":"MEDIUM &mdash; PAH-degradation evidence from Postia placenta (basidiomycete, ref 28 = Ide et al. 2012) only. F. solani CYP5144 gene count listed but NO functional claim made for Fusarium specifically.",
+      "CYP504":"HIGH &mdash; F. solani confirmed with 5 CYP504 genes (p.8 directly read). Phenylacetate ortho-hydroxylation; present in saprophytic/phenol-degrading species.",
+      "CYP52":"MEDIUM &mdash; Alkane/fatty acid hydroxylation. F. solani NOT listed in CYP52 section specifically. Relevance indirect.",
+      "CYP53":"HIGH &mdash; Benzoate-para-hydroxylase confirmed in Pezizomycotina (Fig.4 directly read); beta-ketoadipate pathway for soil aromatic compound degradation."
+    },
+    findings:[
+      "FCPD v1.2: 22,940 CYPs from 213 species in 2,579 clusters and 115 clans",
+      "F. solani confirmed with 5 CYP504 genes (p.8) &mdash; directly read",
+      "CYP5144 PAH evidence from Postia placenta (Ide et al. 2012, ref 28) &mdash; NOT from Fusarium",
+      "CYP53: benzoate-para-hydroxylase; confirmed in Pezizomycotina incl. Fusarium spp. (Fig.4)",
+      "CYP504: phenylacetate catabolism; CYP53 + CYP504 upregulated during Metarhizium cuticle infection (not Fusarium)",
+      "CYP52 absent from Fusarium in this paper &mdash; found in other ascomycetes",
+      "Coleman et al. 2009 cited as ref 63 re: CYP544 pseudoparalog in F. solani",
+      "Journal was incorrectly listed as PLOS ONE in original tracker &mdash; CORRECTED to BMC Genomics"
+    ],
+    flag:"WARN",
+    flagNote:"CRITICAL CAVEAT: CYP5144 PAH-degradation evidence is basidiomycete-only (Postia placenta, Ide et al. 2012). F. solani CYP5144 included only by gene count similarity &mdash; must not be presented as F. solani PAH evidence. Obtain Ide et al. 2012 to cite primary CYP5144 function evidence. All Fusarium CYP subfamily assignments are computational inference from sequence similarity, not experimental. Journal corrected from PLOS ONE to BMC Genomics.",
+    accessed:"Full PDF read"
   },
   {
-    authors:"Veignie et al.",
-    year:2002,
-    title:"Fusarium solani degradation of benzo[a]pyrene",
-    journal:"Journal of Hazardous Materials (assumed)",
-    type:"Experimental",
-    species:"F. solani",
-    families:["CYP_general","epoxide_hydrolase"],
-    substrate:"Benzo[a]pyrene",
-    notes:"UPPA lab paper. Benzo[a]pyrene transformation by F. solani. Directly relevant to candidate search.",
-    flag:"ERROR",
-    flagNote:"NOT YET OBTAINED. Priority paper — ask supervisors directly."
+    authors:"Han et al.",year:2026,
+    title:"Synergistic degradation of polycyclic aromatic hydrocarbons by Fusarium and Priestia in saline environments: from kinetic characterization to multi-omics dissection",
+    journal:"International Biodeterioration and Biodegradation",volume:"209:106279",
+    doi:"10.1016/j.ibiod.2026.106279",
+    type:"Experimental",species:"Other Fusarium",
+    strain:"Fusarium yamamotoi FG &mdash; saline contaminated soil, Dagang Oilfield, Tianjin. ITS confirmed NOT F. solani (Fig.2a phylogeny directly read).",
+    substrate:"Pyrene (50 mg/L, 3% salinity) &mdash; NOT benzo[a]pyrene",
+    families:[
+      {name:"CYP_general",conf:"high"},
+      {name:"epoxide_hydrolase",conf:"high"},
+      {name:"GST",conf:"high"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH (for Fusarium genus) &mdash; CYP P450 quinone pathway confirmed by UHPLC-QExactive metabolomics. CYP-mediated pathway explicitly named as one of three active degradation routes.",
+      "epoxide_hydrolase":"HIGH (for Fusarium genus) &mdash; EPHX1 explicitly named in F. yamamotoi genome alongside CYP and GST as part of PAH-modifying cytochrome P450 pathway (p.6 directly read).",
+      "GST":"HIGH (for Fusarium genus) &mdash; GST genes explicitly named alongside CYP and EPHX1 in cytochrome P450-mediated PAH pathway in Fusarium genome (p.6 directly read)."
+    },
+    findings:[
+      "Species confirmed as F. yamamotoi NOT F. solani by ITS phylogeny (Fig.2a) &mdash; all evidence transferable by analogy within Fusarium genus only",
+      "CYP-EPHX1-GST pathway explicitly named in Fusarium genome for PAH modification (p.6)",
+      "Metabolomics confirms: 1-hydroxypyrene, 1,2-naphthoquinone, phthalic acid, protocatechuic acid as pyrene metabolites",
+      "F. yamamotoi FG EXPLICITLY LACKS dioxygenase genes for initial pyrene oxidation (p.9) &mdash; supports contamination interpretation of dioxygenase hits",
+      "CYP P450 pathway + phthalate pathway + salicylate pathway all active",
+      "Draft genome: 56.02 Mb, 18,074 CDS, GC 50.75% &mdash; comparable to F. solani",
+      "DGTS biosurfactants produced by Fusarium to enhance PAH bioavailability",
+      "ARYL SULFATASE: NOT mentioned &mdash; removed from tracker (previous entry error corrected)"
+    ],
+    flag:"WARN",
+    flagNote:"Species is F. yamamotoi NOT F. solani &mdash; evidence transferable only by analogy within Fusarium genus. Substrate is pyrene not BaP. EPHX1 and GST evidence is genomic/computational, not direct enzyme activity assays. Aryl sulfatase REMOVED from families &mdash; was an error in previous tracker version. Dioxygenase absence in Fusarium genome (p.9) provides important support for contamination interpretation of dioxygenase hits in present project.",
+    accessed:"Full PDF read"
+  },
+  {
+    authors:"Kadri et al.",year:2017,
+    title:"Biodegradation of polycyclic aromatic hydrocarbons (PAHs) by fungal enzymes: a review",
+    journal:"The Open Biotechnology Journal",volume:"11:27-35",
+    doi:"10.2174/1874070701711010027",
+    type:"Review",species:"Multiple fungi",
+    strain:"Primarily P. chrysosporium, P. ostreatus, B. adusta, A. discolor (white rot basidiomycetes). F. solani cited once as intracellular (citing Fayeulle 2014).",
+    substrate:"Multiple PAHs &mdash; anthracene, phenanthrene, pyrene, BaP, fluorene, fluoranthene",
+    families:[
+      {name:"CYP_general",conf:"medium"},
+      {name:"epoxide_hydrolase",conf:"medium"},
+      {name:"GST",conf:"medium"},
+      {name:"laccase_MCO",conf:"high"},
+      {name:"manganese_peroxidase",conf:"high"},
+      {name:"lignin_peroxidase",conf:"high"},
+      {name:"aryl_sulfatase",conf:"medium"}
+    ],
+    familyEvidence:{
+      "CYP_general":"MEDIUM (review, not F. solani specific) &mdash; CYP monooxygenase system producing epoxides cited as mechanism (p.5, p.8). Mechanism described but no direct F. solani data.",
+      "epoxide_hydrolase":"MEDIUM (review) &mdash; EH named as converting arene oxides to trans-dihydrodiols (p.8, Fig.3). P. ostreatus CYP-EH confirmed by Bezalel 1997 (cited but not read directly).",
+      "GST":"MEDIUM (review) &mdash; Named in xenobiotic detoxification pathway; glutathione as MnP mediator. GST classes not detailed here (see Aranda 2016 Box 1 for that).",
+      "laccase_MCO":"HIGH (for white rot fungi) &mdash; Detailed mechanism; ABTS/HBT mediator requirement; extensive Table 3 substrate/product data. NOT F. solani.",
+      "manganese_peroxidase":"HIGH (for white rot fungi) &mdash; Detailed catalytic cycle (reactions 1-5); Mn2+/Mn3+ mechanism. MnP from A. discolor: pyrene >86%. NOT F. solani.",
+      "lignin_peroxidase":"HIGH (for white rot fungi) &mdash; Ionisation potential framework; BaP IP=7.21 eV &lt; LiP threshold 7.35 eV. NOT F. solani.",
+      "aryl_sulfatase":"MEDIUM (review) &mdash; Phase II sulfate conjugation documented across PAHs and species (p.8, Table 2). Sulfate conjugates as excretion products."
+    },
+    findings:[
+      "Figure 3: clearest single-figure diagram of complete CYP P450 &rarr; arene oxide &rarr; EH &rarr; trans-dihydrodiol pathway",
+      "Phase II sulfate conjugation documented (Table 2) across multiple PAHs and species",
+      "F. solani cited explicitly as using intracellular (non-ligninolytic) mechanism, citing Fayeulle 2014 (p.9)",
+      "Ionisation potential framework: PAHs with IP &le; 7.35 eV are LiP substrates; BaP IP = 7.21 eV",
+      "MnP from Anthracophyllum discolor: pyrene &gt;86%, anthracene &gt;65% degradation",
+      "BaP oxidised to 1,6-, 3,6-, 6,12-quinones by LiP (P. chrysosporium) and laccase (Pycnoporus cinnabarinus)",
+      "Bezalel 1997 cited for CYP-EH mechanism in P. ostreatus but paper not read directly &mdash; Tier 1 gap"
+    ],
+    flag:"WARN",
+    flagNote:"Review paper &mdash; all experimental data from cited primaries. White rot basidiomycetes are primary focus; F. solani appears once. Primary source for CYP-EH mechanism (Bezalel 1997, cited here as ref for P. ostreatus) not read directly &mdash; listed as Priority 1 gap.",
+    accessed:"Full text read"
+  },
+  {
+    authors:"Aranda",year:2016,
+    title:"Promising approaches towards biotransformation of polycyclic aromatic hydrocarbons with Ascomycota fungi",
+    journal:"Current Opinion in Biotechnology",volume:"38:1-8",
+    doi:"10.1016/j.copbio.2015.12.002",
+    type:"Review",species:"Ascomycota (multiple)",
+    strain:"Multiple ascomycetes. F. solani cited specifically: CYP inhibitor reduces BaP removal (Verdin 2005 cited); P450 overexpressed in proteomics (Verdin 2005 cited); BaP in lipid bodies (Fayeulle 2014 cited).",
+    substrate:"Multiple PAHs &mdash; BaP, anthracene, pyrene, phenanthrene, naphthalene",
+    families:[
+      {name:"CYP_general",conf:"high"},
+      {name:"epoxide_hydrolase",conf:"high"},
+      {name:"GST",conf:"high"},
+      {name:"aryl_sulfatase",conf:"high"},
+      {name:"laccase_MCO",conf:"low"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH (Ascomycota context) &mdash; CYP inhibitor reduces F. solani BaP removal (Verdin 2005 cited); P450 overexpressed in F. solani proteomics under BaP (Verdin 2005 cited); Eurotiales/Fusarium have large CYP numbers; &gt;6000 fungal CYP genes",
+      "epoxide_hydrolase":"HIGH (Ascomycota context) &mdash; EHs widely distributed in Ascomycota; multiple per genome; Box 1: EC 3.3.2.9 (microsomal) and EC 3.3.2.10 (cytosolic); alpha/beta hydrolase fold. Van Loo et al. 2006 cited (not read directly).",
+      "GST":"HIGH (Ascomycota context) &mdash; Box 1: nine GST classes in fungi (GTT1, GTT2, Ure2p, MAK16, EFB1, GSTFuA, phi, omega, GHR). Ure2p4/6 induced by PAH in P. chrysosporium. Morel et al. 2013 cited (not read directly).",
+      "aryl_sulfatase":"HIGH (Ascomycota context) &mdash; Sulfotransferases (Phase II, EC 2.8.2) restricted to Ascomycota. Makes F. solani particularly relevant for sulfated PAH metabolite studies. NOTE: sulfotransferase ≠ aryl sulfatase biochemically.",
+      "laccase_MCO":"LOW (negative context) &mdash; Sordariomycetes (class of F. solani) NOT characterised by LME production. LME unlikely in F. solani in PAH-polluted soil. This is the primary source for downgrading laccase/MCO confidence."
+    },
+    findings:[
+      "BEST AVAILABLE REVIEW for Ascomycota PAH biotransformation &mdash; directly relevant to F. solani",
+      "CYP inhibitor reduces F. solani BaP removal (Verdin 2005 cited) &mdash; cross-confirms Rafin 2000 result",
+      "P450 overexpressed in F. solani proteomics under BaP exposure (Verdin 2005 cited) &mdash; Verdin 2005 not read directly",
+      "Figure 1: integrated intracellular model &mdash; CYP + EH + ST + GST + QR pathway diagram",
+      "Box 1: precise EC numbers and definitions for all Phase I and Phase II enzyme families",
+      "Sulfotransferases (Phase II, EC 2.8.2) RESTRICTED TO ASCOMYCOTA &mdash; makes F. solani directly relevant",
+      "Sordariomycetes (F. solani class) NOT characterised by LME production &mdash; primary source for laccase/MCO downgrade",
+      "Xenome concept defined: multigene families for xenobiotic detection, transport, metabolism",
+      "F. solani stores BaP in lipid bodies (Phase III) citing Fayeulle 2014 and Verdin 2005",
+      "IMPORTANT: sulfotransferase (EC 2.8.2, adds sulfate) vs aryl sulfatase (EC 3.1.6, removes sulfate) are DISTINCT &mdash; both relevant but different enzymatic roles"
+    ],
+    flag:"WARN",
+    flagNote:"Review paper &mdash; no direct experimental data. Primary sources Verdin 2005, Van Loo 2006, Morel 2013 cited for key claims but not read directly &mdash; listed as Priority 2 gaps. Note important biochemical distinction: sulfotransferases ADD sulfate (Ascomycota-restricted per this paper); aryl sulfatases REMOVE sulfate. Both needed in enzyme dictionary.",
+    accessed:"Full text read"
+  },
+  {
+    authors:"San Martín-Davison et al.",year:2024,
+    title:"Exploring naphthalene vapor biofiltration: performance and microbial community dynamics with diverse inoculums",
+    journal:"Journal of Chemical Technology and Biotechnology",volume:"DOI: 10.1002/jctb.7744",
+    doi:"10.1002/jctb.7744",
+    type:"Experimental",species:"F. solani (direct)",
+    strain:"F. solani B1 (CBS 117476) &mdash; confirmed dominant at 97% of fungal community by ITS Illumina MiSeq sequencing after 4 months",
+    substrate:"Naphthalene (vapour phase biofiltration) &mdash; NOT benzo[a]pyrene",
+    families:[
+      {name:"CYP_general",conf:"high"},
+      {name:"phenol_monooxygenase",conf:"high"},
+      {name:"FAD_monooxygenase",conf:"high"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH (genomically verified) &mdash; EC 1.14.14.1 (CYP unspecific monooxygenase): 7 gene models in F. solani 7.154 v1.0 confirmed by direct JGI MycoCosm search (this session). ko:K14338/K00493, EGGNOG source.",
+      "phenol_monooxygenase":"HIGH (genomically verified) &mdash; EC 1.14.13.7 (phenol-2-monooxygenase): 7 gene models confirmed by direct JGI MycoCosm search (this session). ko:K03380, EGGNOG source.",
+      "FAD_monooxygenase":"HIGH (genomically verified) &mdash; EC 1.14.13.1 (salicylate-1-monooxygenase): 37 gene models confirmed by direct JGI MycoCosm search (this session). ko:K00480, EGGNOG source. LARGEST of the three verified EC numbers."
+    },
+    findings:[
+      "F. solani B1 (CBS 117476) dominant at 97% after 4 months naphthalene biofiltration (ITS confirmed)",
+      "EC 1.14.13.7 (phenol-2-monooxygenase): 7 genes confirmed in F. solani 7.154 v1.0 by direct JGI search",
+      "EC 1.14.13.1 (salicylate-1-monooxygenase): 37 genes confirmed &mdash; largest of the three JGI-verified families",
+      "EC 1.14.14.1 (CYP unspecific monooxygenase): 7 genes confirmed",
+      "1-naphthol + 2-naphthol confirmed as fungal naphthalene metabolites by HPLC &mdash; consistent with CYP initial hydroxylation",
+      "Dihydrodiol dehydrogenase ABSENT from F. solani genome &mdash; confirms CYP (not dioxygenase) pathway",
+      "Startup time reduced 35&rarr;5 days with reconstructed consortium inoculum",
+      "CITATION ERROR: ref 36 (Mesny et al. 2021) is Arabidopsis mycobiome paper &mdash; Fusarium absent. All three EC annotation claims independently verified by JGI MycoCosm in this project and confirmed correct."
+    ],
+    flag:"WARN",
+    flagNote:"Citation error in ref 36 (Mesny et al. 2021) identified and RESOLVED &mdash; all three EC number claims independently verified by direct JGI MycoCosm search (May 2026). Flag downgraded from ERROR to WARN. Substrate is naphthalene (2-ring PAH) not BaP (5-ring) &mdash; enzyme pathway overlap significant but not identical. Strain CBS 117476 different from study strain.",
+    accessed:"Full text read + JGI MycoCosm EC number verification performed directly (May 2026)"
+  },
+  {
+    authors:"Vergara-Fernández et al.",year:2019,
+    title:"Methane biodegradation and enhanced methane solubilization by the filamentous fungi Fusarium solani",
+    journal:"Chemosphere",volume:"DOI: 10.1016/j.chemosphere.2019.03.116",
+    doi:"10.1016/j.chemosphere.2019.03.116",
+    type:"Experimental",species:"F. solani (direct)",
+    strain:"F. solani B1 (CBS 117476) &mdash; same strain as San Martín-Davison 2024",
+    substrate:"Methane (sole carbon and energy source) &mdash; NOT a PAH",
+    families:[
+      {name:"CYP_general",conf:"medium"},
+      {name:"alcohol_oxidase",conf:"medium"},
+      {name:"formaldehyde_dehydrogenase",conf:"medium"}
+    ],
+    familyEvidence:{
+      "CYP_general":"MEDIUM (analogical) &mdash; CYP P450 proposed as initial methane attack enzyme in F. solani (bacterial MMO absent). Supports CYP role in C-H bond oxidation of hydrophobic substrates broadly.",
+      "alcohol_oxidase":"MEDIUM (genomic) &mdash; Methanol oxidase homolog confirmed in N. haematococca genome (NCBI ProteinID: XP_003043760). Methanol is intermediate in methane pathway.",
+      "formaldehyde_dehydrogenase":"MEDIUM (experimental, cited) &mdash; Formaldehyde biodegradation demonstrated in F. solani (Morales et al. 2017, Vergara-Fernández 2018 cited). Downstream C1 metabolism component."
+    },
+    findings:[
+      "F. solani B1 degrades methane at 300 mg m-3 h-1 at 35°C &mdash; comparable to specialist methanotrophic bacteria",
+      "Bacterial-type particulate and soluble methane monooxygenases NOT found in F. solani",
+      "CYP P450 proposed for initial methane oxidation by elimination of bacterial MMO alternatives",
+      "Methanol oxidase homolog confirmed in F. solani (N. haematococca) genome: NCBI ProteinID XP_003043760",
+      "Formaldehyde biodegradation demonstrated (Morales et al. 2017 cited)",
+      "Inactivated F. solani biomass reduces methane-water partition coefficient by up to 2 orders of magnitude",
+      "CYP_REDUCTASE removed from families &mdash; not supported by this paper (was tracker error)"
+    ],
+    flag:"WARN",
+    flagNote:"METHANE SUBSTRATE &mdash; all enzyme evidence is analogical to PAH context. CYP involvement inferred, not demonstrated by inhibitor or direct activity assay. Supports alcohol_oxidase and formaldehyde_dehydrogenase as downstream pathway candidates, not PAH-specific candidates. CYP_reductase removed from families &mdash; was listed in previous tracker version incorrectly.",
+    accessed:"Full text (abstract + highlights + key sections) read"
+  },
+  {
+    authors:"Delsarte et al.",year:2018,
+    title:"Lipid metabolism and benzo[a]pyrene degradation by Fusarium solani: an unexplored potential",
+    journal:"Environmental Science and Pollution Research",volume:"DOI: 10.1007/s11356-017-1164-y",
+    doi:"10.1007/s11356-017-1164-y",
+    type:"Experimental",species:"F. solani (direct)",
+    strain:"F. solani from UCEIV mycology collection, Dunkerque (same UPPA lab lineage; CBS-KNAW identified). Same strain as Rafin 2013, Fayeulle 2014, Veignie 2004.",
+    substrate:"Benzo[a]pyrene (with glucose or olive oil as carbon source)",
+    families:[],
+    familyEvidence:{},
+    findings:[
+      "BaP degradation: 4.2% with glucose vs 37.4% with olive oil as carbon source (12 days)",
+      "Catalase inhibitor 3-AT (2 mM) + olive oil increases BaP degradation to 76.0%",
+      "Catalase activity higher with olive oil (3.4 μkat mg-1 protein) than glucose (2.1)",
+      "Mechanism: olive oil induces peroxisome proliferation &rarr; increased intracellular H2O2 &rarr; fortuitous BaP oxidation",
+      "H2O2 role in BaP oxidation (intracellular Fenton-like system) confirmed, citing Veignie et al. 2004",
+      "Peroxisomes in close spatial proximity to lipid bodies (Binns et al. 2006 cited)",
+      "Confirms BaP stored in lipid bodies as in Fayeulle 2014 (citing Fayeulle 2014)",
+      "Supports context for catalase, peroxisomal enzymes, and oxidative stress response in BaP degradation",
+      "NOT an enzyme identification paper &mdash; does not directly support any specific PAH enzyme family",
+      "Context for lipid metabolism-BaP degradation link and Veignie 2004 H2O2 mechanism"
+    ],
+    flag:"WARN",
+    flagNote:"Does NOT identify specific PAH-degrading enzyme families. Context paper only for: (1) lipid metabolism link to BaP degradation; (2) H2O2/peroxisome pathway in F. solani; (3) broad BaP degradation capacity confirmed. Veignie et al. 2004 cited here as primary source for H2O2/Fenton mechanism. Also confirms Fayeulle 2014 energy-dependent uptake/lipid body storage. NOTE: Verdin 2004 paper contradicts Fayeulle 2014 on passive vs active uptake &mdash; Delsarte 2018 sides with Fayeulle 2014 (active, lipid body storage). Full text obtained from Academia.edu and read in this session.",
+    accessed:"Full PDF read (Academia.edu)"
+  },
+  {
+    authors:"JGI MycoCosm &mdash; direct database query",year:2026,
+    title:"Fusarium solani 7.154 v1.0 &mdash; KEGG pathway and EC number annotation",
+    journal:"JGI MycoCosm (mycocosm.jgi.doe.gov)",volume:"Accessed May 2026",
+    doi:"mycocosm.jgi.doe.gov",
+    type:"Database",species:"F. solani (direct)",
+    strain:"F. solani 7.154 (soybean root endophyte isolate) &mdash; different ecological context from study strain but same species. FilteredModels1 ver 2.",
+    substrate:"N/A &mdash; genome annotation",
+    families:[
+      {name:"CYP_general",conf:"high"},
+      {name:"phenol_monooxygenase",conf:"high"},
+      {name:"FAD_monooxygenase",conf:"high"},
+      {name:"GST",conf:"high"}
+    ],
+    familyEvidence:{
+      "CYP_general":"HIGH &mdash; Drug metabolism-CYP450: 83 genes; Metabolism of xenobiotics by CYP450: 75 genes; Naphthalene/anthracene degradation: 44 genes; Benzoate degradation via hydroxylation: 27 genes",
+      "phenol_monooxygenase":"HIGH &mdash; EC 1.14.13.7: 7 gene models confirmed; Phenol 2-monooxygenase ko:K03380; EGGNOG source; E-value 0 for top hits",
+      "FAD_monooxygenase":"HIGH &mdash; EC 1.14.13.1: 37 gene models confirmed; FAD-dependent oxidoreductase/salicylate hydroxylase ko:K00480; EGGNOG source",
+      "GST":"HIGH &mdash; Glutathione metabolism: 54 genes confirmed in KEGG pathway annotation"
+    },
+    findings:[
+      "EC 1.14.13.7: 7 gene models &mdash; Phenol 2-monooxygenase, ko:K03380, EGGNOG, E-value 0",
+      "EC 1.14.13.1: 37 gene models &mdash; FAD-dependent oxidoreductase/salicylate hydroxylase, ko:K00480, EGGNOG",
+      "EC 1.14.14.1: 7 gene models &mdash; cytochrome P450 family, ko:K14338/K00493, EGGNOG",
+      "Xenobiotics Biodegradation and Metabolism: 298 total genes",
+      "Drug metabolism &mdash; cytochrome P450: 83 genes",
+      "Metabolism of xenobiotics by cytochrome P450: 75 genes",
+      "Naphthalene and anthracene degradation: 44 genes",
+      "1- and 2-Methylnaphthalene degradation: 59 genes",
+      "Benzoate degradation via hydroxylation: 27 genes (supports CYP53/CYP504)",
+      "Glutathione metabolism: 54 genes (confirms substantial GST complement)",
+      "Fluorene degradation: 37 genes",
+      "RESOLVES San Martín-Davison 2024 citation error: EC annotations correct despite wrong reference"
+    ],
+    flag:"OK",
+    flagNote:"Direct queries performed in this session (May 2026). Strain 7.154 is a soybean endophyte &mdash; different ecological context from PAH-contaminated soil isolate, but same species. Results used to independently verify San Martín-Davison 2024 EC number claims (all three confirmed correct) and provide independent genomic context for enzyme family candidates.",
+    accessed:"Direct EC number and KEGG pathway searches via JGI MycoCosm web interface, May 2026"
   }
 ];
 
-function badgeType(t){
+function bt(t){
   if(t==="Experimental") return '<span class="badge b-exp">Experimental</span>';
   if(t==="Genomic") return '<span class="badge b-gen">Genomic</span>';
   if(t==="Review") return '<span class="badge b-rev">Review</span>';
-  return '<span class="badge b-other">'+t+'</span>';
+  if(t==="Database") return '<span class="badge b-db">Database</span>';
+  return '<span class="badge">'+t+'</span>';
 }
-
-function flagCell(flag,note){
-  if(flag==="ERROR") return '<span class="flag-error">✗ '+note+'</span>';
-  if(flag==="WARN") return '<span class="flag-warn">⚠ '+note+'</span>';
-  return '<span class="flag-ok">✓ No caveats</span>';
+function fc(flag,note){
+  const icon = flag==="OK"?"&#10003;":flag==="WARN"?"&#9888;":"&#10007;";
+  const cls = flag==="OK"?"flag-ok":flag==="WARN"?"flag-warn":"flag-err";
+  return '<div class="'+cls+'">'+icon+' '+flag+'</div><div class="flag-note">'+note+'</div>';
 }
-
 function famTags(fams){
-  return '<div class="families">'+fams.map(f=>'<span class="fam-tag">'+f+'</span>').join('')+'</div>';
+  if(!fams||!fams.length) return '<span style="color:#aaa;font-size:0.78em;font-style:italic">Context only &mdash; no enzyme families</span>';
+  return '<div class="families">'+fams.map(f=>'<span class="fam '+f.conf+'" title="'+f.conf+' confidence">'+f.name+'</span>').join('')+'</div>';
 }
-
-function allFamilies(){
+function evBlock(fd){
+  if(!fd||!Object.keys(fd).length) return '';
+  return Object.entries(fd).map(([k,v])=>'<div class="ev-block"><span class="ev-fam">'+k+':</span> '+v+'</div>').join('');
+}
+function findList(f){
+  if(!f||!f.length) return '';
+  return '<ul class="findings">'+f.map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+}
+function allFams(){
   const s=new Set();
-  PAPERS.forEach(p=>p.families.forEach(f=>s.add(f)));
+  PAPERS.forEach(p=>(p.families||[]).forEach(f=>s.add(f.name)));
   return [...s].sort();
 }
-
 function populateFamFilter(){
   const sel=document.getElementById('filt-fam');
-  allFamilies().forEach(f=>{
-    const o=document.createElement('option');
-    o.value=f; o.textContent=f;
-    sel.appendChild(o);
-  });
+  allFams().forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;sel.appendChild(o);});
 }
-
 function getFiltered(){
   const q=document.getElementById('search').value.toLowerCase();
   const ft=document.getElementById('filt-type').value;
@@ -285,17 +693,17 @@ function getFiltered(){
   const ff=document.getElementById('filt-flag').value;
   const ffam=document.getElementById('filt-fam').value;
   return PAPERS.filter(p=>{
-    if(q && ![(p.authors+p.year+p.title+p.journal+p.notes).toLowerCase()].some(s=>s.includes(q))) return false;
-    if(ft && p.type!==ft) return false;
-    if(fs && p.species!==fs) return false;
-    if(ff==="OK" && p.flag!=="OK") return false;
-    if(ff==="WARN" && p.flag!=="WARN") return false;
-    if(ff==="ERROR" && p.flag!=="ERROR") return false;
-    if(ffam && !p.families.includes(ffam)) return false;
+    const str=(p.authors+p.year+p.title+p.journal+(p.strain||'')+(p.substrate||'')+(p.findings||[]).join(' ')+(p.flagNote||'')).toLowerCase();
+    if(q&&!str.includes(q)) return false;
+    if(ft&&p.type!==ft) return false;
+    if(fs&&p.species!==fs) return false;
+    if(ff==="OK"&&p.flag!=="OK") return false;
+    if(ff==="WARN"&&p.flag!=="WARN") return false;
+    if(ff==="ERROR"&&p.flag!=="ERROR") return false;
+    if(ffam&&!(p.families||[]).some(f=>f.name===ffam)) return false;
     return true;
   });
 }
-
 function render(){
   const filtered=getFiltered();
   const tbody=document.getElementById('tbody');
@@ -304,42 +712,48 @@ function render(){
   noRes.style.display='none';
   tbody.innerHTML=filtered.map(p=>`
     <tr>
-      <td><span class="authors">${p.authors}</span> <span class="year">${p.year}</span><div class="title">${p.title}</div><div class="journal">${p.journal}</div></td>
-      <td>${badgeType(p.type)}</td>
+      <td>
+        <span class="ref-authors">${p.authors}</span> <span class="ref-year">${p.year}</span>
+        <div class="ref-title">${p.title}</div>
+        <div class="ref-journal">${p.journal}${p.volume?' &mdash; '+p.volume:''}</div>
+        ${p.doi?'<div class="ref-doi">DOI: '+p.doi+'</div>':''}
+        ${p.strain?'<div class="ref-strain">'+p.strain+'</div>':''}
+        ${p.accessed?'<div class="ref-access">'+p.accessed+'</div>':''}
+        ${p.priority?'<div class="ref-priority">&#9888; '+p.priority+'</div>':''}
+      </td>
+      <td>${bt(p.type)}</td>
       <td><small>${p.species}</small></td>
-      <td>${famTags(p.families)}</td>
       <td><small>${p.substrate}</small></td>
-      <td><small>${p.notes}</small></td>
-      <td class="flag-cell">${flagCell(p.flag,p.flagNote)}</td>
+      <td>${famTags(p.families)}${evBlock(p.familyEvidence)}</td>
+      <td>${findList(p.findings)}</td>
+      <td>${fc(p.flag,p.flagNote)}</td>
     </tr>
   `).join('');
   updateStats(filtered);
 }
-
 function updateStats(filtered){
   const total=filtered.length;
   const ok=filtered.filter(p=>p.flag==="OK").length;
   const warn=filtered.filter(p=>p.flag==="WARN").length;
   const err=filtered.filter(p=>p.flag==="ERROR").length;
   const exp=filtered.filter(p=>p.type==="Experimental").length;
+  const fsolani=filtered.filter(p=>p.species==="F. solani (direct)").length;
   document.getElementById('stats').innerHTML=`
     <div class="stat"><div class="s-val">${total}</div><div class="s-lab">Papers shown</div></div>
     <div class="stat"><div class="s-val" style="color:#1e6a28">${ok}</div><div class="s-lab">No caveats</div></div>
-    <div class="stat"><div class="s-val" style="color:#8a6200">${warn}</div><div class="s-lab">Species caveat</div></div>
-    <div class="stat"><div class="s-val" style="color:#a03020">${err}</div><div class="s-lab">Error / gap</div></div>
+    <div class="stat"><div class="s-val" style="color:#8a6200">${warn}</div><div class="s-lab">Caveats</div></div>
+    <div class="stat"><div class="s-val" style="color:#a03020">${err}</div><div class="s-lab">Errors/gaps</div></div>
     <div class="stat"><div class="s-val">${exp}</div><div class="s-lab">Experimental</div></div>
+    <div class="stat"><div class="s-val" style="color:#2d4a3e">${fsolani}</div><div class="s-lab">F. solani direct</div></div>
   `;
 }
-
 function clearFilters(){
-  document.getElementById('search').value='';
-  document.getElementById('filt-type').value='';
-  document.getElementById('filt-species').value='';
-  document.getElementById('filt-flag').value='';
-  document.getElementById('filt-fam').value='';
+  ['search','filt-type','filt-species','filt-flag','filt-fam'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el.tagName==='INPUT') el.value=''; else el.value='';
+  });
   render();
 }
-
 populateFamFilter();
 render();
 </script>
