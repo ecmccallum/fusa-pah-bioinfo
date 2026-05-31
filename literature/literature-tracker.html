@@ -125,20 +125,21 @@ footer{text-align:center;padding:28px 20px;color:#a09070;font-size:0.82em;border
 <footer>Emma McCallum &nbsp;|&nbsp; Fusarium solani PAH Bioinformatics &nbsp;|&nbsp; May 2026</footer>
 
 <script>
+  
 const PAPERS = [
   {
-    authors:"Moktali et al.",
-    year:2012,
-    title:"Systematic and searchable classification of cytochrome P450 proteins encoded by fungal and oomycete genomes",
-    journal:"PLOS ONE",
-    type:"Genomic",
-    species:"Fusarium spp.",
-    families:["CYP_general","CYP5144","CYP504","CYP52","CYP53"],
-    substrate:"Aromatic/xenobiotic (inferred)",
-    notes:"Primary reference for CYP subfamily prioritisation. FCPD database paper. CYP5144, CYP504, CYP52, CYP53 highlighted as PAH-relevant clans.",
-    flag:"OK",
-    flagNote:""
-  },
+  authors:"Moktali et al.",
+  year:2012,
+  title:"Systematic and searchable classification of cytochrome P450 proteins encoded by fungal and oomycete genomes",
+  journal:"BMC Genomics",           // was "PLOS ONE" — incorrect
+  type:"Genomic",
+  species:"Fusarium spp.",          // confirmed — F. solani mentioned but not focal
+  families:["CYP_general","CYP5144","CYP504","CYP52","CYP53"],
+  substrate:"Aromatic/xenobiotic (inferred)",
+  notes:"Primary CYP subfamily reference. FCPD v1.2 database paper. F. solani confirmed with 5 CYP504 genes. CYP5144 PAH-degradation evidence is from Postia placenta (basidiomycete) only — no functional claim made for Fusarium CYP5144 specifically. CYP52 absent from Fusarium in this paper. CYP53 confirmed present in Pezizomycotina (Fig. 4). All Fusarium CYP assignments are genomic inference by sequence similarity, not experimental.",
+  flag:"WARN",
+  flagNote:"PAH-degradation evidence for CYP5144 is basidiomycete-only (Postia placenta). No experimental data for F. solani. Obtain Ide et al. 2012 (Arch Microbiol 194:243) as secondary source for CYP5144 function."
+},
   {
     authors:"Han et al.",
     year:2026,
